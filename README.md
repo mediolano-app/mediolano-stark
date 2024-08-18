@@ -102,15 +102,15 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the defaultNetwork in `packages/nextjs/scaffold.config.ts` to `sepolia`.
+> Find the `packages/nextjs/scaffold.config.ts` file and change the `targetNetworks` to `[chains.sepolia]`.
 
 ![chall-0-scaffold-config](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-scaffold-config.png)
 
-Prepare your environment variables.
+🔐 Prepare your environment variables.
 
 > Find the `packages/snfoundry/.env` file and fill the env variables related to Sepolia testnet with your own contract address and private key.
 
-⛽️ You will need to send ETH or STRK to your deployer Contract Addres with your wallet, or get it from a public faucet of your chosen network.
+⛽️ You will need to get some `ETH` or `STRK` Sepolia tokens to deploy your contract to Sepolia testnet.
 
 > Some popular faucets are [Starknet Faucet](https://starknet-faucet.vercel.app/) and [Blastapi Starknet Sepolia Eth](https://blastapi.io/faucets/starknet-sepolia-eth)
 
