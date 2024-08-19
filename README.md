@@ -1,6 +1,6 @@
 # 🚩 Challenge #0: 🎟 Simple NFT Example
 
-![readme-0](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/4fa48a3fb7eb1319c3424b9b835fc6acdb1a9f00/packages/nextjs/public/hero.png)
+![readme-0](./packages/nextjs/public/hero.png)
 
 📚 This tutorial is meant for developers that already understand the 🖍️ basics: [Starklings](https://starklings.app/) or [Node Guardians](https://nodeguardians.io/campaigns?f=3%3D2)
 
@@ -68,23 +68,23 @@ yarn start
 
 > 👛 Explore how burner wallets work in 🏗 Scaffold-Stark. You will notice the `Connect Wallet` button on the top right corner. After click it, you can choose the `Burner Wallet` option. You will get a default prefunded account.
 
-## ![wallet](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-wallet.png)
+## ![wallet](./packages/nextjs/public/ch0-wallet.png)
 
 ## Checkpoint 2: 🖨 Minting
 
 > ✏️ Mint some NFTs! Click the **MINT NFT** button in the `My NFTs` tab.
 
-![image](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-mynft.png)
+![image](./packages/nextjs/public/ch0-mynft.png)
 
 👀 You should see your NFTs start to show up:
 
-![image](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-nfts-images.png)
+![image](./packages/nextjs/public/ch0-nfts-images.png)
 
 👛 Open an window Browser and navigate to <http://localhost:3000>
 
 🎟 Transfer an NFT from one address to another using the UI:
 
-![image](https://github.com/Quantum3-Labs/speedrunstark/blob/simple-nft-example/packages/nextjs/public/ch0-nfts-images-transfer.png?raw=true)
+![image](./packages/nextjs/public/ch0-nfts-images-transfer.png)
 
 👛 Try to mint an NFT from a different address.
 
@@ -104,7 +104,7 @@ yarn start
 
 > Find the `packages/nextjs/scaffold.config.ts` file and change the `targetNetworks` to `[chains.sepolia]`.
 
-![chall-0-scaffold-config](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-scaffold-config.png)
+![chall-0-scaffold-config](./packages/nextjs/public/ch0-scaffold-config.png)
 
 🔐 Prepare your environment variables.
 
@@ -124,11 +124,11 @@ yarn start
 
 > 🦊 Since we have deployed to a public testnet, you will now need to connect using a wallet you own(Argent X or Braavos).
 
-![connect-wallet](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-wallet.png)
+![connect-wallet](./packages/nextjs/public/ch0-wallet.png)
 
 > You should see the correct network in the frontend (<http://localhost:3000>):
 
-![image](https://raw.githubusercontent.com/Quantum3-Labs/speedrunstark/simple-nft-example/packages/nextjs/public/ch0-balance.png)
+![image](./packages/nextjs/public/ch0-balance.png)
 
 > 💬 Hint: For faster loading of your transfer page, consider updating the `fromBlock` passed to `useScaffoldEventHistory` in [`packages/nextjs/app/transfers/page.tsx`](https://github.com/Quantum3-Labs/scaffold-stark-2/blob/main/packages/nextjs/hooks/scaffold-stark/useScaffoldEventHistory.ts) to `blocknumber - 10` at which your contract was deployed. Example: `fromBlock: 3750241n` (where `n` represents its a [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)). To find this blocknumber, search your contract's address on Starkscan and find the `Contract Creation` transaction line.
 
