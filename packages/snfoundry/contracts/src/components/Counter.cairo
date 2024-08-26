@@ -1,14 +1,13 @@
 #[starknet::interface]
-pub trait ICounter<T> {
-    fn current(self: @T) -> u256;
-    fn increment(ref self: T);
-    fn decrement(ref self: T);
+pub trait ICounter<TState> {
+    fn current(self: @TState) -> u256;
+    fn increment(ref self: TState);
+    fn decrement(ref self: TState);
 }
 
 #[starknet::component]
 pub mod CounterComponent {
     use starknet::ContractAddress;
-    use starknet::get_caller_address;
     use super::{ICounter};
 
     #[storage]
