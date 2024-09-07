@@ -150,7 +150,7 @@ yarn start
 
 🔐 Prepare your environment variables.
 
-> Find the `packages/snfoundry/.env` file and fill the env variables related to Sepolia testnet with your own contract address and private key.
+> Find the `packages/snfoundry/.env` file and fill the env variables related to Sepolia testnet with your own wallet account address address and private key.
 
 > Follow up [Wallet Account](https://docs.starknet.io/quick-start/set-up-an-account) to install the example Wallet on Browser
  - Visit [here](https://www.argent.xyz/argent-x) to dowload ArgentX wallet
