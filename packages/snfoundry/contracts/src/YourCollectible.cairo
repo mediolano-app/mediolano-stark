@@ -166,8 +166,8 @@ mod YourCollectible {
                 enumerable_component.all_tokens_length.write(length + 1);
             } else if (token_id < token_id_counter
                 + 1) { // `Transfer Token` Case: Remove token from owner and update enumerable component
-                // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
-                // then delete the last slot (swap and pop).
+                // To prevent a gap in from's tokens array, we store the last token in the index of
+                // the token to delete, and then delete the last slot (swap and pop).
                 let owner = self.owner_of(token_id);
                 if owner != to {
                     let last_token_index = self.balance_of(owner) - 1;
@@ -179,7 +179,9 @@ mod YourCollectible {
                             .owned_tokens
                             .read((owner, last_token_index));
                         // Move the last token to the slot of the to-delete token
-                        enumerable_component.owned_tokens.write((owner, token_index), last_token_id);
+                        enumerable_component
+                            .owned_tokens
+                            .write((owner, token_index), last_token_id);
                         // Update the moved token's index
                         enumerable_component.owned_tokens_index.write(last_token_id, token_index);
                     }

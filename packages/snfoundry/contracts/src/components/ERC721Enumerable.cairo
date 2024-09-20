@@ -19,7 +19,7 @@ pub mod ERC721EnumerableComponent {
         owned_tokens: LegacyMap<(ContractAddress, u256), u256>,
         // Mapping from token ID to index of the owner tokens list
         owned_tokens_index: LegacyMap<u256, u256>,
-        // Mapping with all token ids, 
+        // Mapping with all token ids,
         all_tokens: LegacyMap<u256, u256>,
         // Helper to get the length of `all_tokens`
         all_tokens_length: u256,
