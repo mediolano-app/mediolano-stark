@@ -1,18 +1,16 @@
-# 🚩 Challenge #0: 🎟 Simple NFT Example
+# Mediolano.app
 
-![readme-0](./packages/nextjs/public/hero.png)
+<h4 align="center">
+  <a href="https://docs.mediolano.app/">Documentation (Soon)</a> |
+  <a href="https://www.mediolano.com.br/">Institutional Website</a> |
+  <a href="#">Demo (Soon)</a>
+</h4>
 
-📚 This tutorial is meant for developers that already understand the 🖍️ basics: [Starklings](https://starklings.app/) or [Node Guardians](https://nodeguardians.io/campaigns?f=3%3D2)
+In today’s ever-evolving digital world, protecting and managing intellectual property (IP) has become a critical challenge. From journalists to art collectors, new technologies are making it safer and more efficient to tokenize IP, enabling licensing, trading, distributing royalties, and more.
 
-🎫 Create a simple NFT:
+Mediolano offers an innovative platform that empowers content creators, from authors to journalists and publishers, to participate in the global information marketplace. Our mission is to transform the industry by providing transparency, immutability, security, optimization, and a range of innovative features to build, manage, and monetize IP.
 
-👷‍♀️ You'll compile and deploy your first smart contract. Then, you'll use a template React app full of important Starknet components and hooks. Finally, you'll deploy an NFT to a public network to share with friends! 🚀
-
-🌟 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to a testnet, then build and upload your app to a public web server.
-
-💬 Submit this challenge, meet other builders working on this challenge or get help in the [Builders telegram chat](https://t.me/+wO3PtlRAreo4MDI9)!
-
-## Checkpoint 0: 📦 Environment 📚
+Powered by Starknet
 
 Before you begin, you need to install the following tools:
 
