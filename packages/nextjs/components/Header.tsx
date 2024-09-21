@@ -5,12 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  ArrowDownTrayIcon,
-  ArrowPathIcon,
-  ArrowUpTrayIcon,
   Bars3Icon,
   BugAntIcon,
-  PhotoIcon,
+  Cog8ToothIcon,
 } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
@@ -19,6 +16,7 @@ import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { devnet } from "@starknet-react/chains";
 import { SwitchTheme } from "./SwitchTheme";
 import { useAccount, useProvider } from "@starknet-react/core";
+import { BlockIdentifier } from "starknet";
 
 type HeaderMenuLink = {
   label: string;
@@ -28,29 +26,16 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "My NFTs",
-    href: "/myNFTs",
-    icon: <PhotoIcon className="h-4 w-4" />,
+    label: "Home",
+    href: "/",
   },
   {
-    label: "Transfers",
-    href: "/transfers",
-    icon: <ArrowPathIcon className="h-4 w-4" />,
+    label: "My IP",
+    href: "/",
   },
   {
-    label: "IPFS Upload",
-    href: "/ipfsUpload",
-    icon: <ArrowUpTrayIcon className="h-4 w-4" />,
-  },
-  {
-    label: "IPFS Download",
-    href: "/ipfsDownload",
-    icon: <ArrowDownTrayIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
+    label: "Register",
+    href: "/",
   },
 ];
 
@@ -73,7 +58,7 @@ export const HeaderMenuLinks = () => {
               passHref
               className={`${
                 isActive
-                  ? "!bg-gradient-nav !text-white active:bg-gradient-nav shadow-md "
+                  ? "!bg-gradient-nav !text-white active:bg-gradient-nav shadow-md"
                   : ""
               } py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col hover:bg-gradient-nav hover:text-white`}
             >
@@ -101,18 +86,24 @@ export const Header = () => {
   const isLocalNetwork = targetNetwork.id === devnet.id;
 
   const { provider } = useProvider();
-  const { address, status } = useAccount();
+  const { address, status, chainId } = useAccount();
   const [isDeployed, setIsDeployed] = useState(true);
 
   useEffect(() => {
-    if (status === "connected" && address) {
-      provider.getContractVersion(address).catch((e) => {
-        if (e.toString().includes("Contract not found")) {
-          setIsDeployed(false);
-        }
-      });
+    if (status === "connected" && address && chainId === targetNetwork.id) {
+      provider
+        .getClassHashAt(address, "pending" as BlockIdentifier)
+        .then((classHash) => {
+          if (classHash) setIsDeployed(true);
+          else setIsDeployed(false);
+        })
+        .catch((e) => {
+          if (e.toString().includes("Contract not found")) {
+            setIsDeployed(false);
+          }
+        });
     }
-  }, [status, address, provider]);
+  }, [status, address, provider, chainId, targetNetwork.id]);
 
   return (
     <div className="sticky lg:static top-0 navbar min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
@@ -148,15 +139,15 @@ export const Header = () => {
         >
           <div className="flex relative w-10 h-10">
             <Image
-              alt="SE2 logo"
+              alt="Mediolano"
               className="cursor-pointer"
               fill
-              src="/logo.svg"
+              src="/mediolano.webp"
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-Stark</span>
-            <span className="text-xs">Starknet dev stack</span>
+            <span className="font-bold leading-tight">Mediolano.app</span>
+            <span className="text-xs">Your gateway to own your intelectual properties.</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">

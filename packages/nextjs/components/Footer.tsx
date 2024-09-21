@@ -42,7 +42,7 @@ export const Footer = () => {
             )}
             {isLocalNetwork && (
               <>
-                <Faucet />
+               
               </>
             )}
             {isMainnetNetwork && (
@@ -58,18 +58,18 @@ export const Footer = () => {
           <div className="flex justify-center items-center gap-2 text-sm w-full">
             <div className="text-center">
               <a
-                href="https://github.com/Quantum3-Labs/scaffold-stark-2"
+                href="https://mediolano.app/"
                 target="_blank"
                 rel="noreferrer"
                 className="link"
               >
-                Fork me
+                About
               </a>
             </div>
 
             <div className="text-center">
               <a
-                href="https://t.me/+wO3PtlRAreo4MDI9"
+                href="https://mediolano.app/"
                 target="_blank"
                 rel="noreferrer"
                 className="link"

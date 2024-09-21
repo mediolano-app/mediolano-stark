@@ -68,7 +68,7 @@ mod YourCollectible {
         #[flat]
         ERC721Event: ERC721Component::Event,
         #[flat]
-        SRC5Event: SRC5Component::Event,
+        SRC5Event: SRC5Component::Event,    
         #[flat]
         OwnableEvent: OwnableComponent::Event,
         CounterEvent: CounterComponent::Event,
