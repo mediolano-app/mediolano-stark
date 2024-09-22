@@ -69,7 +69,7 @@ export const Footer = () => {
 
             <div className="text-center">
               <a
-                href="https://mediolano.app/"
+                href="/support"
                 target="_blank"
                 rel="noreferrer"
                 className="link"
