@@ -84,7 +84,7 @@ module.exports = {
             background: "#000000",
           },
           ".bg-main": {
-            background: "#FFFFFF",
+            background: "rgba(255, 255, 255, 0.80)",
           },
           ".bg-underline": {
             background:
@@ -124,6 +124,9 @@ module.exports = {
           ".link:hover": {
             opacity: "80%",
           },
+          ".contract-content": {
+            background: "white",
+          },
         },
       },
       {
@@ -155,7 +158,7 @@ module.exports = {
               "var(--gradient, linear-gradient(90deg, #42D2F1 0%, #B248DD 100%))",
           },
           ".bg-main": {
-            background: "#141A31",
+            background: "rgba(0, 0, 255, 0.40)",
           },
           ".bg-underline": {
             background: "#5368B4",
@@ -195,6 +198,10 @@ module.exports = {
           },
           ".link:hover": {
             opacity: "80%",
+          },
+          ".contract-content": {
+            background:
+              "linear-gradient(113.34deg, rgba(43, 34, 67, 0.6) 20.48%, rgba(37, 55, 81, 0.6) 99.67%)",
           },
         },
       },

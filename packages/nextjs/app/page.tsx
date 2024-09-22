@@ -17,21 +17,7 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Mediolano</span>
-          </h1>
-          <div className="flex justify-center items-center space-x-2">
-            <p className="my-2 font-medium text-[#00A3FF]">
-              Connected Address:
-            </p>
-            <Address address={connectedAddress.address as AddressType} />
-          </div>
-          
-          
-        </div>
-
+        
         
         {/* <div
           onClick={() => {
@@ -51,10 +37,14 @@ const Home: NextPage = () => {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Protect Your Intellectual Property
+                Your gateway to own intellectual properties
                 </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Register, license, and market your intellectual property with ease. Secure your ideas and innovations today.
+                <br></br>
+                <h3 className="text-3xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl/none">
+                Powered by Starknet 
+                </h3>
+                <p className="mx-auto max-w-[700px]">
+                  Register, license, and market your ntellectual property with ease. Secure your ideas and innovations today.
                 </p>
               </div>
               <div className="space-x-4">
@@ -72,7 +62,7 @@ const Home: NextPage = () => {
         
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Our Services</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Services</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardHeader>
@@ -81,9 +71,9 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Register your intellectual property quickly and securely.</p>
-                    <Button className="mt-4" variant="outline" asChild>
-                      <Link href="/register">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                    </Button>
+                  <Button className="mt-4" variant="outline" asChild>
+                    <Link href="/registerIP">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
                 </CardContent>
               </Card>
               <Card>
@@ -94,7 +84,7 @@ const Home: NextPage = () => {
                 <CardContent>
                   <p>List your intellectual property for potential buyers or licensees.</p>
                   <Button className="mt-4" variant="outline" asChild>
-                    <Link href="/list">List Property <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    <Link href="/listingIP">List Property <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -106,19 +96,31 @@ const Home: NextPage = () => {
                 <CardContent>
                   <p>License your intellectual property to interested parties.</p>
                   <Button className="mt-4" variant="outline" asChild>
-                    <Link href="/license">License Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    <Link href="/licensingIP">License Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <HeartHandshake className="h-6 w-6 mb-2" />
+                  <CardTitle>Monetize</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Trade or transfer your digital assets.</p>
+                  <Button className="mt-4" variant="outline" asChild>
+                    <Link href="/monetizeIP">Open Trade <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
                   <Download className="h-6 w-6 mb-2" />
-                  <CardTitle>Downloads</CardTitle>
+                  <CardTitle>Resources</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p>Access and download important documents and resources.</p>
                   <Button className="mt-4" variant="outline" asChild>
-                    <Link href="/downloads">Download <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    <Link href="https://docs.mediolano.app">Visit <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
               </Card>

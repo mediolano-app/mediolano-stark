@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Mediolano.app",
-  description: "Your gateway to own your intelectual properties",
+  description: "Your gateway to own intellectual property on web3",
   icons: "/logo.ico",
 };
 
