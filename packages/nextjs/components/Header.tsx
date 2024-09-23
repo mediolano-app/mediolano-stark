@@ -7,9 +7,10 @@ import { usePathname } from "next/navigation";
 import {
   Bars3Icon,
   ArrowPathIcon,
-  ArrowDownTrayIcon,
-  ArrowUpTrayIcon,
-  PlusIcon
+  RectangleGroupIcon,
+  BanknotesIcon,
+  CubeIcon,
+  Square2StackIcon
 } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
@@ -20,6 +21,7 @@ import { SwitchTheme } from "./SwitchTheme";
 import { useAccount, useProvider } from "@starknet-react/core";
 import { BlockIdentifier } from "starknet";
 
+
 type HeaderMenuLink = {
   label: string;
   href: string;
@@ -28,33 +30,29 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Start",
-    href: "/",
-  },
-  {
     label: "My IPs",
     href: "/myNFTs",
-    icon: <ArrowUpTrayIcon className="h-4 w-4" />,
+    icon: <RectangleGroupIcon className="h-4 w-4" />,
   },
   {
     label: "New IP",
     href: "/registerIP",
-    icon: <PlusIcon className="h-4 w-4" />,
+    icon: <CubeIcon className="h-4 w-4" />,
   },
   {
     label: "Listing",
     href: "/listingIP",
-    icon: <PlusIcon className="h-4 w-4" />,
+    icon: <Square2StackIcon className="h-4 w-4" />,
   },
   {
     label: "Licensing",
     href: "/licensingIP",
-    icon: <PlusIcon className="h-4 w-4" />,
+    icon: <Square2StackIcon className="h-4 w-4" />,
   },
   {
     label: "Monetize",
     href: "/monetizeIP",
-    icon: <PlusIcon className="h-4 w-4" />,
+    icon: <BanknotesIcon className="h-4 w-4" />,
   },
   {
     label: "Transfers",
