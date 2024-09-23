@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation' 
 
-interface FormData {
+export interface FormData {
     title: string,
     briefDescription: string,
     detailedDescription: string,
