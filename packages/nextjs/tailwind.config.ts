@@ -158,7 +158,7 @@ module.exports = {
               "var(--gradient, linear-gradient(90deg, #42D2F1 0%, #B248DD 100%))",
           },
           ".bg-main": {
-            background: "rgba(0, 0, 255, 0.40)",
+            background: "rgba(0, 0, 255, 0.50)",
           },
           ".bg-underline": {
             background: "#5368B4",

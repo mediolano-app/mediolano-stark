@@ -12,6 +12,15 @@ import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
 import { Plus, Copy, DollarSign } from 'lucide-react'
 
+import { Button } from "~~/components/ui/button"
+import { Input } from "~~/components/ui/input"
+import { Textarea } from "~~/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+import { Select } from "~~/components/ui/select"
+
+
+
+
 const licensingIP: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
@@ -33,6 +42,14 @@ const licensingIP: NextPage = () => {
     { id: 3, title: 'Quantum Encryption License', licensee: 'SecureNet Solutions', type: 'Non-Exclusive', status: 'Active' },
   ]
 
+
+  const [selectedIP, setSelectedIP] = useState('')
+
+  const ipOptions = [
+    { value: "ip1", label: "Intellectual Property 1" },
+    { value: "ip2", label: "Intellectual Property 2" },
+    { value: "ip3", label: "Intellectual Property 3" },
+  ]
 
       
 
@@ -104,7 +121,7 @@ const licensingIP: NextPage = () => {
           <h1 className="text-3xl font-bold mb-6">Licensing</h1>
           <p className="mb-6">Manage your IP licenses and agreements efficiently with our blockchain-based licensing system.</p>
           
-          <div className="flex flex-col">
+          <div className="flex flex-col mx-auto">
             <div className="border-b border-gray-200">
 
               <nav className="-mb-px flex">
@@ -137,37 +154,47 @@ const licensingIP: NextPage = () => {
     
           {activeTab === 'create' && (
             <div>
-              <h2 className="text-2xl py-5 font-semibold mb-4">Create New License</h2>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="ipTitle" className="block mb-1 font-medium">IP Title</label>
-                  <input type="text" id="ipTitle" name="ipTitle" className="w-full border rounded p-2" />
-                </div>
-                <div>
-                  <label htmlFor="licensee" className="block mb-1 font-medium">Licensee</label>
-                  <input type="text" id="licensee" name="licensee" className="w-full border rounded p-2" />
-                </div>
-                <div>
-                  <label htmlFor="licenseType" className="block mb-1 font-medium">License Type</label>
-                  <select id="licenseType" name="licenseType" className="w-full border rounded p-2">
-                    <option value="non-exclusive">Non-Exclusive</option>
-                    <option value="exclusive">Exclusive</option>
-                    <option value="sole">Sole</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="duration" className="block mb-1 font-medium">Duration</label>
-                  <input type="text" id="duration" name="duration" className="w-full border rounded p-2" placeholder="e.g., 2 years" />
-                </div>
-                <div>
-                  <label htmlFor="terms" className="block mb-1 font-medium">Terms and Conditions</label>
-                  <textarea id="terms" name="terms" rows={4} className="w-full border rounded p-2"></textarea>
-                </div>
-                <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 flex items-center justify-center">
-                  <Plus className="h-5 w-5 mr-2" />
-                  Create License
-                </button>
-              </form>
+              
+              <div className="container mx-auto py-12">
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>IP Licensing Form</CardTitle>
+          <CardDescription>Create a license for your registered intellectual property.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form>
+            <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+                <Select
+                  options={ipOptions}
+                  value={selectedIP}
+                  onChange={(e) => setSelectedIP(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Input id="licensee" placeholder="Licensee Name" />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Textarea placeholder="License Terms" />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Input id="duration" placeholder="License Duration" />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Input id="fee" placeholder="License Fee" />
+              </div>
+            </div>
+          </form>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline">Cancel</Button>
+          <Button>Create License</Button>
+        </CardFooter>
+      </Card>
+    </div>
+
+
             </div>
           )}
     

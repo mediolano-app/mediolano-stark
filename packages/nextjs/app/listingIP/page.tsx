@@ -10,7 +10,14 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
-import { Search, Settings } from 'lucide-react'
+
+
+import { Button } from "~~/components/ui/button"
+import { Input } from "~~/components/ui/input"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+import { Badge } from "~~/components/ui/badge"
+import { Search, Filter, ArrowUpDown, Settings } from "lucide-react"
+import Link from "next/link"
 
 const listingIP: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
@@ -23,24 +30,27 @@ const listingIP: NextPage = () => {
   });
 
 
-
-
   const [searchTerm, setSearchTerm] = useState('')
-      const [filter, setFilter] = useState('all')
-    
-      const dummyData = [
-        { id: 1, title: 'IP Title', type: 'Patent', status: 'Active', description: 'A groundbreaking AI algorithm for natural language processing.' },
-        { id: 2, title: 'IP Title', type: 'Trademark', status: 'Pending', description: 'A new eco-friendly plastic alternative made from plant-based materials.' },
-        { id: 3, title: 'IP Title', type: 'Patent', status: 'Active', description: 'A novel method for quantum-resistant encryption in digital communications.' },
-        { id: 4, title: 'IP Title', type: 'Patent', status: 'Active', description: 'A paint that can convert sunlight into electricity when applied to surfaces.' },
-        { id: 5, title: 'IP Title', type: 'Trademark', status: 'Active', description: 'A brain-computer interface for controlling smart home devices.' },
-        { id: 6, title: 'IP Title', type: 'Copyright', status: 'Active', description: 'An innovative design for fully biodegradable product packaging.' },
+
+      const listings = [
+        { id: 1, title: "The Batman Movie Critic", type: "Patent", price: "$50,000", status: "For Sale" },
+        { id: 2, title: "Avalon Game Soundtrack", type: "Trade Secret", price: "$75,000", status: "For License" },
+        { id: 3, title: "Stark Blue Secrect Paint", type: "Copyright", price: "$25,000", status: "For Sale" },
+        { id: 4, title: "Movie Website Logo", type: "Patent", price: "$100,000", status: "For License" },
       ]
     
-      const filteredData = dummyData.filter(item => 
-        (filter === 'all' || item.type.toLowerCase() === filter) &&
-        (item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-         item.description.toLowerCase().includes(searchTerm.toLowerCase()))
+      const features = [
+        { title: "Secure Transactions", description: "Blockchain-powered security for all your IP transactions" },
+        { title: "Global Marketplace", description: "Connect with buyers and sellers from around the world" },
+        { title: "Smart Contracts", description: "Automated, transparent, and efficient deal execution" },
+        { title: "IP Valuation Tools", description: "Get accurate estimates for your intellectual property" },
+      ]
+
+
+      const filteredListings = listings.filter(listing =>
+        listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        listing.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        listing.status.toLowerCase().includes(searchTerm.toLowerCase())
       )
 
 
@@ -103,66 +113,82 @@ const listingIP: NextPage = () => {
         ) : (
          
 
-          
+      <div>    
 
           
-      <div className="px-10 flex-col max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">IP Listing</h1>
-      <div className="mb-6 flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-grow">
-          <input
-            type="text"
-            placeholder="Search IP..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full border rounded-lg pl-10 pr-4 py-2"
-          />
-          <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-        </div>
-        <div className="relative">
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="appearance-none border rounded-lg pl-4 pr-10 py-2 bg-white"
-          >
-            <option value="all">All Types</option>
-            <option value="patent">Patents</option>
-            <option value="trademark">Trademarks</option>
-            <option value="copyright">Copyrights</option>
-          </select>
-          <Settings className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-        </div>
+
+
+          
+<div className="container py-12 max-w-7xl mx-auto">
+      <h1 className="text-2xl font-bold mb-8">IP Listings Marketplace</h1>
+      
+      <div className="flex items-center space-x-4 mb-8">
+        <Input 
+          placeholder="Search listings..." 
+          className="flex-grow" 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Button variant="outline"><Filter className="mr-2 h-4 w-4" /> Filter</Button>
+        <Button variant="outline"><ArrowUpDown className="mr-2 h-4 w-4" /> Sort</Button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredData.map((item) => (
-          <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
-              <p className="text-gray-600 mb-4">{item.description}</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {filteredListings.map((listing) => (
+          <Card key={listing.id}>
+            <CardHeader>
+              <CardTitle>{listing.title}</CardTitle>
               <div className="flex justify-between items-center">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  item.type === 'Patent' ? 'bg-blue-100 text-blue-800' :
-                  item.type === 'Trademark' ? 'bg-green-100 text-green-800' :
-                  'bg-purple-100 text-purple-800'
-                }`}>
-                  {item.type}
-                </span>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  item.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                }`}>
-                  {item.status}
-                </span>
+                <Badge>{listing.type}</Badge>
+                <Badge variant="outline">{listing.status}</Badge>
               </div>
-            </div>
-          </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-2xl font-bold">{listing.price}</p>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">View Details</Button>
+            </CardFooter>
+          </Card>
         ))}
       </div>
+
+      <section className="mb-12">
+        <h2 className="text-3xl font-bold mb-6">Features and Benefits</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {features.map((feature, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <CardTitle>{feature.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="text-center">
+        <h2 className="text-3xl font-bold mb-4">Ready to Buy or Sell IP?</h2>
+        <p className="mb-6">Join our marketplace and start trading intellectual property today!</p>
+        <div className="space-x-4">
+          <Button>
+            <Link href="/register">List Your IP</Link>
+          </Button>
+          <Button variant="outline">
+            <Link href="/browse">Browse Listings</Link>
+          </Button>
+        </div>
+      </section>
     </div>
+          
+      
 
 
 
 
-
+      </div>
 
         )}
       </div>
