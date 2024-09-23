@@ -67,7 +67,7 @@ const MyIPs: NextPage = () => {
           </h1>
         </div>
       </div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         {!isConnected || isConnecting ? (
           <CustomConnectButton />
         ) : (
@@ -82,7 +82,7 @@ const MyIPs: NextPage = () => {
             {status}
           </button>
         )}
-      </div>
+      </div> */}
       <MyHoldings setStatus={setStatus} />
     </>
   );

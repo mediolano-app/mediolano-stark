@@ -60,16 +60,16 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/transfers",
     icon: <ArrowPathIcon className="h-4 w-4" />,
   },
-  {
-    label: "IPFS Upload",
-    href: "/ipfsUpload",
-    icon: <ArrowPathIcon className="h-4 w-4" />,
-  },
-  {
-    label: "IPFS Download",
-    href: "/ipfsDownload",
-    icon: <ArrowPathIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: "IPFS Upload",
+  //   href: "/ipfsUpload",
+  //   icon: <ArrowPathIcon className="h-4 w-4" />,
+  // },
+  // {
+  //   label: "IPFS Download",
+  //   href: "/ipfsDownload",
+  //   icon: <ArrowPathIcon className="h-4 w-4" />,
+  // },
   
 ];
 
