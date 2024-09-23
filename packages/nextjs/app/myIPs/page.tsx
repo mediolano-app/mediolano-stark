@@ -67,22 +67,6 @@ const MyIPs: NextPage = () => {
           </h1>
         </div>
       </div>
-      {/* <div className="flex justify-center">
-        {!isConnected || isConnecting ? (
-          <CustomConnectButton />
-        ) : (
-          <button
-            className="btn btn-secondary text-white"
-            disabled={status !== "Mint NFT"}
-            onClick={handleMintItem}
-          >
-            {status !== "Mint NFT" && (
-              <span className="loading loading-spinner loading-xs"></span>
-            )}
-            {status}
-          </button>
-        )}
-      </div> */}
       <MyHoldings setStatus={setStatus} />
     </>
   );
