@@ -12,15 +12,63 @@ import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent, useRef} from "react";
 import { FilePlus } from 'lucide-react';
+import { id } from "ethers";
 // import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
+export interface IP{
+  title: string,
+  description: string,
+  authors: string[],
+  ipType: IPType,
+  uploadFile?: any,
+}
 
 const registerIP = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
-  const router = useRouter()
+  const router = useRouter();
+  const[count, setCount] = useState(0)
+  const getNextSubmissionId = () => {
+    setCount(count + 1)
+    return count 
+  }
+  const setRoute = () => {
+    const id = getNextSubmissionId();
+    console.log("setRoute ativado");
+    router.push(`/registerIP/${10}`);
+  };
 
+  const [formData, setFormData] = useState<IP>({
+    title: "",
+    description: "",
+    authors: [],
+    ipType: "",
+  });
+
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent form from refreshing the page
+  
+    const formData = new FormData(event.currentTarget); // Use FormData to access form fields
+  
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const authors = (formData.get("authors") as string).split(",").map(author => author.trim());
+    const ipType = formData.get("type") as IPType;
+    const uploadFile = formData.get("file") as File;
+  
+    const ip: IP = {
+      title,
+      description,
+      authors,
+      ipType,
+      uploadFile,
+    };
+  
+    console.log("handleSubmit ativado");
+    setRoute();
+  };
 
   return (
     <>
@@ -41,7 +89,7 @@ const registerIP = () => {
 
           <div className="max-w-2xl mx-auto">
      
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block mb-1 font-medium">Title</label>
           <input 
@@ -62,6 +110,16 @@ const registerIP = () => {
             required
           ></textarea>
         </div>
+        <div>
+          <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
+          <input 
+            type="text" 
+            id="authors" 
+            name="authors" 
+            className="w-full border rounded p-2" 
+            required 
+          />
+          </div>
         <div>
           <label htmlFor="type" className="block mb-1 font-medium">IP Type</label>
           <select 
@@ -85,7 +143,7 @@ const registerIP = () => {
           />
         </div>
         <form className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center">
-          <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center">
+          <button onClick={setRoute} type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center">
             <FilePlus className="h-5 w-5 mr-2" />
           </button>
         </form>
