@@ -139,6 +139,25 @@ const Home: NextPage = () => {
             </div>
           </div>
         </section>
+
+
+
+
+        <section className="bg-gray-100 p-8 rounded-lg">
+        <h2 className="text-3xl font-bold mb-6 text-center">Mediolano Features</h2>
+        <ul className="list-disc pl-6 space-y-4">
+          <li>Unparalleled security through blockchain technology</li>
+          <li>Streamlined registration and management processes</li>
+          <li>Global accessibility and transparency</li>
+          <li>Reduced costs compared to traditional IP registration methods</li>
+          <li>Integrated marketplace for monetizing your intellectual property</li>
+        </ul>
+      </section>
+
+
+
+
+
       </main>
       
     </div>
