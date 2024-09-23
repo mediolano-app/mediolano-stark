@@ -12,15 +12,136 @@ import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent, useRef} from "react";
 import { FilePlus } from 'lucide-react';
+import { id } from "ethers";
 // import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
+export interface IP{
+  title: string,
+  description: string,
+  authors: string[],
+  ipType: IPType,
+  uploadFile?: any,
+}
+
 
 const registerIP = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
-  const router = useRouter()
+  const [status, setStatus] = useState("Mint NFT");
+  const [ipfsHash, setipfsHash] = useState("");
 
+  const { writeAsync: mintItem } = useScaffoldWriteContract({
+    contractName: "YourCollectible",
+    functionName: "mint_item",
+    args: [connectedAddress, ""],
+  });
+
+  const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
+    contractName: "YourCollectible",
+    functionName: "current",
+    watch: false,
+  });
+
+  const handleMintItem = async () => {
+    setStatus("Minting NFT");
+    // circle back to the zero item if we've reached the end of the array
+    if (tokenIdCounter === undefined) {
+      setStatus("Mint NFT");
+      return;
+    }
+
+    const tokenIdCounterNumber = Number(tokenIdCounter);
+    
+    const notificationId = notification.loading("Uploading to IPFS");
+    try {
+
+      // First remove previous loading notification and then show success notification
+      notification.remove(notificationId);
+      notification.success("Metadata uploaded to IPFS");
+
+      await mintItem({
+        args: [connectedAddress, ipfsHash],
+      });
+      setStatus("Updating NFT List");
+      refetch();
+      setRoute();
+    } catch (error) {
+      notification.remove(notificationId);
+      console.error(error);
+      setStatus("Mint NFT");
+    }
+  };
+
+  const router = useRouter();
+
+  const[count, setCount] = useState(0)
+
+  const [ipData, setIpData] = useState<IP>({
+  title: '',
+  description: '',
+  authors: [],
+  ipType: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setIpData((prev) => ({ ...prev, [name]: value }));
+    console.log(e.target);
+  };
+
+  const getNextSubmissionId = () => {
+    setCount(count + 1)
+    return count 
+  };
+
+  const setRoute = () => {
+    const id = getNextSubmissionId();
+    console.log("setRoute ativado");
+    router.push(`/myIPs`);
+  };
+
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    try {
+      const response = await fetch('/api/upload-ipfs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(ipData),
+      });
+      const data = await response.json();
+      setipfsHash(data.metadataHash);
+
+    } catch (error) {
+      console.error('Error uploading to IPFS:', error);
+    }
+    setLoading(false);
+
+    // const formData = new FormData(event.currentTarget); // Use FormData to access form fields
+  
+    // const title = formData.get("title") as string;
+    // const description = formData.get("description") as string;
+    // const authors = (formData.get("authors") as string).split(",").map(author => author.trim());
+    // const ipType = formData.get("type") as IPType;
+    // const uploadFile = formData.get("file") as File;
+  
+    // const ip: IP = {
+    //   title,
+    //   description,
+    //   authors,
+    //   ipType,
+    //   uploadFile,
+    // };
+
+    handleMintItem();
+
+  };
 
   return (
     <>
@@ -41,13 +162,15 @@ const registerIP = () => {
 
           <div className="max-w-2xl mx-auto">
      
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block mb-1 font-medium">Title</label>
           <input 
             type="text" 
             id="title" 
             name="title" 
+            value={ipData.title}
+            onChange={handleChange}
             className="w-full border rounded p-2" 
             required 
           />
@@ -57,16 +180,35 @@ const registerIP = () => {
           <textarea 
             id="description" 
             name="description" 
+            value={ipData.description}
+            onChange={handleChange}
             className="w-full border rounded p-2" 
             rows={4}
             required
           ></textarea>
         </div>
         <div>
+          <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
+          <input 
+            type="text" 
+            id="authors" 
+            name="authors" 
+            value={ipData.authors}
+            onChange={handleChange}
+            className="w-full border rounded p-2" 
+            required 
+          />
+          </div>
+        <div>
           <label htmlFor="type" className="block mb-1 font-medium">IP Type</label>
           <select 
             id="type" 
             name="type" 
+            value={ipData.ipType}
+            onChange={ (e:any) => {
+              setIpData((prev) => ({ ...prev, "ipType": e.target.value }));
+              console.log(e);
+            }}
             className="w-full border rounded p-2"
           >
             <option value="patent">Patent</option>
@@ -84,11 +226,9 @@ const registerIP = () => {
             className="w-full border rounded p-2" 
           />
         </div>
-        <form className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center">
-          <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center">
-            <FilePlus className="h-5 w-5 mr-2" />
-          </button>
-        </form>
+        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center w-full">
+          <FilePlus className="h-5 w-5 mr-2" />
+        </button>
       </form>
       <div className="mt-8 bg-blue-100 p-4 rounded">
         <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
