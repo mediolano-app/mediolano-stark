@@ -31,7 +31,7 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "My IPs",
-    href: "/myNFTs",
+    href: "/myIPs",
     icon: <RectangleGroupIcon className="h-4 w-4" />,
   },
   {
