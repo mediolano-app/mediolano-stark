@@ -66,8 +66,8 @@ const registerIP: NextPage = () => {
 
   return (
     <>
-      <div className="flex items-center flex-col pt-10">
-        <div className="max-w-6xl mx-auto">
+      <div className="flex items-center flex-col pt-10 ">
+        <div className="">
         <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
         <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
 
@@ -75,13 +75,13 @@ const registerIP: NextPage = () => {
       </div>
       
       
-      <div className="flex justify-center">
+      <div className="mx-auto max-w-10xl">
         {!isConnected || isConnecting ? (
           <CustomConnectButton />
         ) : (
          
 
-          <div className="max-w-2xl mx-auto">
+          <div className="mx-auto">
      
       <form className="space-y-6">
         <div>
@@ -131,7 +131,10 @@ const registerIP: NextPage = () => {
           Register IP
         </button>
       </form>
-      <div className="mt-8 bg-blue-100 p-4 rounded">
+
+
+
+      <div className="mt-8 p-4 rounded">
         <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
         <ul className="list-disc pl-5 space-y-2">
           <li>Immutable proof of ownership and timestamp</li>
