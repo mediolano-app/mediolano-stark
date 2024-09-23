@@ -68,6 +68,7 @@ const MyIPs: NextPage = () => {
         </div>
       </div>
       <div className="flex justify-center">
+      <a className="btn" href="/ipfsUpload">Edit Metadata</a>
         {!isConnected || isConnecting ? (
           <CustomConnectButton />
         ) : (
