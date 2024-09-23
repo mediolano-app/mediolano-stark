@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     YourCollectible: {
       address:
-        "0x750adbba94e9b4946a3f77540008a8dc66201092123c21a4404945cf02de3c1",
+        "0x10aa7ef56e152d17cd6e64302070e409115312c086a2e0626d1dfac8cdefd3e",
       abi: [
         {
           type: "impl",
