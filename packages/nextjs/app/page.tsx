@@ -7,7 +7,7 @@ import { useAccount } from "@starknet-react/core";
 import { Address as AddressType } from "@starknet-react/chains";
 import Image from "next/image";
 
-import { Button } from "~~/components/ui/buttom";
+import { Button } from "~~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~~/components/ui/card";
 import { ArrowRight, BookOpen, Download, HeartHandshake, List, MessageSquare, ShieldCheck } from 'lucide-react';
 
@@ -48,10 +48,10 @@ const Home: NextPage = () => {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button asChild>
+                <Button >
                   <Link href="/register">Get Started</Link>
                 </Button>
-                <Button variant="outline" asChild>
+                <Button variant="outline" >
                   <Link href="/about">Learn More</Link>
                 </Button>
               </div>
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Register your intellectual property quickly and securely.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="/registerIP">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -83,7 +83,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>List your intellectual property for potential buyers or licensees.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="/listingIP">List Property <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>License your intellectual property to interested parties.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="/licensingIP">License Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Trade or transfer your digital assets.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="/monetizeIP">Open Trade <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Access and download important documents and resources.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="https://docs.mediolano.app">Visit <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -131,7 +131,7 @@ const Home: NextPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p>Get help and support for all your IP-related queries.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="outline" >
                     <Link href="/support">Get Support <ArrowRight className="ml-2 h-4 w-4" /></Link>
                   </Button>
                 </CardContent>
@@ -139,6 +139,25 @@ const Home: NextPage = () => {
             </div>
           </div>
         </section>
+
+
+
+
+        <section className="bg-gray-100 p-8 rounded-lg">
+        <h2 className="text-3xl font-bold mb-6 text-center">Mediolano Features</h2>
+        <ul className="list-disc pl-6 space-y-4">
+          <li>Unparalleled security through blockchain technology</li>
+          <li>Streamlined registration and management processes</li>
+          <li>Global accessibility and transparency</li>
+          <li>Reduced costs compared to traditional IP registration methods</li>
+          <li>Integrated marketplace for monetizing your intellectual property</li>
+        </ul>
+      </section>
+
+
+
+
+
       </main>
       
     </div>
