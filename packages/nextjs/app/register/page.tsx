@@ -11,7 +11,7 @@ export interface FormData {
     detailedDescription: string,
     // date: Date | null,
     date: string,
-    authors: Array<string>,
+    authors: string[],
 }
 
 export default function IntellectualPropertyForm(){
@@ -30,8 +30,12 @@ export default function IntellectualPropertyForm(){
     const[count, setCount] = useState(0)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
+      const { name, value } = e.target;
+      if (name === 'authors') {
+          setFormData(prev => ({ ...prev, authors: value.split(',').map(author => author.trim()) }));
+      } else {
+          setFormData(prev => ({ ...prev, [name]: value }));
+      }
     }
     
     // const validateForm = (): boolean => {

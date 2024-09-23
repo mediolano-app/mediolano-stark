@@ -1,126 +1,47 @@
-const nftsMetadata = [
+import { FormData } from "~~/app/register/page";
+
+const nftsMetadata = (
+  // formdata: FormData
+) => {
+  
+  return [
   {
-    description: "It's actually a bison?",
+    description: "",
     external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/buffalo.jpg",
+    image: "",
     name: "Buffalo",
     attributes: [
       {
-        trait_type: "BackgroundColor",
-        value: "green",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
+        trait_type: "IP type",
+        value: "",
       },
       {
         trait_type: "Stamina",
         value: 42,
       },
     ],
-  },
-  {
-    description: "What is it so worried about?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/zebra.jpg",
-    name: "Zebra",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "blue",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 38,
-      },
-    ],
-  },
-  {
-    description: "What a horn!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/rhino.jpg",
-    name: "Rhino",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "pink",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 22,
-      },
-    ],
-  },
-  {
-    description: "Is that an underbyte?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/fish.jpg",
-    name: "Fish",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "blue",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 15,
-      },
-    ],
-  },
-  {
-    description: "So delicate.",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/flamingo.jpg",
-    name: "Flamingo",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "black",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 6,
-      },
-    ],
-  },
-  {
-    description: "Raaaar!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/godzilla.jpg",
-    name: "Godzilla",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "orange",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 99,
-      },
-    ],
-  },
-];
-
-export type NFTMetaData = (typeof nftsMetadata)[number];
-
+  },];
+}
+export type NFTMetaData = (typeof nftsMetadata);
 export default nftsMetadata;
+
+// const customizeNftMetadata = (formData: FormData) => {
+//   const { title, briefDescription, detailedDescription, date, authors} = formData;
+
+//   const customizedMetadata = nftsMetadata.map(nft => ({
+//     ...nft, // Spread existing properties
+//     description: detailedDescription, // Map description from form
+//     image: "", // This can be updated with user-provided image link
+//     name: title, // Custom name from the form
+//     attributes: nft.attributes.map(attr => ({
+//       ...attr,
+//       value: briefDescription, // Set trait to something from formData
+//     })),
+//   }));
+
+//   return customizedMetadata;
+// };
+// export type NFTMetaData = (typeof customizeNftMetadata);
+// export default customizeNftMetadata;
+
+

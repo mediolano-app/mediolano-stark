@@ -12,7 +12,7 @@ import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent } from "react";
 import { FilePlus } from 'lucide-react'
-
+import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 interface FormData {
   title: string,
   briefDescription: string,
@@ -118,21 +118,43 @@ const registerIP = () => {
       return count 
     }
 
+    const saveForms = (formdata: FormData) => {
+      const { 
+        title,
+        briefDescription,
+        detailedDescription,
+        date,
+        authors } = formdata;
+        const updatedMetadata = customizeNftMetadata(formData);
+
+    };
+
     const handleSubmit = 
     (
-      // e: FormEvent<HTMLFormElement>
+      // formdata:FormData
+      e: FormEvent<HTMLFormElement>
     ) => {
-        // e.preventDefault()
+        e.preventDefault()
 
         // if (validateForm()) {
         //   console.log(formData)
         //   alert("Form submitted successfully!")
         //   // Here you would typically send the form data to your backend
         // }
+        const form = e.target as HTMLFormElement;
 
-        const id = getNextSubmissionId()
-        router.push(`/registerIP/${id}`)
-
+        const newFormData: FormData = {
+          title: (form.elements.namedItem('title') as HTMLInputElement).value,
+          briefDescription: (form.elements.namedItem('briefDescription') as HTMLInputElement).value,
+          detailedDescription: (form.elements.namedItem('detailedDescription') as HTMLTextAreaElement).value,
+          date: (form.elements.namedItem('date') as HTMLInputElement).value,
+          authors: (form.elements.namedItem('authors') as HTMLInputElement).value.split(','), // Split comma-separated string into array
+        };
+    
+        setFormData(newFormData);
+        saveForms(newFormData);
+        const id = getNextSubmissionId();
+        router.push(`/registerIP/${id}`);
       };
   
 
