@@ -10,6 +10,8 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+
 
 const MyNFTs: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
@@ -63,14 +65,37 @@ const MyNFTs: NextPage = () => {
       <div className="flex items-center flex-col pt-10">
         <div className="px-5">
           <h1 className="text-center mb-8">
-            <span className="block text-4xl font-bold">My NFTs</span>
+            <span className="block text-4xl font-bold">My IPs</span>
           </h1>
         </div>
       </div>
+
+      <MyHoldings setStatus={setStatus} />
+      
+
+      <div className="flex items-center flex-col pt-10">
+      <Card className="bg-main border-accent/50 rounded-full" >
+        <CardHeader>
+          <CardTitle>Mint Your Digital Asset</CardTitle>
+          <CardDescription>Secure your intellectual property on the blockchain in NFT format. Fill out the form below to register your IP.</CardDescription>
+        </CardHeader>
+        <CardContent>
+
+          
+
       <div className="flex justify-center">
+
+      <a className="btn btn-secondary text-white" href="/ipfsUpload">
+            Edit Your Metadata 
+          </a>
+          &nbsp;&nbsp;
+
         {!isConnected || isConnecting ? (
           <CustomConnectButton />
         ) : (
+
+
+          
           <button
             className="btn btn-secondary text-white"
             disabled={status !== "Mint NFT"}
@@ -83,7 +108,19 @@ const MyNFTs: NextPage = () => {
           </button>
         )}
       </div>
-      <MyHoldings setStatus={setStatus} />
+      
+      </CardContent>
+        <CardFooter className="flex justify-between">
+        </CardFooter>
+      </Card>
+        </div>
+
+
+
+
+
+
+
     </>
   );
 };

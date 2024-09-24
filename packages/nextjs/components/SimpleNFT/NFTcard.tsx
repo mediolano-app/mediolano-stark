@@ -26,10 +26,10 @@ export const NFTCard = ({ nft }: { nft: Collectible }) => {
     };
 
   return (
-    <div className="card card-compact bg-base-100 sm:min-w-[300px] border border-secondary">
+    <div className="card bg-base-100 sm:min-w-[300px] max-w-[410px] p-2 m-2">
       <figure className="relative rounded-t-[15px]">
         {/* eslint-disable-next-line  */}
-        <img src={nft.image} alt="NFT Image" className="h-60 min-w-full" />
+        <img src={nft.image} alt="{nft.name}" className="h-60 min-w-full" />
         <figcaption className="glass absolute bottom-4 left-4 p-4 w-25 rounded-xl">
           <span className="text-white "># {nft.id}</span>
         </figcaption>
@@ -37,19 +37,22 @@ export const NFTCard = ({ nft }: { nft: Collectible }) => {
       <div className="card-body space-y-3">
         <div className="flex items-center justify-center">
           <p className="text-xl p-0 m-0 font-semibold">{nft.name}</p>
-          <div className="flex flex-wrap space-x-2 mt-1">
+        </div>
+        <div className="flex flex-col justify-center mt-1">
+          <p className="my-0 text-lg">{nft.description}</p>
+        </div>
+        <div className="flex flex-col justify-center mt-1">
+         
+        <div className="flex flex-wrap space-x-2 mt-1">
             {nft.attributes?.map((attr: any, index: any) => (
               <span
                 key={index}
-                className=" badge-secondary badge py-3 gap-1 text-white border-base-100"
-              >
+                className=" badge-primary badge py-3 gap-1 text-white border-base-100"
+              > {attr.trait_type}:
                 {attr.value}
               </span>
             ))}
           </div>
-        </div>
-        <div className="flex flex-col justify-center mt-1">
-          <p className="my-0 text-lg">{nft.description}</p>
         </div>
         <div className="flex space-x-3 mt-1 items-center">
           <span className="text-lg font-semibold">Owner : </span>

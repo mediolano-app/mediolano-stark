@@ -135,7 +135,7 @@ const listingIP: NextPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {filteredListings.map((listing) => (
-          <Card key={listing.id}>
+          <Card className="bg-main" key={listing.id}>
             <CardHeader>
               <CardTitle>{listing.title}</CardTitle>
               <div className="flex justify-between items-center">
@@ -153,11 +153,16 @@ const listingIP: NextPage = () => {
         ))}
       </div>
 
+
+      <hr></hr>
+      <br></br>
+      <br></br>
+
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6">Features and Benefits</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {features.map((feature, index) => (
-            <Card key={index}>
+            <Card key={index} className="bg-main">
               <CardHeader>
                 <CardTitle>{feature.title}</CardTitle>
               </CardHeader>
