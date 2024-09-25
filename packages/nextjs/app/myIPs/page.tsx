@@ -51,7 +51,7 @@ const MyIPs: NextPage = () => {
       await mintItem({
         args: [connectedAddress, uploadedItem.path],
       });
-      setStatus("Updating NFT List");
+      setStatus("Updating IP List");
       refetch();
     } catch (error) {
       notification.remove(notificationId);

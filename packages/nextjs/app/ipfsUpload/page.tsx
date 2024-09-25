@@ -87,9 +87,9 @@ const IpfsUpload: NextPage = () => {
 
         {mounted && (
           <LazyReactJson
-            style={{ padding: "1rem", borderRadius: "0.75rem" }}
+            style={{ padding: "1rem", borderRadius: "0.75rem", fontSize:"20px" }}
             src={yourJSON}
-            theme="colors"
+            theme="flat"
             enableClipboard={false}
             onEdit={(edit) => {
               setYourJSON(edit.updated_src);
