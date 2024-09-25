@@ -73,7 +73,7 @@ Then download the your computer and install dependencies by running:
 ```sh
 git clone https://github.com/mediolano-app/mediolano-stark.git mediolano-stark
 cd mediolano-stark
-
+yarn add lucide-react
 yarn install
 ```
 
