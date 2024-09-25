@@ -11,7 +11,7 @@ import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
 
-const MyNFTs: NextPage = () => {
+const MyIPs: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
 
@@ -63,29 +63,13 @@ const MyNFTs: NextPage = () => {
       <div className="flex items-center flex-col pt-10">
         <div className="px-5">
           <h1 className="text-center mb-8">
-            <span className="block text-4xl font-bold">My NFTs</span>
+            <span className="block text-4xl font-bold">My IPs</span>
           </h1>
         </div>
-      </div>
-      <div className="flex justify-center">
-        {!isConnected || isConnecting ? (
-          <CustomConnectButton />
-        ) : (
-          <button
-            className="btn btn-secondary text-white"
-            disabled={status !== "Mint NFT"}
-            onClick={handleMintItem}
-          >
-            {status !== "Mint NFT" && (
-              <span className="loading loading-spinner loading-xs"></span>
-            )}
-            {status}
-          </button>
-        )}
       </div>
       <MyHoldings setStatus={setStatus} />
     </>
   );
 };
 
-export default MyNFTs;
+export default MyIPs;

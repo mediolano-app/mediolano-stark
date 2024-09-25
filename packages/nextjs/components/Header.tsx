@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   Bars3Icon,
   ArrowPathIcon,
+  ArrowDownTrayIcon,
   RectangleGroupIcon,
   BanknotesIcon,
   CubeIcon,
@@ -31,7 +32,7 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "My IPs",
-    href: "/myNFTs",
+    href: "/myIPs",
     icon: <RectangleGroupIcon className="h-4 w-4" />,
   },
   {
@@ -59,16 +60,16 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/transfers",
     icon: <ArrowPathIcon className="h-4 w-4" />,
   },
-  /*{
-    label: "IPFS Upload",
-    href: "/ipfsUpload",
-    icon: <ArrowUpTrayIcon className="h-4 w-4" />,
-  },
-  {
-    label: "IPFS Download",
-    href: "/ipfsDownload",
-    icon: <ArrowDownTrayIcon className="h-4 w-4" />,
-  },*/
+  // {
+  //   label: "IPFS Upload",
+  //   href: "/ipfsUpload",
+  //   icon: <ArrowPathIcon className="h-4 w-4" />,
+  // },
+  // {
+  //   label: "IPFS Download",
+  //   href: "/ipfsDownload",
+  //   icon: <ArrowPathIcon className="h-4 w-4" />,
+  // },
   
 ];
 
