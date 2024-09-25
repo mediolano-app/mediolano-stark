@@ -11,3 +11,5 @@ mod test {
 mod mock_contracts {
     pub mod Receiver;
 }
+
+mod ERC721Upgradeable;
