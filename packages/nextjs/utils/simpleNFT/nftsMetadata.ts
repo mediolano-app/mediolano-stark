@@ -1,121 +1,61 @@
 const nftsMetadata = [
   {
-    description: "It's actually a bison?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/buffalo.jpg",
-    name: "Buffalo",
+    description: "Movie Review for Transformers: On in Portuguese",
+    external_url: "https://ambrosia.com.br/criticas/critica-transformers-o-inicio/",
+    image: "https://ambrosia.com.br/wp-content/smush-webp/2024/09/Transformers-O-Inicio-resenha-animacao-AMbrosia-1600x900.jpg.webp",
+    name: "Crítica: “Transformers: O Início”",
     attributes: [
       {
-        trait_type: "BackgroundColor",
-        value: "green",
+        trait_type: "Author",
+        value: "Ramon",
       },
       {
-        trait_type: "Eyes",
-        value: "googly",
+        trait_type: "Category",
+        value: "Movies",
       },
       {
-        trait_type: "Stamina",
-        value: 42,
+        trait_type: "Media",
+        value: "Ambrosia.com.br",
       },
     ],
   },
   {
-    description: "What is it so worried about?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/zebra.jpg",
-    name: "Zebra",
+    description: "Game review of Black Myth: Wukong",
+    external_url: "https://ambrosia.com.br/criticas/resenha-de-black-myth-wukong-uma-grata-surpresa/",
+    image: "https://ambrosia.com.br/wp-content/smush-webp/2024/08/black-myth-wukong-critica-games-ambrosia.jpg.webp",
+    name: "Black Myth: Wukong",
     attributes: [
       {
-        trait_type: "BackgroundColor",
-        value: "blue",
+        trait_type: "Author",
+        value: "Slack",
       },
       {
-        trait_type: "Eyes",
-        value: "googly",
+        trait_type: "Category",
+        value: "Games",
       },
       {
-        trait_type: "Stamina",
-        value: 38,
+        trait_type: "Media",
+        value: "Ambrosia.com.br",
       },
     ],
   },
   {
-    description: "What a horn!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/rhino.jpg",
-    name: "Rhino",
+    description: "Alien: Romulus brings tension and vigor back to the franchise",
+    external_url: "https://ambrosia.com.br/filmes/alien-romulus-traz-a-tensao-e-o-vigor-de-volta-a-franquia/",
+    image: "https://ambrosia.com.br/wp-content/uploads/2024/08/Alien-Romulus-img-800x450.jpg",
+    name: "Alien: Romulus movie review",
     attributes: [
       {
-        trait_type: "BackgroundColor",
-        value: "pink",
+        trait_type: "Author",
+        value: "Cesar Monteiro",
       },
       {
-        trait_type: "Eyes",
-        value: "googly",
+        trait_type: "Category",
+        value: "Movies",
       },
       {
-        trait_type: "Stamina",
-        value: 22,
-      },
-    ],
-  },
-  {
-    description: "Is that an underbyte?",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/fish.jpg",
-    name: "Fish",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "blue",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 15,
-      },
-    ],
-  },
-  {
-    description: "So delicate.",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/flamingo.jpg",
-    name: "Flamingo",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "black",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 6,
-      },
-    ],
-  },
-  {
-    description: "Raaaar!",
-    external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-    image: "https://austingriffith.com/images/paintings/godzilla.jpg",
-    name: "Godzilla",
-    attributes: [
-      {
-        trait_type: "BackgroundColor",
-        value: "orange",
-      },
-      {
-        trait_type: "Eyes",
-        value: "googly",
-      },
-      {
-        trait_type: "Stamina",
-        value: 99,
+        trait_type: "Media",
+        value: "Ambrosia.com.br",
       },
     ],
   },
