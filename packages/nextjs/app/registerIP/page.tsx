@@ -10,10 +10,9 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWri
 import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
-import { useState, FormEvent, useRef} from "react";
-import { FilePlus } from 'lucide-react';
-import { id } from "ethers";
-// import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
+import { useState } from "react";
+import { FilePlus } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
 
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
@@ -146,10 +145,8 @@ const registerIP = () => {
   return (
     <>
       <div className="flex items-center flex-col pt-10">
-        <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
-        <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
-
+        <div className="">
+        <h1 className="text-3xl font-bold mb-6">Register Your Asset</h1>
         </div>
       </div>
       
@@ -160,9 +157,17 @@ const registerIP = () => {
         ) : (
          
 
-          <div className="max-w-2xl mx-auto">
-     
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="">
+
+      <Card className="bg-main border-accent/50 rounded-full" >
+        <CardHeader>
+          <CardTitle>Your Intellectual Property</CardTitle>
+          <CardDescription>Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</CardDescription>
+        </CardHeader>
+        <CardContent>
+
+
+      <form className="space-y-6">
         <div>
           <label htmlFor="title" className="block mb-1 font-medium">Title</label>
           <input 
@@ -230,6 +235,13 @@ const registerIP = () => {
           <FilePlus className="h-5 w-5 mr-2" />
         </button>
       </form>
+
+      </CardContent>
+        <CardFooter className="flex justify-between">
+        </CardFooter>
+      </Card>
+
+      
       <div className="mt-8 bg-blue-100 p-4 rounded">
         <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
         <ul className="list-disc pl-5 space-y-2">

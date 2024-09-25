@@ -10,6 +10,8 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+
 
 const MyIPs: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
@@ -67,7 +69,62 @@ const MyIPs: NextPage = () => {
           </h1>
         </div>
       </div>
+<<<<<<< HEAD:packages/nextjs/app/myIPs/page.tsx
       <MyHoldings setStatus={setStatus} />
+=======
+
+      <MyHoldings setStatus={setStatus} />
+      
+
+      <div className="flex items-center flex-col pt-10">
+      <Card className="bg-main border-accent/50 rounded-full" >
+        <CardHeader>
+          <CardTitle>Mint Your Digital Asset</CardTitle>
+          <CardDescription>Secure your intellectual property on the blockchain in NFT format. Fill out the form below to register your IP.</CardDescription>
+        </CardHeader>
+        <CardContent>
+
+          
+
+      <div className="flex justify-center">
+
+      <a className="btn btn-secondary text-white" href="/ipfsUpload">
+            Edit Your Metadata 
+          </a>
+          &nbsp;&nbsp;
+
+        {!isConnected || isConnecting ? (
+          <CustomConnectButton />
+        ) : (
+
+
+          
+          <button
+            className="btn btn-secondary text-white"
+            disabled={status !== "Mint NFT"}
+            onClick={handleMintItem}
+          >
+            {status !== "Mint NFT" && (
+              <span className="loading loading-spinner loading-xs"></span>
+            )}
+            {status}
+          </button>
+        )}
+      </div>
+      
+      </CardContent>
+        <CardFooter className="flex justify-between">
+        </CardFooter>
+      </Card>
+        </div>
+
+
+
+
+
+
+
+>>>>>>> 30a75f6b14dcf1fad3bf30776791a21fc5d4f0fe:packages/nextjs/app/myNFTs/page.tsx
     </>
   );
 };

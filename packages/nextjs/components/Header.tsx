@@ -37,7 +37,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "New IP",
-    href: "/registerIP",
+    href: "/ipfsUpload",
     icon: <CubeIcon className="h-4 w-4" />,
   },
   {
@@ -47,7 +47,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "Licensing",
-    href: "/licensingIP",
+    href: "/ipfsDownload",
     icon: <Square2StackIcon className="h-4 w-4" />,
   },
   {
