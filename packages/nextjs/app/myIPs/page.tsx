@@ -69,9 +69,6 @@ const MyIPs: NextPage = () => {
           </h1>
         </div>
       </div>
-<<<<<<< HEAD:packages/nextjs/app/myIPs/page.tsx
-      <MyHoldings setStatus={setStatus} />
-=======
 
       <MyHoldings setStatus={setStatus} />
       
@@ -124,7 +121,6 @@ const MyIPs: NextPage = () => {
 
 
 
->>>>>>> 30a75f6b14dcf1fad3bf30776791a21fc5d4f0fe:packages/nextjs/app/myNFTs/page.tsx
     </>
   );
 };
