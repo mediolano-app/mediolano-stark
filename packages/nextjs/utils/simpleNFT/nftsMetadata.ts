@@ -14,7 +14,7 @@ const nftsMetadata = [
         value: "Movies",
       },
       {
-        trait_type: "Media",
+        trait_type: "Teste",
         value: "Ambrosia.com.br",
       },
     ],
