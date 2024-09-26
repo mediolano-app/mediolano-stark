@@ -10,19 +10,19 @@ const settingsDapp: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   
   const [account, setAccount] = useState({
-    fullName: '',
-    nickname: 'Teste',
-    country: '',
+    fullName: 'Mediolano',
+    nickname: 'Demo',
+    country: 'Brazil',
     address: '',
-    description: '',
-    website: '',
+    description: 'Dapp demonstration',
+    website: 'https://mediolano.app',
     twitter: '',
     facebook: '',
     instagram: '',
     tiktok: '',
-    walletAddress: '',
+    walletAddress: 'mediolano.braavos.stark.id',
     mobile: '',
-    email: '',
+    email: 'dapp@mediolano.app',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -86,8 +86,8 @@ const settingsDapp: NextPage = () => {
             )}
           </div>
         ))}
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Save Account Information
+        <button type="submit" disabled className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Save
         </button>
       </form>
     </div>

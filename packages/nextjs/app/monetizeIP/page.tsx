@@ -12,6 +12,11 @@ import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
 import { DollarSign, BarChart2, Users, Globe } from 'lucide-react'
 
+
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '~~/components/ui/card'
+import { Button } from '~~/components/ui/button'
+import Link from 'next/link'
+
 const monetizeIP: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
@@ -28,15 +33,15 @@ const monetizeIP: NextPage = () => {
   const [activeTab, setActiveTab] = useState('opportunities')
 
   const dummyOpportunities = [
-    { id: 1, title: 'AI Algorithm Licensing', type: 'License', potential: 'High', industry: 'Technology' },
-    { id: 2, title: 'EcoPlastic Manufacturing Rights', type: 'Partnership', potential: 'Medium', industry: 'Manufacturing' },
-    { id: 3, title: 'Quantum Encryption Integration', type: 'License', potential: 'Very High', industry: 'Cybersecurity' },
+    { id: 1, title: 'AI Algorithm Licensing', type: 'Copyright', potential: 'High', industry: 'Technology' },
+    { id: 2, title: 'New paper for Zero-Knowledge', type: 'Creative Commons', potential: 'Medium', industry: 'Technology' },
+    { id: 3, title: 'New sci-fi series review', type: 'License', potential: 'Very High', industry: 'Arts' },
   ]
 
   const dummyRoyalties = [
-    { id: 1, title: 'AI Algorithm License', licensee: 'Tech Corp', amount: 50000, date: '2023-05-15' },
-    { id: 2, title: 'Solar Paint Usage', licensee: 'GreenEnergy Inc', amount: 25000, date: '2023-05-10' },
-    { id: 3, title: 'MindWave Trademark Use', licensee: 'SmartHome Solutions', amount: 10000, date: '2023-05-05' },
+    { id: 1, title: 'AI Algorithm License', licensee: 'Mediolano', amount: 50000, date: '2023-05-15', contract: '0x...' },
+    { id: 2, title: 'The Batman movie critic', licensee: 'Ambrosia.com.br', amount: 25000, date: '2021-05-10', contract: '0x...' },
+    { id: 3, title: 'MindWave Trademark Use', licensee: 'SmartHome Solutions', amount: 10000, date: '2020-05-05', contract: '0x...' },
   ]
 
 
@@ -87,10 +92,83 @@ const monetizeIP: NextPage = () => {
 
   return (
     <>
-      
-      
-      
       <div className="flex justify-center flex-col pt-10" >
+
+        <div className="flex justify-center mb-10">
+           <h1 className="text-3xl font-bold mb-6">Monetize Your Intellectual Property</h1>
+           
+        </div>  
+
+
+      <div className="max-w-6xl mx-auto">
+
+      <div className="space-y-8">
+      
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="bg-base-100">
+          <CardHeader>
+            <CardTitle>Licensing</CardTitle>
+            <CardDescription>Grant rights to use your IP</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">Create customized licensing agreements to allow others to use your intellectual property while maintaining ownership.</p>
+            <Button asChild>
+              <Link href="/license">Create</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className="bg-base-100">
+          <CardHeader>
+            <CardTitle>Selling</CardTitle>
+            <CardDescription>Transfer ownership of your IP</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">List your intellectual property for sale on our marketplace to find potential buyers.</p>
+            <Button asChild>
+              <Link href="/marketplace">List</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className="bg-base-100">
+          <CardHeader>
+            <CardTitle>Royalties</CardTitle>
+            <CardDescription>Revenue opportunities</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">Find potential partners to develop or commercialize your intellectual property.</p>
+            <Button asChild>
+              <Link href="/">Explore</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className="bg-base-100">
+          <CardHeader>
+            <CardTitle>Crowdfunding </CardTitle>
+            <CardDescription>Raise funds for your IP</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">Launch a crowdfunding campaign to support the development or promotion of your intellectual property.</p>
+            <Button asChild>
+              <Link href="/">Start</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -99,11 +177,17 @@ const monetizeIP: NextPage = () => {
         ) : (
          
 
-          
+         <div> 
 
           
-          <div className=" max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Monetize Your IP</h1>
+      <div className="flex items-center flex-col pt-10 mt-20">
+        <div className="">
+        <h2 className="text-3xl font-bold mb-6">Opportunities</h2>
+        </div>
+      </div>
+        
+        
+        <div className="max-w-6xl mx-auto bg-base-100 my-10 p-5">
           <p className="mb-6">Maximize the value of your intellectual property through various monetization strategies.</p>
           
           <div className="mb-6">
@@ -117,7 +201,7 @@ const monetizeIP: NextPage = () => {
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
-                  Licensing Opportunities
+                  Licensing
                 </button>
                 <button
                   onClick={() => setActiveTab('royalties')}
@@ -127,7 +211,7 @@ const monetizeIP: NextPage = () => {
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
-                  Royalty Management
+                  Royalties
                 </button>
               </nav>
             </div>
@@ -137,9 +221,9 @@ const monetizeIP: NextPage = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Licensing Opportunities</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-300">
+                <table className="min-w-full bg-base-100 border border-gray-300">
                   <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="">
                       <th className="py-2 px-4 border-b text-left">Title</th>
                       <th className="py-2 px-4 border-b text-left">Type</th>
                       <th className="py-2 px-4 border-b text-left">Potential</th>
@@ -155,7 +239,7 @@ const monetizeIP: NextPage = () => {
                         <td className="py-2 px-4 border-b">{opportunity.potential}</td>
                         <td className="py-2 px-4 border-b">{opportunity.industry}</td>
                         <td className="py-2 px-4 border-b">
-                          <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                          <button className="bg-primary px-3 py-1 rounded">
                             Explore
                           </button>
                         </td>
@@ -171,13 +255,14 @@ const monetizeIP: NextPage = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Royalty Management</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-300">
+                <table className="min-w-full bg-base-100 border border-gray-300">
                   <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="">
                       <th className="py-2 px-4 border-b text-left">Title</th>
                       <th className="py-2 px-4 border-b text-left">Licensee</th>
                       <th className="py-2 px-4 border-b text-left">Amount</th>
                       <th className="py-2 px-4 border-b text-left">Date</th>
+                      <th className="py-2 px-4 border-b text-left">Contract</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -187,6 +272,7 @@ const monetizeIP: NextPage = () => {
                         <td className="py-2 px-4 border-b">{royalty.licensee}</td>
                         <td className="py-2 px-4 border-b">${royalty.amount.toLocaleString()}</td>
                         <td className="py-2 px-4 border-b">{royalty.date}</td>
+                        <td className="py-2 px-4 border-b"><a className="btn">{royalty.contract}</a></td>
                       </tr>
                     ))}
                   </tbody>
@@ -195,8 +281,26 @@ const monetizeIP: NextPage = () => {
             </div>
           )}
     
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-blue-100 p-4 rounded">
+          
+        </div>
+
+          </div>
+
+        )}
+
+
+
+
+      <div className="flex items-center flex-col pt-10 mt-10">
+        <div className="">
+        <h2 className="text-3xl font-bold mb-6">Resources</h2>
+        </div>
+      </div> 
+    
+
+      <div className="max-w-6xl mx-auto">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-base-100 p-4 rounded">
               <h2 className="text-xl font-semibold mb-2 flex items-center">
                 <DollarSign className="h-6 w-6 mr-2 text-blue-500" />
                 Monetization Strategies
@@ -208,7 +312,7 @@ const monetizeIP: NextPage = () => {
                 <li>Direct sales of IP rights</li>
               </ul>
             </div>
-            <div className="bg-green-100 p-4 rounded">
+            <div className="bg-base-100 p-4 rounded">
               <h2 className="text-xl font-semibold mb-2 flex items-center">
                 <BarChart2 className="h-6 w-6 mr-2 text-green-500" />
                 Market Insights
@@ -222,16 +326,18 @@ const monetizeIP: NextPage = () => {
             </div>
           </div>
     
-          <div className="mt-6 bg-purple-100 p-4 rounded">
+          <div className="mt-6 bg-base-100 p-4 rounded">
             <h2 className="text-xl font-semibold mb-2 flex items-center">
               <Users className="h-6 w-6 mr-2 text-purple-500" />
               Expert Support
             </h2>
             <p>Our team of IP monetization experts is here to help you maximize the value of your intellectual property. Schedule a consultation to discuss your unique IP portfolio and explore tailored monetization strategies.</p>
             <button className="mt-4 bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600">
-              Schedule Consultation
+              Contact our Team
             </button>
           </div>
+
+
         </div>
 
 
@@ -239,10 +345,13 @@ const monetizeIP: NextPage = () => {
 
 
 
-        )}
+
+
+
+
+
+
       </div>
-
-
 
       
     </>

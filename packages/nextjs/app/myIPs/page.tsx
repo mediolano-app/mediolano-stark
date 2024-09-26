@@ -86,7 +86,7 @@ const MyIPs: NextPage = () => {
       <div className="flex justify-center">
 
       <a className="btn btn-secondary text-white" href="/ipfsUpload">
-            Edit Your Metadata 
+            Upload Metadata 
           </a>
           &nbsp;&nbsp;
 

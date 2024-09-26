@@ -32,14 +32,14 @@ const settingsDapp: NextPage = () => {
           <h1 className="text-4xl font-bold mb-4">Your Account</h1>
           <p className="mb-4">Your data and settings are encrypted with your wallet and stored in a smart contract.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {['Preferences', 'Account', 'Template', 'Transfers', 'Debug'].map((page) => (
+            {['Preferences', 'Account', 'Template', 'Transfers', 'Debug', 'Support'].map((page) => (
               <Link
                 key={page}
                 href={`/${page.toLowerCase().replace(' ', '-')}`}
                 className="bg-base-200 p-4 rounded shadow hover:shadow-lg transition-shadow"
               >
                 <h2 className="text-xl font-semibold mb-2">{page}</h2>
-                <p>Your settings for {page.toLowerCase()}</p>
+                <p>Open {page.toLowerCase()} section.</p>
               </Link>
             ))}
           </div>

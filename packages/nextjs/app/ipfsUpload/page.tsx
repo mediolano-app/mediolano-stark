@@ -90,6 +90,9 @@ const IpfsUpload: NextPage = () => {
             style={{ padding: "1rem", borderRadius: "0.75rem", fontSize:"20px" }}
             src={yourJSON}
             theme="flat"
+            displayDataTypes={false}
+            quotesOnKeys={false}
+            displayObjectSize={false}
             enableClipboard={false}
             onEdit={(edit) => {
               setYourJSON(edit.updated_src);

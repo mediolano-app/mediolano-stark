@@ -40,7 +40,7 @@ export const Footer = () => {
 
             {isSepoliaNetwork && (
               <>
-                <FaucetSepolia />
+                
                 <BlockExplorerSepolia />
               </>
             )}

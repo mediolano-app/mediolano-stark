@@ -11,6 +11,7 @@ const templateDapp: NextPage = () => {
   
   const [formData, setFormData] = useState({
     text: '',
+    media: '',
     number: '',
     email: '',
     password: '',
@@ -51,7 +52,7 @@ const templateDapp: NextPage = () => {
 
       <div className="flex items-center flex-col flex-grow pt-10">
         <h1 className="text-center mb-4">
-          <span className="block text-4xl font-bold">Template Settings</span>
+          <span className="block text-4xl font-bold">Predefined settings</span>
         </h1>
     </div>
 
