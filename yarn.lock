@@ -1825,6 +1825,7 @@ __metadata:
     get-starknet-core: ^3.3.0
     ipfs-utils: ^9.0.14
     kubo-rpc-client: ^4.0.1
+    lucide-react: ^0.268.0
     next: 14.1.3
     next-themes: ^0.2.1
     nprogress: ^0.2.0
@@ -6129,12 +6130,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.445.0":
-  version: 0.445.0
-  resolution: "lucide-react@npm:0.445.0"
+"lucide-react@npm:^0.268.0":
+  version: 0.268.0
+  resolution: "lucide-react@npm:0.268.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+  checksum: cb40a30bb9e0156f81cc2960a4708b948330304e40efeae7043d0414679cd6ae6dfe37c7eb99d56e673863e5862aa408d89669048afaba1b6dd3677e59d0bd96
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.446.0":
+  version: 0.446.0
+  resolution: "lucide-react@npm:0.446.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 848f382ead7950a15b9633c42167edb28563c7923cdb84f5835dfa3f51115d12142a1051ca6f1451d669c8f7c6bfe7e8d56820459e71d0d38c0710c66a605f3e
+  checksum: 5cd918355c1fbed8b2bb8152aa9eb1e7827be9ecb4560ef078fb8fc7bdd639ac41e96695ec2cd229e713190f43e82da6e92805162a9617a9bad76d5ff7cc2abe
   languageName: node
   linkType: hard
 
@@ -8004,7 +8014,7 @@ __metadata:
     daisyui: ^4.7.3
     framer-motion: ^11.5.6
     husky: ^9.0.11
-    lucide-react: ^0.445.0
+    lucide-react: ^0.446.0
     pinst: ^3.0.0
     postcss: ^8.4.38
     prettier: ^3.2.5
