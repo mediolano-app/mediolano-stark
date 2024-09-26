@@ -51,7 +51,7 @@ const MyIPs: NextPage = () => {
       await mintItem({
         args: [connectedAddress, uploadedItem.path],
       });
-      setStatus("Updating NFT List");
+      setStatus("Updating IP List");
       refetch();
     } catch (error) {
       notification.remove(notificationId);
@@ -86,7 +86,7 @@ const MyIPs: NextPage = () => {
       <div className="flex justify-center">
 
       <a className="btn btn-secondary text-white" href="/ipfsUpload">
-            Edit Your Metadata 
+            Upload Metadata 
           </a>
           &nbsp;&nbsp;
 

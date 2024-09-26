@@ -1,8 +1,9 @@
 # Mediolano.app
 
 <h4 align="center">
-  <a href="https://mediolano.app/">Website</a> |
-  <a href="#">Demo Dapp (Soon)</a>
+  <a href="https://docs.mediolano.app/">Documentation (Soon)</a> |
+  <a href="https://mediolano.com.br/">Institutional Website</a> |
+  <a href="#">Demo (Soon)</a>
 </h4>
 
 In today’s ever-evolving digital world, protecting and managing intellectual property (IP) has become a critical challenge. From journalists to art collectors, new technologies are making it safer and more efficient to tokenize IP, enabling licensing, trading, distributing royalties, and more.
@@ -73,7 +74,7 @@ Then download the your computer and install dependencies by running:
 ```sh
 git clone https://github.com/mediolano-app/mediolano-stark.git mediolano-stark
 cd mediolano-stark
-yarn add lucide-react
+
 yarn install
 ```
 
@@ -119,7 +120,9 @@ yarn test
 
 #### Configuration of Third-Party Services for Production-Grade Apps
 
-By default, scaffold-stark provides predefined Open API endpoint for some services such as Blast. This allows you to begin developing and testing your applications more easily, avoiding the need to register for these services. For production-grade applications, it's recommended to obtain your own API keys (to prevent rate limiting issues). You can configure these at:
+By default, Scaffold-Stark provides predefined Open API endpoint for some services such as Blast. This allows you to begin developing and testing your applications more easily, avoiding the need to register for these services.
+
+For production-grade applications, it's recommended to obtain your own API keys (to prevent rate limiting issues). You can configure these at:
 
 🔷 `RPC_URL_SEPOLIA` variable in `packages/snfoundry/.env` and `packages/nextjs/.env.local`. You can create API keys from the [Alchemy dashboard](https://dashboard.alchemy.com/).
 
