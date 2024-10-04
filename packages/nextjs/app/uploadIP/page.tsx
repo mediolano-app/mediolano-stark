@@ -33,9 +33,16 @@ const uploadIP = () => {
   const [status, setStatus] = useState("Mint NFT");
   const [ipfsHash, setipfsHash] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ipData, setIpData] = useState<IP>({
+    title: '',
+    description: '',
+    authors: [],
+    ipType: '',
+    });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [file, setFile] = useState<File>();
-
+  const [file, setFile] = useState<File | null>(null);
   const { writeAsync: mintItem } = useScaffoldWriteContract({
     contractName: "YourCollectible",
     functionName: "mint_item",
@@ -76,13 +83,6 @@ const uploadIP = () => {
       setStatus("Mint NFT");
     }
   };
-  const [ipData, setIpData] = useState<IP>({
-  title: '',
-  description: '',
-  authors: [],
-  ipType: '',
-  });
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement
     | HTMLTextAreaElement>
@@ -91,51 +91,71 @@ const uploadIP = () => {
     const { name, value } = e.target;
     setIpData((prev) => ({ ...prev, [name]: value }));
     console.log(e.target);
+  };
 
+  const handleAuthorChange = (index: number, value: string) => {
+    const newAuthors = [...ipData.authors]
+    newAuthors[index] = value
+    setIpData(prev => ({ ...prev, authors: newAuthors }))
+  };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
-  ) => {
+  ) => {    
     event.preventDefault(); // Prevent form from refreshing the page
+
+    setIsSubmitting(true);
+    setError(null);
+
+    const submitData = new FormData();
+    submitData.append('title', ipData.title);
+    submitData.append('description', ipData.description);
+    if (Array.isArray(ipData.authors)) {
+        ipData.authors.forEach((author, index) => {
+          submitData.append(`authors[${index}]`, author)
+        })
+      } else {
+        // If authors is not an array, append it as a single value
+        submitData.append('authors', ipData.authors.toString())
+      }
+      
+      submitData.append('ipType', ipData.ipType)
+    submitData.append('ipType', ipData.ipType)
+    if (file) {
+      submitData.append('uploadFile', file);
+    }
+
+    console.log(submitData);
+
     try {
       const response = await fetch('/api/forms-ipfs', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(ipData),
+        body: submitData,
       });
 
-      console.log(ipData);
+      if (!response.ok) {
+        throw new Error('Failed to submit IP')
+      }
+      console.log('IP submitted successfully');
       console.log(response.body);
       console.log("POST done, waiting for response");
+
       
       const data = await response.json();
       setipfsHash(data.metadataHash);
 
-    } catch (error) {
-      console.error('Error uploading to IPFS:', error);
+    
+    } catch (err) {
+        setError('Failed to submit IP. Please try again.');
+    } finally {
+        setIsSubmitting(false);
     }
-    setLoading(false);
-
-
-    const formData = new FormData(event.currentTarget); // Use FormData to access form fields
-  
-    const title = formData.get("title") as string;
-    const description = formData.get("description") as string;
-    const authors = (formData.get("authors") as string).split(",").map(author => author.trim());
-    const ipType = formData.get("type") as IPType;
-    const uploadFile = formData.get("file") as File;
-  
-    const ip: IP = {
-      title,
-      description,
-      authors,
-      ipType,
-      uploadFile,
-    };
 
     handleMintItem();
 

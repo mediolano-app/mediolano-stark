@@ -31,7 +31,7 @@ export async function POST(request: NextRequest){
     const uploadMockedData = await pinataClient.upload.json(mockedData);
     const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
 
-    console.log(mockedUrl);
+    // console.log(mockedUrl);
 
     const uploadData = await pinataClient.upload.json(data);
     const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
