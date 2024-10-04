@@ -23,6 +23,8 @@ export async function POST(request: NextRequest){
       const file: File | null = data.get("file") as unknown as File;
       const uploadData = await pinataClient.upload.file(file);
       const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
+
+      console.log(url);
       return NextResponse.json(url, { status: 200 });      
     // }
   } catch (e) {

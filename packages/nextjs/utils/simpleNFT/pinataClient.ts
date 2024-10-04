@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { PinataSDK } from 'pinata';
+import { PinataSDK } from 'pinata-web3';
 import path from 'path';
 
 export const pinataClient = new PinataSDK({

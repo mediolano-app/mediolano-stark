@@ -30,6 +30,9 @@ const registerIP = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
   const [ipfsHash, setipfsHash] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [file, setFile] = useState<File>();
 
   const { writeAsync: mintItem } = useScaffoldWriteContract({
     contractName: "YourCollectible",
@@ -84,12 +87,17 @@ const registerIP = () => {
   ipType: '',
   });
 
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setIpData((prev) => ({ ...prev, [name]: value }));
-    console.log(e.target);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>
+    // | HTMLTextAreaElement>
+  ) => {
+    
+    // const { name, value } = e.target;
+    // setIpData((prev) => ({ ...prev, [name]: value }));
+    // console.log(e.target);
+
+    setFile(e.target?.files?.[0]);
+
   };
 
   const getNextSubmissionId = () => {
@@ -104,24 +112,48 @@ const registerIP = () => {
   };
 
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent form from refreshing the page
-
+  const handleSubmit = async (
+    // event: FormEvent<HTMLFormElement>
+  ) => {
+    // event.preventDefault(); // Prevent form from refreshing the page
     try {
-      const response = await fetch('/api/upload-ipfs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(ipData),
-      });
-      const data = await response.json();
-      setipfsHash(data.metadataHash);
+      if (!file) {
+        alert("No file selected");
+        return;
+      }
 
-    } catch (error) {
-      console.error('Error uploading to IPFS:', error);
+      setLoading(true);
+      const data = new FormData();
+      data.set("file", file);
+      const uploadRequest = await fetch("/api/upload-ipfs", {
+        method: "POST",
+        body: data,
+      });
+      const ipfsUrl = await uploadRequest.json();
+      setipfsHash(ipfsUrl);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      alert("Trouble uploading file");
     }
-    setLoading(false);
+    // try {
+    //   const response = await fetch('/api/upload-ipfs', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(ipData),
+    //   });
+    //   console.log("POST done, waiting for response");
+    //   const data = await response.json();
+    //   setipfsHash(data.metadataHash);
+
+    // } catch (error) {
+    //   console.error('Error uploading to IPFS:', error);
+    // }
+    // setLoading(false);
+
 
     // const formData = new FormData(event.currentTarget); // Use FormData to access form fields
   
@@ -143,116 +175,123 @@ const registerIP = () => {
 
   };
 
+  
   return (
-    <>
-      <div className="flex items-center flex-col pt-10">
-        <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
-        <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
+    // <>
+    //   <div className="flex items-center flex-col pt-10">
+    //     <div className="max-w-6xl mx-auto">
+    //     <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
+    //     <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
 
-        </div>
-      </div>
+    //     </div>
+    //   </div>
       
       
-      <div className="flex justify-center">
-        {!isConnected || isConnecting ? (
-          <CustomConnectButton />
-        ) : (
+    //   <div className="flex justify-center">
+    //     {!isConnected || isConnecting ? (
+    //       <CustomConnectButton />
+    //     ) : (
          
 
-          <div className="max-w-2xl mx-auto">
+    //       <div className="max-w-2xl mx-auto">
      
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="title" className="block mb-1 font-medium">Title</label>
-          <input 
-            type="text" 
-            id="title" 
-            name="title" 
-            value={ipData.title}
-            onChange={handleChange}
-            className="w-full border rounded p-2" 
-            required 
-          />
-          </div>
-        <div>
-          <label htmlFor="description" className="block mb-1 font-medium">Description</label>
-          <textarea 
-            id="description" 
-            name="description" 
-            value={ipData.description}
-            onChange={handleChange}
-            className="w-full border rounded p-2" 
-            rows={4}
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
-          <input 
-            type="text" 
-            id="authors" 
-            name="authors" 
-            value={ipData.authors}
-            onChange={handleChange}
-            className="w-full border rounded p-2" 
-            required 
-          />
-          </div>
-        <div>
-          <label htmlFor="type" className="block mb-1 font-medium">IP Type</label>
-          <select 
-            id="type" 
-            name="type" 
-            value={ipData.ipType}
-            onChange={ (e:any) => {
-              setIpData((prev) => ({ ...prev, "ipType": e.target.value }));
-              console.log(e);
-            }}
-            className="w-full border rounded p-2"
-          >
-            <option value="patent">Patent</option>
-            <option value="trademark">Trademark</option>
-            <option value="copyright">Copyright</option>
-            <option value="trade_secret">Trade Secret</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="file" className="block mb-1 font-medium">Upload File</label>
-          <input 
-            type="file" 
-            id="file" 
-            name="file" 
-            className="w-full border rounded p-2" 
-          />
-        </div>
-        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center w-full">
-          <FilePlus className="h-5 w-5 mr-2" />
-        </button>
-      </form>
-      <div className="mt-8 bg-blue-100 p-4 rounded">
-        <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
-        <ul className="list-disc pl-5 space-y-2">
-          <li>Immutable proof of ownership and timestamp</li>
-          <li>Increased transparency and reduced fraud</li>
-          <li>Simplified licensing and transfer processes</li>
-          <li>Global accessibility and recognition</li>
-        </ul>
-      </div>
-    </div>
+    //   <form onSubmit={handleSubmit} className="space-y-6">
+    //     <div>
+    //       <label htmlFor="title" className="block mb-1 font-medium">Title</label>
+    //       <input 
+    //         type="text" 
+    //         id="title" 
+    //         name="title" 
+    //         value={ipData.title}
+    //         onChange={handleChange}
+    //         className="w-full border rounded p-2" 
+    //         required 
+    //       />
+    //       </div>
+    //     <div>
+    //       <label htmlFor="description" className="block mb-1 font-medium">Description</label>
+    //       <textarea 
+    //         id="description" 
+    //         name="description" 
+    //         value={ipData.description}
+    //         onChange={handleChange}
+    //         className="w-full border rounded p-2" 
+    //         rows={4}
+    //         required
+    //       ></textarea>
+    //     </div>
+    //     <div>
+    //       <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
+    //       <input 
+    //         type="text" 
+    //         id="authors" 
+    //         name="authors" 
+    //         value={ipData.authors}
+    //         onChange={handleChange}
+    //         className="w-full border rounded p-2" 
+    //         required 
+    //       />
+    //       </div>
+    //     <div>
+    //       <label htmlFor="type" className="block mb-1 font-medium">IP Type</label>
+    //       <select 
+    //         id="type" 
+    //         name="type" 
+    //         value={ipData.ipType}
+    //         onChange={ (e:any) => {
+    //           setIpData((prev) => ({ ...prev, "ipType": e.target.value }));
+    //           console.log(e);
+    //         }}
+    //         className="w-full border rounded p-2"
+    //       >
+    //         <option value="patent">Patent</option>
+    //         <option value="trademark">Trademark</option>
+    //         <option value="copyright">Copyright</option>
+    //         <option value="trade_secret">Trade Secret</option>
+    //       </select>
+    //     </div>
+    //     <div>
+    //       <label htmlFor="file" className="block mb-1 font-medium">Upload File</label>
+    //       <input 
+    //         type="file" 
+    //         id="file" 
+    //         name="file" 
+    //         className="w-full border rounded p-2" 
+    //       />
+    //     </div>
+    //     <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center w-full">
+    //       <FilePlus className="h-5 w-5 mr-2" />
+    //     </button>
+    //   </form>
+    //   <div className="mt-8 bg-blue-100 p-4 rounded">
+    //     <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
+    //     <ul className="list-disc pl-5 space-y-2">
+    //       <li>Immutable proof of ownership and timestamp</li>
+    //       <li>Increased transparency and reduced fraud</li>
+    //       <li>Simplified licensing and transfer processes</li>
+    //       <li>Global accessibility and recognition</li>
+    //     </ul>
+    //   </div>
+    // </div>
 
 
 
 
 
 
-        )}
-      </div>
+    //     )}
+    //   </div>
 
 
 
       
-    </>
+    // </>
+    <main className="w-full min-h-screen m-auto flex flex-col justify-center items-center">
+    <input type="file" onChange={handleChange} />
+    <button disabled={loading} onClick={handleSubmit}>
+      {loading ? "Uploading..." : "Upload"}
+    </button>
+  </main>
   );
 };
 
