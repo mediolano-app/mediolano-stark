@@ -11,7 +11,7 @@ export const config = {
 
 export async function POST(request: NextRequest){
   try{
-    
+
     // const data = await request.formData(); 
 
     const mockedData = {
@@ -23,6 +23,7 @@ export async function POST(request: NextRequest){
     };
 
     const data = request.json();
+    
     // const file: File | null = data.get("file") as unknown as File;
 
     console.log(data);
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest){
     const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
 
     console.log(mockedUrl);
-    
+
     const uploadData = await pinataClient.upload.json(data);
     const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
 
