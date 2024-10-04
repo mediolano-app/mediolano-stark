@@ -12,21 +12,14 @@ export const config = {
 
 export async function POST(request: NextRequest){
   try{
-    const data = await request.formData(); //ta dando alguma merda aqui com o get, ver o tipo 
-    //da variavel data que eh o que a gente recebe do request
-    // if(data == null){
-    //   return NextResponse.json(
-    //     { error: "Bad Request" },
-    //     { status: 401 }
-    //   );
-    // } else {
-      const file: File | null = data.get("file") as unknown as File;
-      const uploadData = await pinataClient.upload.file(file);
-      const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
+    
+    const data = await request.formData(); 
+    const file: File | null = data.get("file") as unknown as File;
+    const uploadData = await pinataClient.upload.file(file);
+    const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
 
-      console.log(url);
-      return NextResponse.json(url, { status: 200 });      
-    // }
+    console.log(url);
+    return NextResponse.json(url, { status: 200 });      
   } catch (e) {
     console.log(e);
     return NextResponse.json(

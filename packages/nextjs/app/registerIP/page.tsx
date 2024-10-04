@@ -125,7 +125,7 @@ const registerIP = () => {
       setLoading(true);
       const data = new FormData();
       data.set("file", file);
-      const uploadRequest = await fetch("/api/upload-ipfs", {
+      const uploadRequest = await fetch("/api/forms-ipfs", {
         method: "POST",
         body: data,
       });

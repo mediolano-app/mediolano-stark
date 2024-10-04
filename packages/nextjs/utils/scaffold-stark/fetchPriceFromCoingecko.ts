@@ -13,7 +13,7 @@ export const fetchPriceFromCoingecko = async (
 
   // Check cache first
   if (priceCache[symbol] !== undefined) {
-    console.log(`Returning cached price for ${symbol}`);
+    // console.log(`Returning cached price for ${symbol}`);
     return priceCache[symbol];
   }
 
@@ -37,16 +37,16 @@ const updatePriceCache = async (
       const data = await response.json();
       const price = symbol === "ETH" ? data.ethereum.usd : data.starknet.usd;
       priceCache[symbol] = price;
-      console.log(`Price updated for ${symbol}: ${price}`);
+      // console.log(`Price updated for ${symbol}: ${price}`);
       return price;
     } catch (error) {
       console.error(
-        `Attempt ${attempt + 1} - Error fetching ${symbol} price from Coingecko: `,
+        ``,
         error,
       );
       attempt++;
       if (attempt === retries) {
-        console.error(`Failed to fetch price after ${retries} attempts.`);
+        console.error(``);
         return priceCache[symbol] || 0;
       }
     }
@@ -56,7 +56,7 @@ const updatePriceCache = async (
 
 setInterval(() => {
   Object.keys(priceCache).forEach((symbol) => {
-    console.log(`Updating price for ${symbol}`);
+    // console.log(`Updating price for ${symbol}`);
     updatePriceCache(symbol);
   });
 }, 300000);
