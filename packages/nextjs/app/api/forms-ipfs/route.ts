@@ -23,13 +23,18 @@ export async function POST(request: NextRequest){
     };
 
     const data = request.json();
+
+    // const data2 = request.body;
     
     // const file: File | null = data.get("file") as unknown as File;
 
-    console.log(data);
-    
-    const uploadMockedData = await pinataClient.upload.json(mockedData);
-    const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
+    // console.log(data);
+    // console.log(data2);
+
+    console.log(request.body);
+
+    // const uploadMockedData = await pinataClient.upload.json(mockedData);
+    // const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
 
     // console.log(mockedUrl);
 

@@ -90,7 +90,6 @@ const uploadIP = () => {
     
     const { name, value } = e.target;
     setIpData((prev) => ({ ...prev, [name]: value }));
-    console.log(e.target);
   };
 
   const handleAuthorChange = (index: number, value: string) => {
@@ -106,14 +105,16 @@ const uploadIP = () => {
   };
 
   const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>
+    event: React.FormEvent
   ) => {    
+    console.log(ipData);
     event.preventDefault(); // Prevent form from refreshing the page
 
     setIsSubmitting(true);
     setError(null);
 
     const submitData = new FormData();
+    
     submitData.append('title', ipData.title);
     submitData.append('description', ipData.description);
     if (Array.isArray(ipData.authors)) {
@@ -122,21 +123,25 @@ const uploadIP = () => {
         })
       } else {
         // If authors is not an array, append it as a single value
-        submitData.append('authors', ipData.authors.toString())
+        submitData.append('authors', ipData.authors.toString());
       }
       
-      submitData.append('ipType', ipData.ipType)
-    submitData.append('ipType', ipData.ipType)
+    submitData.append('ipType', ipData.ipType);
     if (file) {
-      submitData.append('uploadFile', file);
+      submitData.set('uploadFile', file);
     }
 
     console.log(submitData);
+
+    for (let pair of submitData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
 
     try {
       const response = await fetch('/api/forms-ipfs', {
         method: 'POST',
         body: submitData,
+
       });
 
       if (!response.ok) {
@@ -242,6 +247,7 @@ const uploadIP = () => {
             type="file" 
             id="file" 
             name="file" 
+            onChange={handleFileChange}
             className="w-full border rounded p-2" 
           />
         </div>
