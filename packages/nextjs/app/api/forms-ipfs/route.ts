@@ -10,45 +10,53 @@ export const config = {
 };
 
 export async function POST(request: NextRequest){
-  try{
-
-    // const data = await request.formData(); 
-
-    const mockedData = {
-        title: 'mocktitle',
-        description: 'mockdescription',
-        authors: 'mockauthors',
-        ipType: 'mockiptype',
-        uploadFile:''
-    };
-
-    const data = request.json();
-
-    // const data2 = request.body;
-    
-    // const file: File | null = data.get("file") as unknown as File;
-
-    // console.log(data);
-    // console.log(data2);
-
-    console.log(request.body);
-
-    // const uploadMockedData = await pinataClient.upload.json(mockedData);
-    // const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
-
-    // console.log(mockedUrl);
-
-    const uploadData = await pinataClient.upload.json(data);
-    const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
-
-    console.log(url);
-
-    return NextResponse.json(url, { status: 200 });      
-  } catch (e) {
-    console.log(e);
+  if(!request.body || !request.json()){
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
+      { error: "Bad-Request" },
+      { status: 401 }
     );
+  }
+  else{
+    try{
+      const mockedData = {
+          title: 'mocktitle',
+          description: 'mockdescription',
+          authors: 'mockauthors',
+          ipType: 'mockiptype',
+          uploadFile:''
+      };
+  
+      // const data4 = JSON.parse(await request.json());
+      // console.log(data4);
+  
+      const data = request.json();
+      console.log(data);
+      console.log("--------------");
+      const data2 = request.body;
+      console.log(data2);
+      console.log("--------------");
+      const data3 = request.text();
+      console.log(data3);
+  
+      //const file: File | null = data.get("file") as unknown as File;
+      // const uploadMockedData = await pinataClient.upload.json(mockedData);
+      // const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
+      // console.log(mockedUrl);
+  
+      const uploadData = await pinataClient.upload.json(data2);
+      const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
+  
+      console.log(url);
+  
+      return NextResponse.json(url, { status: 200 });  
+      
+      // const data = await request.formData();
+    } catch (e) {
+      console.log(e);
+      return NextResponse.json(
+        { error: "Internal Server Error" },
+        { status: 500 }
+      );
+    } 
   }
 }

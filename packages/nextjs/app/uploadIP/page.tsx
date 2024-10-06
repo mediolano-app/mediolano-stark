@@ -137,11 +137,25 @@ const uploadIP = () => {
       console.log(`${pair[0]}: ${pair[1]}`);
     }
 
+    const submitJson = {};
+    submitData.forEach((value, key)=>{
+      if(submitJson[key]){
+        if(Array.isArray(submitJson[key])){
+          submitJson[key].push(value);
+        }
+        else{
+          submitJson[key] = [submitJson[key],value];
+        }
+      } else {
+        submitJson[key] = value;
+      }
+    });
+    console.log(submitJson);
+
     try {
       const response = await fetch('/api/forms-ipfs', {
         method: 'POST',
         body: submitData,
-
       });
 
       if (!response.ok) {
