@@ -29,9 +29,13 @@ export async function POST(request: NextRequest){
       // const data4 = JSON.parse(await request.json());
       // console.log(data4);
   
-      const data = request.json();
-      console.log(data);
-      console.log("--------------");
+      const data = await request.formData();
+
+      // const title = data.get('title') as unknown as string;
+      // const description = data.get('description') as unknown as string;
+      // const authors = data.getAll('authors');
+      // const ipType = data.get('ipType');
+      const uploadFile = data.get('uploadFile') as unknown as File; 
 
       // const data2 = request.body;
       // console.log(data2);
@@ -44,8 +48,16 @@ export async function POST(request: NextRequest){
       // const uploadMockedData = await pinataClient.upload.json(mockedData);
       // const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
       // console.log(mockedUrl);
-  
-      const uploadData = await pinataClient.upload.json(data);
+
+      const userObject = {
+        // title: title,
+        // description: description,
+        // authors: authors,
+        // ipType: ipType,
+        uploadFile: uploadFile
+      };
+
+      const uploadData = await pinataClient.upload.file(uploadFile);
       const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
   
       console.log(url);

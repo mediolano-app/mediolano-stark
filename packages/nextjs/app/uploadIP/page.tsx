@@ -159,7 +159,7 @@ const uploadIP = () => {
     try {
       const response = await fetch('/api/forms-ipfs', {
         method: 'POST',
-        body: submitString,
+        body: submitData,
       });
 
       if (!response.ok) {
