@@ -3,20 +3,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { IP } from '~~/app/registerIP/page';
 import { pinataClient } from '~~/utils/simpleNFT/pinataClient';
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export async function POST(request: NextRequest){
-  if(!request.body || !request.json()){
-    return NextResponse.json(
-      { error: "Bad-Request" },
-      { status: 401 }
-    );
-  }
-  else{
     try{
       const mockedData = {
           title: 'mocktitle',
@@ -31,11 +24,11 @@ export async function POST(request: NextRequest){
   
       const data = await request.formData();
 
-      // const title = data.get('title') as unknown as string;
-      // const description = data.get('description') as unknown as string;
-      // const authors = data.getAll('authors');
-      // const ipType = data.get('ipType');
-      const uploadFile = data.get('uploadFile') as unknown as File; 
+      const title = data.get('title') as unknown as string;
+      const description = data.get('description') as unknown as string;
+      const authors = data.getAll('authors');
+      const ipType = data.get('ipType');
+      const uploadFile: File | null = data.get('uploadFile') as unknown as File; 
 
       // const data2 = request.body;
       // console.log(data2);
@@ -50,14 +43,14 @@ export async function POST(request: NextRequest){
       // console.log(mockedUrl);
 
       const userObject = {
-        // title: title,
-        // description: description,
-        // authors: authors,
-        // ipType: ipType,
+        title: title,
+        description: description,
+        authors: authors,
+        ipType: ipType,
         uploadFile: uploadFile
       };
 
-      const uploadData = await pinataClient.upload.file(uploadFile);
+      const uploadData = await pinataClient.upload.json(userObject);
       const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
   
       console.log(url);
@@ -73,4 +66,3 @@ export async function POST(request: NextRequest){
       );
     } 
   }
-}

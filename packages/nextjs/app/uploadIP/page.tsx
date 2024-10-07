@@ -13,6 +13,8 @@ import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent, useRef} from "react";
 import { FilePlus } from 'lucide-react';
 import { id } from "ethers";
+import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
+
 // import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
@@ -55,34 +57,34 @@ const uploadIP = () => {
     watch: false,
   });
 
-  const handleMintItem = async () => {
-    setStatus("Minting NFT");
-    // circle back to the zero item if we've reached the end of the array
-    if (tokenIdCounter === undefined) {
-      setStatus("Mint NFT");
-      return;
-    }
+  // const handleMintItem = async () => {
+  //   setStatus("Minting NFT");
+  //   // circle back to the zero item if we've reached the end of the array
+  //   if (tokenIdCounter === undefined) {
+  //     setStatus("Mint NFT");
+  //     return;
+  //   }
 
-    const tokenIdCounterNumber = Number(tokenIdCounter);
+  //   const tokenIdCounterNumber = Number(tokenIdCounter);
     
-    const notificationId = notification.loading("Uploading to IPFS");
-    try {
+  //   const notificationId = notification.loading("Uploading to IPFS");
+  //   try {
 
-      // First remove previous loading notification and then show success notification
-      notification.remove(notificationId);
-      notification.success("Metadata uploaded to IPFS");
+  //     // First remove previous loading notification and then show success notification
+  //     notification.remove(notificationId);
+  //     notification.success("Metadata uploaded to IPFS");
 
-      await mintItem({
-        args: [connectedAddress, ipfsHash],
-      });
-      setStatus("Updating NFT List");
-      refetch();
-    } catch (error) {
-      notification.remove(notificationId);
-      console.error(error);
-      setStatus("Mint NFT");
-    }
-  };
+  //     await mintItem({
+  //       args: [connectedAddress, ipfsHash],
+  //     });
+  //     setStatus("Updating NFT List");
+  //     refetch();
+  //   } catch (error) {
+  //     notification.remove(notificationId);
+  //     console.error(error);
+  //     setStatus("Mint NFT");
+  //   }
+  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement
     | HTMLTextAreaElement>
@@ -127,6 +129,7 @@ const uploadIP = () => {
       }
       
     submitData.append('ipType', ipData.ipType);
+    
     if (file) {
       submitData.set('uploadFile', file);
     }
@@ -137,24 +140,8 @@ const uploadIP = () => {
       console.log(`${pair[0]}: ${pair[1]}`);
     }
 
-    // const submitJson = {};
-    // submitData.forEach((value, key)=>{
-    //   if(submitJson[key]){
-    //     if(Array.isArray(submitJson[key])){
-    //       submitJson[key].push(value);
-    //     }
-    //     else{
-    //       submitJson[key] = [submitJson[key],value];
-    //     }
-    //   } else {
-    //     submitJson[key] = value;
-    //   }
-    // });
 
-    // console.log(submitJson);
-
-    // const submitString = JSON.stringify(submitJson);
-    // console.log(submitString);
+    console.log(pinataClient);
 
     try {
       const response = await fetch('/api/forms-ipfs', {
@@ -180,7 +167,7 @@ const uploadIP = () => {
         setIsSubmitting(false);
     }
 
-    handleMintItem();
+    // handleMintItem();
 
   };
 
