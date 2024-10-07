@@ -10,9 +10,12 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWri
 import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
-import { useState } from "react";
-import { FilePlus } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+import { useState, FormEvent, useRef} from "react";
+import { FilePlus } from 'lucide-react';
+import { id } from "ethers";
+import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
+
+// import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
@@ -21,23 +24,39 @@ export interface IP{
   description: string,
   authors: string[],
   ipType: IPType,
-  uploadFile?: any,
+  uploadFile?: File,
 }
 
 
-const registerIP = () => {
+const uploadIP = () => {
+
+  const router = useRouter();
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
   const [ipfsHash, setipfsHash] = useState("");
+  const baseUrl = process.env.HOST;
   const [loading, setLoading] = useState(false);
+  const [ipData, setIpData] = useState<IP>({
+    title: '',
+    description: '',
+    authors: [],
+    ipType: '',
+    });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const [file, setFile] = useState<File>();
-
+  const [file, setFile] = useState<File | null>(null);
   const { writeAsync: mintItem } = useScaffoldWriteContract({
     contractName: "YourCollectible",
     functionName: "mint_item",
     args: [connectedAddress, ""],
   });
+
+  // const {writeAsync: setTokenUri} = useScaffoldWriteContract({
+  //   contractName: "YourCollectible",
+  //   functionName: "set_token_uri",
+  //   args: [connectedAddress, ""],
+  // });
 
   const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
     contractName: "YourCollectible",
@@ -45,7 +64,9 @@ const registerIP = () => {
     watch: false,
   });
 
-  const handleMintItem = async () => {
+  const handleMintItem = async (
+
+  ) => {
     setStatus("Minting NFT");
     // circle back to the zero item if we've reached the end of the array
     if (tokenIdCounter === undefined) {
@@ -63,11 +84,10 @@ const registerIP = () => {
       notification.success("Metadata uploaded to IPFS");
 
       await mintItem({
-        args: [connectedAddress, ipfsHash],
+        args: [connectedAddress, baseUrl + ipfsHash],
       });
       setStatus("Updating NFT List");
       refetch();
-      setRoute();
     } catch (error) {
       notification.remove(notificationId);
       console.error(error);
@@ -75,133 +95,128 @@ const registerIP = () => {
     }
   };
 
-  const router = useRouter();
+  // const handleSetTokenUri = async (url: string) => {
+  //   setStatus("Setting token URI");
+  //   if(tokenIdCounter == undefined){
+  //     setStatus("Set token URI");
+  //     return;
+  //   }
+  //   const tokenIdCounterNumber = Number(tokenIdCounter);
+  //   try {
+  //     await 
+  //   }
+  // }
 
-  const[count, setCount] = useState(0)
-
-  const [ipData, setIpData] = useState<IP>({
-  title: '',
-  description: '',
-  authors: [],
-  ipType: '',
-  });
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>
-    // | HTMLTextAreaElement>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement
+    | HTMLTextAreaElement>
   ) => {
     
-    // const { name, value } = e.target;
-    // setIpData((prev) => ({ ...prev, [name]: value }));
-    // console.log(e.target);
-
-    setFile(e.target?.files?.[0]);
-
+    const { name, value } = e.target;
+    setIpData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const getNextSubmissionId = () => {
-    setCount(count + 1)
-    return count 
+  const handleAuthorChange = (index: number, value: string) => {
+    const newAuthors = [...ipData.authors]
+    newAuthors[index] = value
+    setIpData(prev => ({ ...prev, authors: newAuthors }))
   };
 
-  const setRoute = () => {
-    const id = getNextSubmissionId();
-    console.log("setRoute ativado");
-    router.push(`/myIPs`);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
-
 
   const handleSubmit = async (
-    // event: FormEvent<HTMLFormElement>
-  ) => {
-    // event.preventDefault(); // Prevent form from refreshing the page
-    try {
-      if (!file) {
-        alert("No file selected");
-        return;
+    event: React.FormEvent
+  ) => {    
+    console.log(ipData);
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    setIsSubmitting(true);
+    setError(null);
+
+    const submitData = new FormData();
+    
+    submitData.append('title', ipData.title);
+    submitData.append('description', ipData.description);
+    if (Array.isArray(ipData.authors)) {
+        ipData.authors.forEach((author, index) => {
+          submitData.append(`authors[${index}]`, author)
+        })
+      } else {
+        // If authors is not an array, append it as a single value
+        submitData.append('authors', ipData.authors.toString());
       }
-
-      setLoading(true);
-      const data = new FormData();
-      data.set("file", file);
-      const uploadRequest = await fetch("/api/forms-ipfs", {
-        method: "POST",
-        body: data,
-      });
-      const ipfsUrl = await uploadRequest.json();
-      setipfsHash(ipfsUrl);
-      setLoading(false);
-    } catch (e) {
-      console.log(e);
-      setLoading(false);
-      alert("Trouble uploading file");
+      
+    submitData.append('ipType', ipData.ipType);
+    
+    if (file) {
+      submitData.set('uploadFile', file);
     }
-    // try {
-    //   const response = await fetch('/api/upload-ipfs', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(ipData),
-    //   });
-    //   console.log("POST done, waiting for response");
-    //   const data = await response.json();
-    //   setipfsHash(data.metadataHash);
 
-    // } catch (error) {
-    //   console.error('Error uploading to IPFS:', error);
-    // }
-    // setLoading(false);
+    console.log(submitData);
+
+    for (let pair of submitData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
 
 
-    // const formData = new FormData(event.currentTarget); // Use FormData to access form fields
-  
-    // const title = formData.get("title") as string;
-    // const description = formData.get("description") as string;
-    // const authors = (formData.get("authors") as string).split(",").map(author => author.trim());
-    // const ipType = formData.get("type") as IPType;
-    // const uploadFile = formData.get("file") as File;
-  
-    // const ip: IP = {
-    //   title,
-    //   description,
-    //   authors,
-    //   ipType,
-    //   uploadFile,
-    // };
+    console.log(pinataClient);
 
-    handleMintItem();
+    try {
+      const response = await fetch('/api/forms-ipfs', {
+        method: 'POST',
+        body: submitData,
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to submit IP')
+      }
+      console.log('IP submitted successfully');
+      console.log(response.body);
+      console.log("POST done, waiting for response");
+
+      
+      const data = await response.json();
+      
+      // console.log(data);
+      // console.log(data.url);
+      
+      setipfsHash(data.ipfsHash);
+      
+      handleMintItem();
+
+      // handleSetTokenUri(data.url);
+
+    } catch (err) {
+        setError('Failed to submit IP. Please try again.');
+    } finally {
+        setIsSubmitting(false);
+    }
   };
 
   
   return (
-
     <>
       <div className="flex items-center flex-col pt-10">
-        <div className="">
-        <h1 className="text-3xl font-bold mb-6">Register Your Asset</h1>
+        <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
+        <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
+
         </div>
-      </div>      
-   
-    //   <div className="flex justify-center">
-    //     {!isConnected || isConnecting ? (
-    //       <CustomConnectButton />
-    //     ) : (
+      </div>
+      
+      
+      <div className="flex justify-center">
+        {!isConnected || isConnecting ? (
+          <CustomConnectButton />
+        ) : (
          
 
-
-      <div className="">
-
-      <Card className="bg-main border-accent/50 rounded-full" >
-        <CardHeader>
-          <CardTitle>Your Intellectual Property</CardTitle>
-          <CardDescription>Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</CardDescription>
-        </CardHeader>
-        <CardContent>
-
-
-      <form className="space-y-6">
+          <div className="max-w-2xl mx-auto">
+     
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block mb-1 font-medium">Title</label>
           <input 
@@ -262,6 +277,7 @@ const registerIP = () => {
             type="file" 
             id="file" 
             name="file" 
+            onChange={handleFileChange}
             className="w-full border rounded p-2" 
           />
         </div>
@@ -269,13 +285,6 @@ const registerIP = () => {
           <FilePlus className="h-5 w-5 mr-2" />
         </button>
       </form>
-
-      </CardContent>
-        <CardFooter className="flex justify-between">
-        </CardFooter>
-      </Card>
-
-      
       <div className="mt-8 bg-blue-100 p-4 rounded">
         <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
         <ul className="list-disc pl-5 space-y-2">
@@ -294,14 +303,12 @@ const registerIP = () => {
 
         )}
       </div>
-    // </>
-    <main className="w-full min-h-screen m-auto flex flex-col justify-center items-center">
-    <input type="file" onChange={handleChange} />
-    <button disabled={loading} onClick={handleSubmit}>
-      {loading ? "Uploading..." : "Upload"}
-    </button>
-  </main>
+
+
+
+      
+    </>
   );
 };
 
-export default registerIP;
+export default uploadIP;
