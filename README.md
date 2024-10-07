@@ -2,7 +2,7 @@
 
 <h4 align="center">
   <a href="https://docs.mediolano.app/">Documentation (Soon)</a> |
-  <a href="https://www.mediolano.com.br/">Institutional Website</a> |
+  <a href="https://mediolano.com.br/">Institutional Website</a> |
   <a href="#">Demo (Soon)</a>
 </h4>
 
@@ -120,8 +120,7 @@ yarn test
 
 #### Configuration of Third-Party Services for Production-Grade Apps
 
-By default, 🏗 Scaffold-Stark provides predefined Open API endpoint for some services such as Blast. This allows you to begin developing and testing your applications more easily, avoiding the need to register for these services.
-This is great to complete your **SpeedRunStark**.
+By default, Scaffold-Stark provides predefined Open API endpoint for some services such as Blast. This allows you to begin developing and testing your applications more easily, avoiding the need to register for these services.
 
 For production-grade applications, it's recommended to obtain your own API keys (to prevent rate limiting issues). You can configure these at:
 

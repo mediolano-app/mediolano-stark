@@ -119,7 +119,10 @@ const listingIP: NextPage = () => {
 
 
           
-<div className="container py-12 max-w-7xl mx-auto">
+  <div className="container py-12 max-w-7xl mx-auto">
+
+
+
       <h1 className="text-2xl font-bold mb-8">IP Listings Marketplace</h1>
       
       <div className="flex items-center space-x-4 mb-8">
@@ -135,7 +138,7 @@ const listingIP: NextPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {filteredListings.map((listing) => (
-          <Card key={listing.id}>
+          <Card className="bg-main" key={listing.id}>
             <CardHeader>
               <CardTitle>{listing.title}</CardTitle>
               <div className="flex justify-between items-center">
@@ -153,11 +156,16 @@ const listingIP: NextPage = () => {
         ))}
       </div>
 
+
+      <hr></hr>
+      <br></br>
+      <br></br>
+
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6">Features and Benefits</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {features.map((feature, index) => (
-            <Card key={index}>
+            <Card key={index} className="bg-main">
               <CardHeader>
                 <CardTitle>{feature.title}</CardTitle>
               </CardHeader>
@@ -169,15 +177,19 @@ const listingIP: NextPage = () => {
         </div>
       </section>
 
-      <section className="text-center">
-        <h2 className="text-3xl font-bold mb-4">Ready to Buy or Sell IP?</h2>
-        <p className="mb-6">Join our marketplace and start trading intellectual property today!</p>
+      <br></br>
+      <hr></hr>
+      <br></br>
+
+      <section className="text-center py-10">
+        <h2 className="text-3xl font-bold mb-4">Ready to step up?</h2>
+        <p className="mb-6">Start trading intellectual property today!</p>
         <div className="space-x-4">
           <Button>
-            <Link href="/register">List Your IP</Link>
+            <Link href="/registerIP">Register New</Link>
           </Button>
           <Button variant="outline">
-            <Link href="/browse">Browse Listings</Link>
+            <Link href="/licensingIP">Licensing Your IP</Link>
           </Button>
         </div>
       </section>

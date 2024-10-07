@@ -11,3 +11,6 @@ mod test {
 mod mock_contracts {
     pub mod Receiver;
 }
+
+mod IPNFT;
+

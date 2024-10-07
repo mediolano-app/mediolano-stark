@@ -11,7 +11,8 @@ import {
   RectangleGroupIcon,
   BanknotesIcon,
   CubeIcon,
-  Square2StackIcon
+  Square2StackIcon,
+  CogIcon
 } from "@heroicons/react/24/outline";
 import { useOutsideClick } from "~~/hooks/scaffold-stark";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
@@ -37,7 +38,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "New IP",
-    href: "/registerIP",
+    href: "/ipfsUpload",
     icon: <CubeIcon className="h-4 w-4" />,
   },
   {
@@ -47,7 +48,7 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "Licensing",
-    href: "/licensingIP",
+    href: "/ipfsDownload",
     icon: <Square2StackIcon className="h-4 w-4" />,
   },
   {
@@ -55,10 +56,15 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/monetizeIP",
     icon: <BanknotesIcon className="h-4 w-4" />,
   },
-  {
+ /*{
     label: "Transfers",
     href: "/transfers",
     icon: <ArrowPathIcon className="h-4 w-4" />,
+  },*/
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: <CogIcon className="h-4 w-4" />,
   },
   // {
   //   label: "IPFS Upload",

@@ -84,7 +84,7 @@ module.exports = {
             background: "#000000",
           },
           ".bg-main": {
-            background: "rgba(255, 255, 255, 0.80)",
+            background: "rgba(255, 255, 255, 0.85)",
           },
           ".bg-underline": {
             background:
@@ -133,13 +133,13 @@ module.exports = {
         dark: {
           primary: "#212638",
           "primary-content": "#DAE8FF",
-          secondary: "#8b45fd",
+          secondary: "#020e96",
           "secondary-content": "#0FF",
           accent: "#4969A6",
           "accent-content": "#F9FBFF",
           neutral: "#F9FBFF",
           "neutral-content": "#385183",
-          "base-100": "#1C223B",
+          "base-100": "#070a1a",
           "base-200": "#2A3655",
           "base-300": "#141a30",
           "base-content": "#F9FBFF",
@@ -155,10 +155,10 @@ module.exports = {
           },
           ".bg-gradient-nav": {
             "background-image":
-              "var(--gradient, linear-gradient(90deg, #42D2F1 0%, #B248DD 100%))",
+              "var(--gradient, linear-gradient(90deg, #15286e 0%, #112c78 100%))",
           },
           ".bg-main": {
-            background: "rgba(0, 0, 255, 0.50)",
+            background: "rgba(0, 0, 5, 0.75)",
           },
           ".bg-underline": {
             background: "#5368B4",
@@ -227,4 +227,4 @@ module.exports = {
       },
     },
   },
-};
+};  
