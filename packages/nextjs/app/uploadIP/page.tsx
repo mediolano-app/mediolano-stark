@@ -158,6 +158,7 @@ const uploadIP = () => {
 
       
       const data = await response.json();
+      console.log(data);
       setipfsHash(data.metadataHash);
 
     

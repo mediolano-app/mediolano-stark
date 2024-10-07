@@ -53,7 +53,9 @@ export async function POST(request: NextRequest){
       const uploadData = await pinataClient.upload.json(userObject);
       const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
   
-      console.log(url);
+      console.log(url); 
+
+      //aqui eu chamo a função de MINTAR
   
       return NextResponse.json(url, { status: 200 });  
       
