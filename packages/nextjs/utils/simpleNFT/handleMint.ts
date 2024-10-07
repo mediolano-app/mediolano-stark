@@ -32,11 +32,30 @@ const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
   });
 
 export async function handleMint(url: string){
-    //depois, setar a url
+  // setStatus("Minting NFT");
+  //   // circle back to the zero item if we've reached the end of the array
+  //   if (tokenIdCounter === undefined) {
+  //     setStatus("Mint NFT");
+  //     return;
+  //   }
 
-    // circle back to the zero item if we've reached the end of the array
-    if (tokenIdCounter === undefined) {
-      setStatus("Mint NFT");
-      return;
-    }    
+  //   const tokenIdCounterNumber = Number(tokenIdCounter);
+    
+  //   const notificationId = notification.loading("Uploading to IPFS");
+  //   try {
+
+  //     // First remove previous loading notification and then show success notification
+  //     notification.remove(notificationId);
+  //     notification.success("Metadata uploaded to IPFS");
+
+  //     await mintItem({
+  //       args: [connectedAddress, ipfsHash],
+  //     });
+  //     setStatus("Updating NFT List");
+  //     refetch();
+  //   } catch (error) {
+  //     notification.remove(notificationId);
+  //     console.error(error);
+  //     setStatus("Mint NFT");
+  //   }
 };

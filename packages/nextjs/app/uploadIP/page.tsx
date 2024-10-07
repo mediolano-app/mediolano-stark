@@ -34,6 +34,7 @@ const uploadIP = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
   const [ipfsHash, setipfsHash] = useState("");
+  const baseUrl = process.env.HOST;
   const [loading, setLoading] = useState(false);
   const [ipData, setIpData] = useState<IP>({
     title: '',
@@ -51,40 +52,60 @@ const uploadIP = () => {
     args: [connectedAddress, ""],
   });
 
+  // const {writeAsync: setTokenUri} = useScaffoldWriteContract({
+  //   contractName: "YourCollectible",
+  //   functionName: "set_token_uri",
+  //   args: [connectedAddress, ""],
+  // });
+
   const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
     contractName: "YourCollectible",
     functionName: "current",
     watch: false,
   });
 
-  // const handleMintItem = async () => {
-  //   setStatus("Minting NFT");
-  //   // circle back to the zero item if we've reached the end of the array
-  //   if (tokenIdCounter === undefined) {
-  //     setStatus("Mint NFT");
+  const handleMintItem = async (
+
+  ) => {
+    setStatus("Minting NFT");
+    // circle back to the zero item if we've reached the end of the array
+    if (tokenIdCounter === undefined) {
+      setStatus("Mint NFT");
+      return;
+    }
+
+    const tokenIdCounterNumber = Number(tokenIdCounter);
+    
+    const notificationId = notification.loading("Uploading to IPFS");
+    try {
+
+      // First remove previous loading notification and then show success notification
+      notification.remove(notificationId);
+      notification.success("Metadata uploaded to IPFS");
+
+      await mintItem({
+        args: [connectedAddress, baseUrl + ipfsHash],
+      });
+      setStatus("Updating NFT List");
+      refetch();
+    } catch (error) {
+      notification.remove(notificationId);
+      console.error(error);
+      setStatus("Mint NFT");
+    }
+  };
+
+  // const handleSetTokenUri = async (url: string) => {
+  //   setStatus("Setting token URI");
+  //   if(tokenIdCounter == undefined){
+  //     setStatus("Set token URI");
   //     return;
   //   }
-
   //   const tokenIdCounterNumber = Number(tokenIdCounter);
-    
-  //   const notificationId = notification.loading("Uploading to IPFS");
   //   try {
-
-  //     // First remove previous loading notification and then show success notification
-  //     notification.remove(notificationId);
-  //     notification.success("Metadata uploaded to IPFS");
-
-  //     await mintItem({
-  //       args: [connectedAddress, ipfsHash],
-  //     });
-  //     setStatus("Updating NFT List");
-  //     refetch();
-  //   } catch (error) {
-  //     notification.remove(notificationId);
-  //     console.error(error);
-  //     setStatus("Mint NFT");
+  //     await 
   //   }
-  // };
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement
     | HTMLTextAreaElement>
@@ -158,18 +179,21 @@ const uploadIP = () => {
 
       
       const data = await response.json();
-      console.log(data);
+      
+      // console.log(data);
+      // console.log(data.url);
+      
       setipfsHash(data.ipfsHash);
+      
+      handleMintItem();
 
-    
+      // handleSetTokenUri(data.url);
+
     } catch (err) {
         setError('Failed to submit IP. Please try again.');
     } finally {
         setIsSubmitting(false);
     }
-
-    // handleMintItem();
-
   };
 
   
