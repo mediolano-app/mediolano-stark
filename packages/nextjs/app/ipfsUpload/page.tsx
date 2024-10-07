@@ -1,163 +1,314 @@
 "use client";
 
-import { lazy, useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Correct import for client-side navigation
 import type { NextPage } from "next";
-import { notification } from "~~/utils/scaffold-stark/notification";
+import { useAccount } from "@starknet-react/core";
+import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
+import { MyHoldings } from "~~/components/SimpleNFT/MyHoldings";
+import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
+import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
+import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
-import { Collectible } from "~~/components/SimpleNFT/MyHoldings";
+import { useState, FormEvent, useRef} from "react";
+import { FilePlus } from 'lucide-react';
+import { id } from "ethers";
+import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
 
-import { Button } from "~~/components/ui/button"
-import { Input } from "~~/components/ui/input"
-import { Textarea } from "~~/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
-import { Select } from "~~/components/ui/select"
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
+// import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
 
-const LazyReactJson = lazy(() => import("react-json-view"));
+export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
-const NFTCard = ({ nft }: { nft: Collectible }) => {
-  const [transferToAddress, setTransferToAddress] = useState("");
+export interface IP{
+  title: string,
+  description: string,
+  authors: string[],
+  ipType: IPType,
+  uploadFile?: File,
+}
 
-  const { writeAsync: transferNFT } = useScaffoldWriteContract({
+
+const uploadIP = () => {
+
+  const router = useRouter();
+  const { address: connectedAddress, isConnected, isConnecting } = useAccount();
+  const [status, setStatus] = useState("Mint NFT");
+  const [ipfsHash, setipfsHash] = useState("");
+  const baseUrl = process.env.HOST;
+  const [loading, setLoading] = useState(false);
+  const [ipData, setIpData] = useState<IP>({
+    title: '',
+    description: '',
+    authors: [],
+    ipType: '',
+    });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [file, setFile] = useState<File | null>(null);
+  const { writeAsync: mintItem } = useScaffoldWriteContract({
     contractName: "YourCollectible",
-    functionName: "transfer_from",
-    args: [nft.owner, transferToAddress, BigInt(nft.id.toString())],
+    functionName: "mint_item",
+    args: [connectedAddress, ""],
   });
 
-  const wrapInTryCatch =
-    (fn: () => Promise<any>, errorMessageFnDescription: string) => async () => {
-      try {
-        await fn();
-      } catch (error) {
-        console.error(
-          `Error calling ${errorMessageFnDescription} function`,
-          error,
-        );
-      }
-    };
-  }
+  // const {writeAsync: setTokenUri} = useScaffoldWriteContract({
+  //   contractName: "YourCollectible",
+  //   functionName: "set_token_uri",
+  //   args: [connectedAddress, ""],
+  // });
 
+  const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
+    contractName: "YourCollectible",
+    functionName: "current",
+    watch: false,
+  });
 
-const IpfsUpload: NextPage = () => {
-  const [yourJSON, setYourJSON] = useState<object>(nftsMetadata[0]);
-  const [loading, setLoading] = useState(false);
-  const [uploadedIpfsPath, setUploadedIpfsPath] = useState("");
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleMintItem = async (
 
-  const handleIpfsUpload = async () => {
-    setLoading(true);
-    const notificationId = notification.loading("Uploading to IPFS...");
+  ) => {
+    setStatus("Minting NFT");
+    // circle back to the zero item if we've reached the end of the array
+    if (tokenIdCounter === undefined) {
+      setStatus("Mint NFT");
+      return;
+    }
+
+    const tokenIdCounterNumber = Number(tokenIdCounter);
+    
+    const notificationId = notification.loading("Uploading to IPFS");
     try {
-      const uploadedItem = await addToIPFS(yourJSON);
-      notification.remove(notificationId);
-      notification.success("Uploaded to IPFS");
 
-      setUploadedIpfsPath(uploadedItem.path);
+      // First remove previous loading notification and then show success notification
+      notification.remove(notificationId);
+      notification.success("Metadata uploaded to IPFS");
+
+      await mintItem({
+        args: [connectedAddress, baseUrl + ipfsHash],
+      });
+      setStatus("Updating NFT List");
+      refetch();
     } catch (error) {
       notification.remove(notificationId);
-      notification.error("Error uploading to IPFS");
-      console.log(error);
-    } finally {
-      setLoading(false);
+      console.error(error);
+      setStatus("Mint NFT");
     }
   };
 
+  // const handleSetTokenUri = async (url: string) => {
+  //   setStatus("Setting token URI");
+  //   if(tokenIdCounter == undefined){
+  //     setStatus("Set token URI");
+  //     return;
+  //   }
+  //   const tokenIdCounterNumber = Number(tokenIdCounter);
+  //   try {
+  //     await 
+  //   }
+  // }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement
+    | HTMLTextAreaElement>
+  ) => {
+    
+    const { name, value } = e.target;
+    setIpData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAuthorChange = (index: number, value: string) => {
+    const newAuthors = [...ipData.authors]
+    newAuthors[index] = value
+    setIpData(prev => ({ ...prev, authors: newAuthors }))
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (
+    event: React.FormEvent
+  ) => {    
+    console.log(ipData);
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    setIsSubmitting(true);
+    setError(null);
+
+    const submitData = new FormData();
+    
+    submitData.append('title', ipData.title);
+    submitData.append('description', ipData.description);
+    if (Array.isArray(ipData.authors)) {
+        ipData.authors.forEach((author, index) => {
+          submitData.append(`authors[${index}]`, author)
+        })
+      } else {
+        // If authors is not an array, append it as a single value
+        submitData.append('authors', ipData.authors.toString());
+      }
+      
+    submitData.append('ipType', ipData.ipType);
+    
+    if (file) {
+      submitData.set('uploadFile', file);
+    }
+
+    console.log(submitData);
+
+    for (let pair of submitData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+
+
+    console.log(pinataClient);
+
+    try {
+      const response = await fetch('/api/forms-ipfs', {
+        method: 'POST',
+        body: submitData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit IP')
+      }
+      console.log('IP submitted successfully');
+      console.log(response.body);
+      console.log("POST done, waiting for response");
+
+      
+      const data = await response.json();
+      
+      // console.log(data);
+      // console.log(data.url);
+      
+      setipfsHash(data.ipfsHash);
+      
+      handleMintItem();
+
+      // handleSetTokenUri(data.url);
+
+    } catch (err) {
+        setError('Failed to submit IP. Please try again.');
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
+
+  
   return (
     <>
-      
-      <div>
+      <div className="flex items-center flex-col pt-10">
+        <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
+        <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
 
-      <div className="flex items-center flex-col flex-grow pt-10">
-      <h1 className="text-3xl font-bold mb-6">Register Your Asset</h1>
+        </div>
       </div>
-
       
-      <div className="flex items-center flex-col flex-grow pt-10">
-      <Card className="bg-main border-accent/50 rounded-full" >
-        <CardHeader>
-          <CardTitle>1st - Upload Your Metadata to IPFS</CardTitle>
-          <CardDescription>Save your information to a descentralized server.</CardDescription>
-        </CardHeader>
-        <CardContent>
-  
+      
+      <div className="flex justify-center">
+        {!isConnected || isConnecting ? (
+          <CustomConnectButton />
+        ) : (
+         
 
-        {mounted && (
-          <LazyReactJson
-            style={{ padding: "1rem", borderRadius: "0.75rem", fontSize:"20px" }}
-            src={yourJSON}
-            theme="flat"
-            displayDataTypes={false}
-            quotesOnKeys={false}
-            displayObjectSize={false}
-            enableClipboard={false}
-            onEdit={(edit) => {
-              setYourJSON(edit.updated_src);
-            }}
-            onAdd={(add) => {
-              setYourJSON(add.updated_src);
-            }}
-            onDelete={(del) => {
-              setYourJSON(del.updated_src);
-            }}
-          />
-        )}
-        <button
-          className={`btn btn-secondary text-white my-4 ${loading ? "loading" : ""}`}
-          disabled={loading}
-          onClick={handleIpfsUpload}
-        >
-          Upload to IPFS
-        </button>
-       
+          <div className="max-w-2xl mx-auto">
      
-
-      </CardContent>
-        <CardFooter className="flex justify-between">
-        </CardFooter>
-      </Card>
-
-       </div> 
-
-
-       <div className="flex items-center flex-col flex-grow pt-10">
-       <Card className="bg-main border-accent/50 rounded-full" >
-        <CardHeader>
-          <CardTitle>2nd - Generate your Asset as NFT</CardTitle>
-          <CardDescription>Your property will be protected as a smart contract.</CardDescription>
-        </CardHeader>
-        <CardContent>
-        {uploadedIpfsPath && (
-          <div className="mt-4">
-            <p>Metadata onChain:</p>
-            <a
-              href={`https://ipfs.io/ipfs/${uploadedIpfsPath}`}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-primary"
-            >
-              {`https://ipfs.io/ipfs/${uploadedIpfsPath}`}
-            </a>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="title" className="block mb-1 font-medium">Title</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            value={ipData.title}
+            onChange={handleChange}
+            className="w-full border rounded p-2" 
+            required 
+          />
           </div>
+        <div>
+          <label htmlFor="description" className="block mb-1 font-medium">Description</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            value={ipData.description}
+            onChange={handleChange}
+            className="w-full border rounded p-2" 
+            rows={4}
+            required
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
+          <input 
+            type="text" 
+            id="authors" 
+            name="authors" 
+            value={ipData.authors}
+            onChange={handleChange}
+            className="w-full border rounded p-2" 
+            required 
+          />
+          </div>
+        <div>
+          <label htmlFor="type" className="block mb-1 font-medium">IP Type</label>
+          <select 
+            id="type" 
+            name="type" 
+            value={ipData.ipType}
+            onChange={ (e:any) => {
+              setIpData((prev) => ({ ...prev, "ipType": e.target.value }));
+              console.log(e);
+            }}
+            className="w-full border rounded p-2"
+          >
+            <option value="patent">Patent</option>
+            <option value="trademark">Trademark</option>
+            <option value="copyright">Copyright</option>
+            <option value="trade_secret">Trade Secret</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="file" className="block mb-1 font-medium">Upload File</label>
+          <input 
+            type="file" 
+            id="file" 
+            name="file" 
+            onChange={handleFileChange}
+            className="w-full border rounded p-2" 
+          />
+        </div>
+        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center w-full">
+          <FilePlus className="h-5 w-5 mr-2" />
+        </button>
+      </form>
+      <div className="mt-8 bg-blue-100 p-4 rounded">
+        <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
+        <ul className="list-disc pl-5 space-y-2">
+          <li>Immutable proof of ownership and timestamp</li>
+          <li>Increased transparency and reduced fraud</li>
+          <li>Simplified licensing and transfer processes</li>
+          <li>Global accessibility and recognition</li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+
+
         )}
-        
-        
-        
-      </CardContent>
-        <CardFooter className="flex justify-between">
-        </CardFooter>
-      </Card>
       </div>
 
 
 
-
-      </div>
+      
     </>
   );
 };
 
-export default IpfsUpload;
+export default uploadIP;

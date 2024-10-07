@@ -4,9 +4,10 @@ import { AddressInput } from "../scaffold-stark";
 import { Address } from "../scaffold-stark";
 import { Address as AddressType } from "@starknet-react/chains";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
+import { useRouter } from "next/navigation";
 export const NFTCard = ({ nft }: { nft: Collectible }) => {
   const [transferToAddress, setTransferToAddress] = useState("");
-
+  const router = useRouter();
   const { writeAsync: transferNFT } = useScaffoldWriteContract({
     contractName: "YourCollectible",
     functionName: "transfer_from",
@@ -24,7 +25,10 @@ export const NFTCard = ({ nft }: { nft: Collectible }) => {
         );
       }
     };
-
+  
+  const routeToIpfs = () => {
+    //in development
+  }
   return (
     <div className="card bg-base-100 sm:min-w-[300px] max-w-[410px] p-2 m-2">
       <figure className="relative rounded-t-[15px]">
@@ -65,6 +69,14 @@ export const NFTCard = ({ nft }: { nft: Collectible }) => {
             placeholder="receiver address"
             onChange={(newValue) => setTransferToAddress(newValue)}
           />
+        </div>
+        <div className="card-actions justify-end">
+          <button
+            className="btn btn-secondary btn-md px-8 tracking-wide text-white"
+            onClick={routeToIpfs}
+          >
+            See Metadata
+          </button>
         </div>
         <div className="card-actions justify-end">
           <button
