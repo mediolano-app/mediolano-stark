@@ -150,12 +150,16 @@ const uploadIP = () => {
         submitJson[key] = value;
       }
     });
+
     console.log(submitJson);
+
+    const submitString = JSON.stringify(submitJson);
+    console.log(submitString);
 
     try {
       const response = await fetch('/api/forms-ipfs', {
         method: 'POST',
-        body: submitData,
+        body: submitString,
       });
 
       if (!response.ok) {

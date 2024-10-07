@@ -32,18 +32,20 @@ export async function POST(request: NextRequest){
       const data = request.json();
       console.log(data);
       console.log("--------------");
-      const data2 = request.body;
-      console.log(data2);
-      console.log("--------------");
-      const data3 = request.text();
-      console.log(data3);
+
+      // const data2 = request.body;
+      // console.log(data2);
+
+      // console.log("--------------");
+      // const data3 = request.text();
+      // console.log(data3);
   
       //const file: File | null = data.get("file") as unknown as File;
       // const uploadMockedData = await pinataClient.upload.json(mockedData);
       // const mockedUrl = await pinataClient.gateways.convert(uploadMockedData.IpfsHash);
       // console.log(mockedUrl);
   
-      const uploadData = await pinataClient.upload.json(data2);
+      const uploadData = await pinataClient.upload.json(data);
       const url = await pinataClient.gateways.convert(uploadData.IpfsHash);
   
       console.log(url);
