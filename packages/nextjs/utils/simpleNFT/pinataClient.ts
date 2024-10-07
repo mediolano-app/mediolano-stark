@@ -6,9 +6,4 @@ import path from 'path';
 export const pinataClient = new PinataSDK({
   pinataJwt: process.env.PINATA_JWT as string,
   pinataGateway: process.env.HOST as string,
-<<<<<<< HEAD
 });
-=======
-});
-
->>>>>>> origin/main
