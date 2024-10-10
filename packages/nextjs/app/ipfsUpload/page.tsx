@@ -16,7 +16,6 @@ import { id } from "ethers";
 import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
 
 // import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
-
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
 export interface IP{
@@ -187,6 +186,7 @@ const uploadIP = () => {
       
       handleMintItem();
 
+      router.push("/myIPs");
       // handleSetTokenUri(data.url);
 
     } catch (err) {

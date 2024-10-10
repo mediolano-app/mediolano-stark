@@ -10,55 +10,75 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
+import { useContractRead } from "@starknet-react/core";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+import useTokenURILoader from '~~/hooks/useTokenURILoader'
+import MyIPCard from './MyIPCard';
 
 
 const MyIPs: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
   const [status, setStatus] = useState("Mint NFT");
 
-  const { writeAsync: mintItem } = useScaffoldWriteContract({
-    contractName: "YourCollectible",
-    functionName: "mint_item",
-    args: [connectedAddress, ""],
-  });
+  // contract address 0x07d4dc2bf13ede97b9e458dc401d4ff6dd386a02049de879ebe637af8299f91d
+  // https://starkscan.co/nft-contract/0x07d4dc2bf13ede97b9e458dc401d4ff6dd386a02049de879ebe637af8299f91d#overview
 
-  const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
-    contractName: "YourCollectible",
-    functionName: "current",
-    watch: false,
-  });
 
-  const handleMintItem = async () => {
-    setStatus("Minting NFT");
-    // circle back to the zero item if we've reached the end of the array
-    if (tokenIdCounter === undefined) {
-      setStatus("Mint NFT");
-      return;
-    }
+  const contractAddress = '0x07d4dc2bf13ede97b9e458dc401d4ff6dd386a02049de879ebe637af8299f91d';
 
-    const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData =
-      nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
-    const notificationId = notification.loading("Uploading to IPFS");
-    try {
-      const uploadedItem = await addToIPFS(currentTokenMetaData);
+  // const { tokenURIs, isLoading, error, reload } = useTokenURILoader(contractAddress);
 
-      // First remove previous loading notification and then show success notification
-      notification.remove(notificationId);
-      notification.success("Metadata uploaded to IPFS");
+  return (
+    <div>
+      <MyIPCard contractAddress={contractAddress} index={1} />
+      <MyIPCard contractAddress={contractAddress} index={2} />
+      <MyIPCard contractAddress={contractAddress} index={200} />
+      {/* Add more cards as needed */}
+    </div>
+  );
 
-      await mintItem({
-        args: [connectedAddress, uploadedItem.path],
-      });
-      setStatus("Updating IP List");
-      refetch();
-    } catch (error) {
-      notification.remove(notificationId);
-      console.error(error);
-      setStatus("Mint NFT");
-    }
-  };
+  // const { writeAsync: mintItem } = useScaffoldWriteContract({
+  //   contractName: "YourCollectible",
+  //   functionName: "mint_item",
+  //   args: [connectedAddress, ""],
+  // });
+
+  // const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
+  //   contractName: "YourCollectible",
+  //   functionName: "current",
+  //   watch: false,
+  // });
+
+  // const handleMintItem = async () => {
+  //   setStatus("Minting NFT");
+  //   // circle back to the zero item if we've reached the end of the array
+  //   if (tokenIdCounter === undefined) {
+  //     setStatus("Mint NFT");
+  //     return;
+  //   }
+
+  //   const tokenIdCounterNumber = Number(tokenIdCounter);
+  //   const currentTokenMetaData =
+  //     nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
+  //   const notificationId = notification.loading("Uploading to IPFS");
+  //   try {
+  //     const uploadedItem = await addToIPFS(currentTokenMetaData);
+
+  //     // First remove previous loading notification and then show success notification
+  //     notification.remove(notificationId);
+  //     notification.success("Metadata uploaded to IPFS");
+
+  //     await mintItem({
+  //       args: [connectedAddress, uploadedItem.path],
+  //     });
+  //     setStatus("Updating IP List");
+  //     refetch();
+  //   } catch (error) {
+  //     notification.remove(notificationId);
+  //     console.error(error);
+  //     setStatus("Mint NFT");
+  //   }
+  // };
 
   return (
     <>
@@ -71,49 +91,49 @@ const MyIPs: NextPage = () => {
       </div>
 
       <MyHoldings setStatus={setStatus} />
-      
+
 
       <div className="flex items-center flex-col pt-10">
-      <Card className="bg-main border-accent/50 rounded-full" >
-        <CardHeader>
-          <CardTitle>Mint Your Digital Asset</CardTitle>
-          <CardDescription>Secure your intellectual property on the blockchain in NFT format. Fill out the form below to register your IP.</CardDescription>
-        </CardHeader>
-        <CardContent>
-
-          
-
-      <div className="flex justify-center">
-
-      <a className="btn btn-secondary text-white" href="/ipfsUpload">
-            Upload Metadata 
-          </a>
-          &nbsp;&nbsp;
-
-        {!isConnected || isConnecting ? (
-          <CustomConnectButton />
-        ) : (
+        <Card className="bg-main border-accent/50 rounded-full" >
+          <CardHeader>
+            <CardTitle>Mint Your Digital Asset</CardTitle>
+            <CardDescription>Secure your intellectual property on the blockchain in NFT format. Fill out the form below to register your IP.</CardDescription>
+          </CardHeader>
+          <CardContent>
 
 
-          
-          <button
-            className="btn btn-secondary text-white"
-            disabled={status !== "Mint NFT"}
-            onClick={handleMintItem}
-          >
-            {status !== "Mint NFT" && (
-              <span className="loading loading-spinner loading-xs"></span>
-            )}
-            {status}
-          </button>
-        )}
+
+            <div className="flex justify-center">
+
+              <a className="btn btn-secondary text-white" href="/ipfsUpload">
+                Upload Metadata
+              </a>
+              &nbsp;&nbsp;
+
+              {!isConnected || isConnecting ? (
+                <CustomConnectButton />
+              ) : (
+
+
+                <></>
+                // <button
+                //   className="btn btn-secondary text-white"
+                //   disabled={status !== "Mint NFT"}
+                //   onClick={handleMintItem}
+                // >
+                //   {status !== "Mint NFT" && (
+                //     <span className="loading loading-spinner loading-xs"></span>
+                //   )}
+                //   {status}
+                // </button>
+              )}
+            </div>
+
+          </CardContent>
+          <CardFooter className="flex justify-between">
+          </CardFooter>
+        </Card>
       </div>
-      
-      </CardContent>
-        <CardFooter className="flex justify-between">
-        </CardFooter>
-      </Card>
-        </div>
 
 
 
