@@ -12,8 +12,8 @@ import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
 import { useContractRead } from "@starknet-react/core";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
-import useTokenURILoader from '~~/hooks/useTokenURILoader'
-import MyIPCard from './MyIPCard';
+// import useTokenURILoader from '~~/hooks/useTokenURILoader'
+import MyIPCard from '../../components/MyIPCard';
 
 
 const MyIPs: NextPage = () => {

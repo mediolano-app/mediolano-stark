@@ -10,7 +10,7 @@ export type ScaffoldConfig = {
 
 const scaffoldConfig = {
   // TODO: bring back the sepolia
-  targetNetworks: [chains.mainnet],
+  targetNetworks: [chains.sepolia],
   // Only show the Burner Wallet when running on devnet
   onlyLocalBurnerWallet: false,
   rpcProviderUrl: process.env.NEXT_PUBLIC_PROVIDER_URL || "",
