@@ -59,7 +59,7 @@ const monetizeIP: NextPage = () => {
           <CardContent>
             <p className="mb-4">Create customized licensing agreements to allow others to use your intellectual property while maintaining ownership.</p>
             <Button variant="secondary" asChild>
-              <Link href="/license">Create</Link>
+              <Link href="/licensingIP">Create</Link>
             </Button>
           </CardContent>
         </Card>

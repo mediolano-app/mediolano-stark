@@ -210,6 +210,7 @@ const uploadIP = () => {
 
 
     <h1 className="text-4xl font-bold text-center mb-8">Intellectual Property Registration</h1>
+  
       
       
       
@@ -224,8 +225,8 @@ const uploadIP = () => {
 
         <Card>
         <CardHeader>
-          <CardTitle>IP Licensing Form</CardTitle>
-          <CardDescription>Create a license for your registered intellectual property.</CardDescription>
+          <CardTitle>Create new IP</CardTitle>
+          <CardDescription>Register your intellectual property on Starknet blockchain.</CardDescription>
         </CardHeader>
         <CardContent>
      
@@ -308,8 +309,12 @@ const uploadIP = () => {
 
 
       <div className="bg-card bg-base-300 text-card-foreground rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Blockchain IP Protection Features</h2>
-          <p className="text-muted-foreground mb-6">Secure, transparent, and efficient</p>
+
+        <div className="text-center py-2">
+          <h2 className="text-2xl font-semibold mb-2">Blockchain IP Protection Features</h2>
+          <p className="text-muted-foreground mb-4">Secure, transparent, and efficient</p>
+          </div>
+        
           <ul className="space-y-6">
             <li className="flex items-start">
               <Lock className="w-6 h-6 mr-3 flex-shrink-0" />

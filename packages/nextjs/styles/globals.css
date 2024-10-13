@@ -36,7 +36,7 @@ p {
   background: hsl(234, 60%, 62%);
   filter: blur(229px);
   position: absolute;
-  top: 0;
+  top: 150;
 }
 
 .circle-gradient-blue {
@@ -44,7 +44,7 @@ p {
   background: hsl(231, 75%, 66%);
   filter: blur(250px);
   position: absolute;
-  top: 0;
+  top: 100;
   right: 0;
 }
 
@@ -95,7 +95,7 @@ p {
   top: 0;
   left: 60px;
   border-radius: 630px;
-  background: hsl(234, 53%, 41%);
+  background: hsl(234, 76%, 41%);
   filter: blur(229px);
 }
 
