@@ -8,6 +8,7 @@ import { Faucet } from "~~/components/scaffold-stark/Faucet";
 import { FaucetSepolia } from "~~/components/scaffold-stark/FaucetSepolia";
 import { BlockExplorerSepolia } from "./scaffold-stark/BlockExplorerSepolia";
 import { BlockExplorer } from "./scaffold-stark/BlockExplorer";
+import { Copyright, Twitter, Facebook, Linkedin, Instagram, CheckCircle } from 'lucide-react'
 
 /**
  * Site footer
@@ -22,68 +23,80 @@ export const Footer = () => {
   const isMainnetNetwork = targetNetwork.id === mainnet.id;
 
   return (
-    <div className="min-h-0 py-10 px-1 mb-11 lg:mb-0">
-      <div>
-        <div className="fixed flex justify-between items-center w-full z-10 p-4 bottom-0 left-0 pointer-events-none">
-          
-          <div className="flex flex-col md:flex-row gap-2 pointer-events-auto">
-            
-          
-
-
-
-
-
-
-
-          
-
-            {isSepoliaNetwork && (
-              <>
-                
-                <BlockExplorerSepolia />
-              </>
-            )}
-            {isLocalNetwork && (
-              <>
-               
-              </>
-            )}
-            {isMainnetNetwork && (
-              <>
-                <BlockExplorer />
-              </>
-            )}
+    
+    <footer className="bg-card text-card-foreground mt-8 py-8 px-4">
+        <div className="container mx-auto p-8 bg-base-100 rounded">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">About Us</h3>
+              <p className="text-sm text-muted-foreground">
+                We are dedicated to revolutionizing intellectual property protection through blockchain technology. Our platform ensures secure, transparent, and efficient IP management for creators worldwide.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-sm  hover:underline">Discover Mediolano.app</a></li>
+                <li><a href="#" className="text-sm  hover:underline">Register your Intellectual Property</a></li>
+                <li><a href="#" className="text-sm  hover:underline">Documentation and Resources </a></li>
+                <li><a href="#" className="text-sm  hover:underline">Support & Contact</a></li>
+                <li><a href="#" className="text-sm  hover:underline">Privacy Policy, Terms of Use</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">App Features</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 " />
+                  <span className="text-sm">Blockchain Security</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 " />
+                  <span className="text-sm">Smart Contracts</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 " />
+                  <span className="text-sm">Global IP Management</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 " />
+                  <span className="text-sm">Analytics Dashboard</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 " />
+                  <span className="text-sm">Automated Licensing</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+              <div className="flex space-x-4 mb-4">
+                <a href="#" className=" hover:/80"><Twitter className="w-6 h-6" /></a>
+                <a href="#" className=" hover:/80"><Facebook className="w-6 h-6" /></a>
+                <a href="#" className=" hover:/80"><Linkedin className="w-6 h-6" /></a>
+                <a href="#" className=" hover:/80"><Instagram className="w-6 h-6" /></a>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold mb-2">Subscribe to our newsletter</h4>
+                <form className="flex">
+                  <input type="email" placeholder="Enter your email" className="flex-grow p-2 text-sm border border-input rounded-l-md bg-background" />
+                  <button type="submit" className="bg-primary -foreground px-4 py-2 text-sm rounded-r-md hover:bg-primary/90 transition-colors">
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-4 border-t border-border flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-muted-foreground">Powered by Starknet</p>
+            <div className="flex items-center mt-4 md:mt-0">
+              <Copyright className="w-4 h-4 mr-2 text-muted-foreground" />
+              <p className="text-sm text-muted-foreground">Mediolano.app</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="w-full">
-        <ul className="menu menu-horizontal w-full">
-          <div className="flex justify-center items-center gap-2 text-sm w-full">
-            <div className="text-center">
-              <a
-                href="https://mediolano.app/"
-                target="_blank"
-                rel="noreferrer"
-                className="link"
-              >
-                About
-              </a>
-            </div>
-
-            <div className="text-center">
-              <a
-                href="/support"
-                target="_blank"
-                rel="noreferrer"
-                className="link"
-              >
-                Support
-              </a>
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
+      </footer>
+    
+    
   );
 };

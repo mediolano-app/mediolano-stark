@@ -33,7 +33,7 @@ p {
 
 .circle-gradient {
   border-radius: 630px;
-  background: #939cf1;
+  background: hsl(234, 60%, 62%);
   filter: blur(229px);
   position: absolute;
   top: 0;
@@ -41,7 +41,7 @@ p {
 
 .circle-gradient-blue {
   border-radius: 630px;
-  background: #a6d6fe;
+  background: hsl(231, 75%, 66%);
   filter: blur(250px);
   position: absolute;
   top: 0;
@@ -95,13 +95,13 @@ p {
   top: 0;
   left: 60px;
   border-radius: 630px;
-  background: #5360d2;
+  background: hsl(234, 53%, 41%);
   filter: blur(229px);
 }
 
 .circle-gradient-blue-dark {
   border-radius: 630px;
-  background: #0ea9ff;
+  background: hsl(226, 100%, 53%);
   filter: blur(250px);
   position: absolute;
   top: 0;
@@ -114,7 +114,7 @@ p {
     height: 6px;
     clip-path: polygon(10% 100%, 90% 100%, 100% 0, 0 0);
     position: relative;
-    background-color: #4f65e5;
+    background-color: #3c8bd4;
     position: absolute;
     top: -1px;
   }

@@ -3,105 +3,86 @@
 import type { NextPage } from "next";
 import { useAccount } from "@starknet-react/core";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
-import { MyHoldings } from "~~/components/SimpleNFT/MyHoldings";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
 import { notification } from "~~/utils/scaffold-stark";
-import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
-import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState } from "react";
-import { Plus, Copy, DollarSign } from 'lucide-react'
+import { Shield, DollarSign, Link, Copy, ChevronRight } from 'lucide-react'
 
-import { Button } from "~~/components/ui/button"
-import { Input } from "~~/components/ui/input"
-import { Textarea } from "~~/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
-import { Select } from "~~/components/ui/select"
+// Mocked data for existing intellectual property
+const mockIPs = [
+  { id: 1, name: 'Patent A', type: 'Patent' },
+  { id: 2, name: 'Trademark B', type: 'Trademark' },
+  { id: 3, name: 'Copyright C', type: 'Copyright' },
+  { id: 4, name: 'Trade Secret D', type: 'Trade Secret' },
+]
+
+// Mocked data for existing licenses
+const mockLicenses = [
+  { id: 1, name: 'License 1', ipName: 'Patent A', licensee: 'Company X', value: 10000, currency: 'USD' },
+  { id: 2, name: 'License 2', ipName: 'Trademark B', licensee: 'Company Y', value: 5000, currency: 'EUR' },
+  { id: 3, name: 'License 3', ipName: 'Copyright C', licensee: 'Company Z', value: 7500, currency: 'GBP' },
+]
 
 
 
 
 const licensingIP: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
-  const [status, setStatus] = useState("Mint NFT");
 
-  const { writeAsync: mintItem } = useScaffoldWriteContract({
-    contractName: "YourCollectible",
-    functionName: "mint_item",
-    args: [connectedAddress, ""],
-  });
+  const [selectedIP, setSelectedIP] = useState(null)
+  const [formData, setFormData] = useState({
+    licenseName: '',
+    startDate: '',
+    endDate: '',
+    licenseType: '',
+    territory: '',
+    useOfRights: '',
+    value: '',
+    currency: 'USD',
+    recipient: '',
+    licenseTerms: '',
+  })
 
+  const handleIPSelection = (ip) => {
+    setSelectedIP(ip)
+  }
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prevData => ({ ...prevData, [name]: value }))
+  }
 
+  const handleCreateLicense = (e) => {
+    e.preventDefault()
+    // Handle license creation logic here
+    console.log('Creating license for:', selectedIP)
+    console.log('Form data:', formData)
+  }
 
-  const [activeTab, setActiveTab] = useState('create')
-
-  const dummyLicenses = [
-    { id: 1, title: 'AI Algorithm License', licensee: 'Tech Corp', type: 'Non-Exclusive', status: 'Active' },
-    { id: 2, title: 'EcoPlastic Usage Rights', licensee: 'Green Packaging Inc', type: 'Exclusive', status: 'Pending' },
-    { id: 3, title: 'Quantum Encryption License', licensee: 'SecureNet Solutions', type: 'Non-Exclusive', status: 'Active' },
-  ]
-
-
-  const [selectedIP, setSelectedIP] = useState('')
-
-  const ipOptions = [
-    { value: "ip1", label: "Intellectual Property 1" },
-    { value: "ip2", label: "Intellectual Property 2" },
-    { value: "ip3", label: "Intellectual Property 3" },
-  ]
-
-      
-
-  const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
-    contractName: "YourCollectible",
-    functionName: "current",
-    watch: false,
-  });
-
-  const handleMintItem = async () => {
-    setStatus("Minting NFT");
-    // circle back to the zero item if we've reached the end of the array
-    if (tokenIdCounter === undefined) {
-      setStatus("Mint NFT");
-      return;
-    }
-
-
-
-      
+  const handleCloneLicense = (license) => {
+    setFormData({
+      licenseName: `Copy of ${license.name}`,
+      startDate: '',
+      endDate: '',
+      licenseType: '',
+      territory: '',
+      useOfRights: '',
+      value: license.value.toString(),
+      currency: license.currency,
+      recipient: license.licensee,
+      licenseTerms: '',
+    })
+  }
 
 
-
-    const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData =
-      nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
-    const notificationId = notification.loading("Uploading to IPFS");
-    try {
-      const uploadedItem = await addToIPFS(currentTokenMetaData);
-
-      // First remove previous loading notification and then show success notification
-      notification.remove(notificationId);
-      notification.success("Metadata uploaded to IPFS");
-
-      await mintItem({
-        args: [connectedAddress, uploadedItem.path],
-      });
-      setStatus("Updating NFT List");
-      refetch();
-    } catch (error) {
-      notification.remove(notificationId);
-      console.error(error);
-      setStatus("Mint NFT");
-    }
-  };
 
   return (
     <>
       
       
       
-      <div className="flex justify-center flex-col pt-10" >
+      <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
 
 
 
@@ -112,151 +93,248 @@ const licensingIP: NextPage = () => {
 
           
 
+          <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl font-bold mb-8 text-center">IP Licensing</h1>
           
-        <div className="flex-col max-w-8xl mx-auto">
-           
-
-
-
-          <h1 className="text-3xl font-bold mb-6">Licensing</h1>
-          <p className="mb-6">Manage your IP licenses and agreements efficiently with our blockchain-based licensing system.</p>
-          
-          <div className="flex flex-col mx-auto">
-            <div className="border-b border-gray-200">
-
-              <nav className="-mb-px flex">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Licensing Form Column */}
+            <div className="bg-base-100  shadow-md rounded-lg p-6">
+              <h2 className="text-2xl font-semibold mb-6">Create New License</h2>
+              <form onSubmit={handleCreateLicense} className="space-y-4">
+                <div>
+                  <label htmlFor="ipSelect" className="block text-sm font-medium mb-1">
+                    Select Intellectual Property
+                  </label>
+                  <select
+                    id="ipSelect"
+                    name="ipSelect"
+                    onChange={(e) => handleIPSelection(mockIPs.find(ip => ip.id === parseInt(e.target.value)))}
+                    className="w-full rounded input input-bordered bg-base-200"
+                  >
+                    <option value="">Select an IP</option>
+                    {mockIPs.map((ip) => (
+                      <option key={ip.id} value={ip.id}>
+                        {ip.name} ({ip.type})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="licenseName" className="block text-sm font-medium mb-1">
+                    License Name
+                  </label>
+                  <input
+                    type="text"
+                    id="licenseName"
+                    name="licenseName"
+                    value={formData.licenseName}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full rounded input input-bordered bg-base-200 "
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="startDate" className="block text-sm font-medium mb-1">
+                      Start Date
+                    </label>
+                    <input
+                      type="date"
+                      id="startDate"
+                      name="startDate"
+                      value={formData.startDate}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full rounded input input-bordered bg-base-200"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="endDate" className="block text-sm font-medium mb-1">
+                      End Date
+                    </label>
+                    <input
+                      type="date"
+                      id="endDate"
+                      name="endDate"
+                      value={formData.endDate}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full rounded input input-bordered bg-base-200"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="licenseType" className="block text-sm font-medium mb-1">
+                    License Type
+                  </label>
+                  <select
+                    id="licenseType"
+                    name="licenseType"
+                    value={formData.licenseType}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full rounded input input-bordered bg-base-200"
+                  >
+                    <option value="">Select a license type</option>
+                    <option value="exclusive">Exclusive</option>
+                    <option value="non-exclusive">Non-exclusive</option>
+                    <option value="sole">Sole</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="territory" className="block text-sm font-medium mb-1">
+                    Territory
+                  </label>
+                  <input
+                    type="text"
+                    id="territory"
+                    name="territory"
+                    value={formData.territory}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="e.g., Worldwide, North America, Europe"
+                    className="w-full rounded input input-bordered bg-base-200"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="useOfRights" className="block text-sm font-medium mb-1">
+                    Use of Rights
+                  </label>
+                  <input
+                    type="text"
+                    id="useOfRights"
+                    name="useOfRights"
+                    value={formData.useOfRights}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="e.g., Manufacturing, Distribution, Sublicensing"
+                    className="w-full rounded input input-bordered bg-base-200"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="value" className="block text-sm font-medium mb-1">
+                      License Fee
+                    </label>
+                    <input
+                      type="number"
+                      id="value"
+                      name="value"
+                      value={formData.value}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter license fee"
+                      className="w-full rounded input input-bordered bg-base-200"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="currency" className="block text-sm font-medium mb-1">
+                      Currency
+                    </label>
+                    <select
+                      id="currency"
+                      name="currency"
+                      value={formData.currency}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full rounded input input-bordered bg-base-200"
+                    >
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="JPY">JPY</option>
+                      <option value="CNY">CNY</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="recipient" className="block text-sm font-medium mb-1">
+                    Contracting Recipient
+                  </label>
+                  <input
+                    type="text"
+                    id="recipient"
+                    name="recipient"
+                    value={formData.recipient}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter recipient name or company"
+                    className="w-full rounded input input-bordered bg-base-200"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="licenseTerms" className="block text-sm font-medium mb-1">
+                    License Terms
+                  </label>
+                  <textarea
+                    id="licenseTerms"
+                    name="licenseTerms"
+                    value={formData.licenseTerms}
+                    onChange={handleInputChange}
+                    rows={4}
+                    required
+                    placeholder="Enter detailed license terms and conditions"
+                    className="w-full rounded input input-bordered bg-base-200"
+                  ></textarea>
+                </div>
                 <button
-                  onClick={() => setActiveTab('create')}
-                  className={`py-2 px-10 text-center border-b-2 font-medium text-sm ${
-                    activeTab === 'create'
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
+                  type="submit"
+                  className="w-full px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 input input-bordered"
                 >
                   Create License
                 </button>
-
-                  
-
-                <button
-                  onClick={() => setActiveTab('view')}
-                  className={`ml-8 py-2 px-4 text-center border-b-2 font-medium text-sm ${
-                    activeTab === 'view'
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
+              </form>
+            </div>
+  
+            {/* Existing Licenses Column */}
+            <div className="bg-base-100 shadow-md rounded-lg p-6">
+              <h2 className="text-2xl font-semibold mb-6">Recent Licenses</h2>
+              <div className="space-y-4">
+                {mockLicenses.map((license) => (
+                  <div key={license.id} className="flex items-center justify-between p-4 bg-base-300 rounded-md">
+                    <div>
+                      <h3 className="font-semibold">{license.name}</h3>
+                      <p className="text-sm  ">
+                        {license.ipName} - {license.licensee}
+                      </p>
+                      <p className="text-sm  ">
+                        {license.value} {license.currency}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleCloneLicense(license)}
+                      className="p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                      <Copy className="w-5 h-5" />
+                      <span className="sr-only">Clone License</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 text-center">
+                <a
+                  href="/myLicenses"
+                  className="inline-flex items-center px-4 py-2 border hover:bg-primary text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                  View Licenses
-                </button>
-              </nav>
+                  Show More
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </a>
+              </div>
             </div>
           </div>
-    
-          {activeTab === 'create' && (
-            <div>
-              
-              <div className="container mx-auto py-12">
-      
-      <Card>
-        <CardHeader>
-          <CardTitle>IP Licensing Form</CardTitle>
-          <CardDescription>Create a license for your registered intellectual property.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-                <Select
-                  options={ipOptions}
-                  value={selectedIP}
-                  onChange={(e) => setSelectedIP(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="licensee" placeholder="Licensee Name" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Textarea placeholder="License Terms" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="duration" placeholder="License Duration" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="fee" placeholder="License Fee" />
-              </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button>Create License</Button>
-        </CardFooter>
-      </Card>
-    </div>
-
-
-            </div>
-          )}
-    
-          {activeTab === 'view' && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Existing Licenses</h2>
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="py-2 px-4 border-b text-left">Title</th>
-                      <th className="py-2 px-4 border-b text-left">Licensee</th>
-                      <th className="py-2 px-4 border-b text-left">Type</th>
-                      <th className="py-2 px-4 border-b text-left">Status</th>
-                      <th className="py-2 px-4 border-b text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dummyLicenses.map((license) => (
-                      <tr key={license.id}>
-                        <td className="py-2 px-4 border-b">{license.title}</td>
-                        <td className="py-2 px-4 border-b">{license.licensee}</td>
-                        <td className="py-2 px-4 border-b">{license.type}</td>
-                        <td className="py-2 px-4 border-b">{license.status}</td>
-                        <td className="py-2 px-4 border-b">
-                          <button className="text-blue-500 hover:text-blue-700 mr-2">
-                            <Copy className="h-5 w-5" />
-                          </button>
-                          <button className="text-green-500 hover:text-green-700">
-                            <DollarSign className="h-5 w-5" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-    
-          <div className="mt-8 bg-blue-100 p-4 rounded">
-            <h2 className="text-xl font-semibold mb-2">Benefits of Blockchain-Based Licensing</h2>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Transparent and immutable license records</li>
-              <li>Automated royalty payments through smart contracts</li>
-              <li>Simplified license tracking and management</li>
-              <li>Reduced disputes with clear, blockchain-verified terms</li>
-            </ul>
-          </div>
+        
         </div>
-
 
 
       
 
 
         )}
+
+
+
       </div>
 
-
-
-      
     </>
   );
 };

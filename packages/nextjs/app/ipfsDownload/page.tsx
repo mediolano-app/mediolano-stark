@@ -56,52 +56,9 @@ const IpfsDownload: NextPage = () => {
 
 <div className="flex items-center flex-col flex-grow pt-10">
 <h1 className="text-center mb-4">
-          <span className="block text-4xl font-bold">Licence your IP</span>
+          <span className="block text-4xl font-bold">Create new License from Metadata (IPFS)</span>
         </h1>
     </div>
-
-
-    <div className="flex items-center flex-col flex-grow pt-10">
-    <Card className="bg-main border-accent/50 rounded-full" >
-        <CardHeader>
-          <CardTitle>IP Licensing Form</CardTitle>
-          <CardDescription>Create a license for your registered intellectual property.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-                <Select
-                  options={ipOptions}
-                  value={selectedIP}
-                  onChange={(e) => setSelectedIP(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="licensee" placeholder="Licensee Name" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Textarea placeholder="License Terms" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="duration" placeholder="License Duration" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Input id="fee" placeholder="License Fee" />
-              </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button>Create License</Button>
-        </CardFooter>
-      </Card>
-
-
-    </div>
-
-
 
       <div className="flex items-center flex-col flex-grow pt-10">
       <Card className="bg-main border-accent/50 rounded-full" >

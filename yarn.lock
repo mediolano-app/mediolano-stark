@@ -6247,7 +6247,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-
 "lucide-react@npm:0.447.0":
   version: 0.447.0
   resolution: "lucide-react@npm:0.447.0"
@@ -6257,13 +6256,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.445.0":
-  version: 0.445.0
-  resolution: "lucide-react@npm:0.445.0"
-
+"lucide-react@npm:^0.451.0":
+  version: 0.451.0
+  resolution: "lucide-react@npm:0.451.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 5cd918355c1fbed8b2bb8152aa9eb1e7827be9ecb4560ef078fb8fc7bdd639ac41e96695ec2cd229e713190f43e82da6e92805162a9617a9bad76d5ff7cc2abe
+  checksum: 889b762014af19e7459d85697bf6b6223bacdbeb1ce229b1fba5ef6825e4a481494169560c2f3d86cd9d3ed6eb5d9ccf6ff2c63c0dd9f7e751e182a4caff766f
   languageName: node
   linkType: hard
 
@@ -8193,10 +8191,8 @@ __metadata:
     daisyui: ^4.7.3
     framer-motion: ^11.5.6
     husky: ^9.0.11
-
-    lucide-react: ^0.445.0
+    lucide-react: ^0.451.0
     pinata-web3: ^0.5.0
-
     pinst: ^3.0.0
     postcss: ^8.4.38
     prettier: ^3.2.5

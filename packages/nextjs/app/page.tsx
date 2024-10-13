@@ -64,7 +64,7 @@ const Home: NextPage = () => {
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Services</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <BookOpen className="h-6 w-6 mb-2" />
                   <CardTitle>Registration</CardTitle>
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <List className="h-6 w-6 mb-2" />
                   <CardTitle>Listing</CardTitle>
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <HeartHandshake className="h-6 w-6 mb-2" />
                   <CardTitle>Licensing</CardTitle>
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <HeartHandshake className="h-6 w-6 mb-2" />
                   <CardTitle>Monetize</CardTitle>
@@ -112,7 +112,7 @@ const Home: NextPage = () => {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <Download className="h-6 w-6 mb-2" />
                   <CardTitle>Resources</CardTitle>
@@ -124,7 +124,7 @@ const Home: NextPage = () => {
                   </Button>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-base-200">
                 <CardHeader>
                   <MessageSquare className="h-6 w-6 mb-2" />
                   <CardTitle>Support</CardTitle>
@@ -142,9 +142,9 @@ const Home: NextPage = () => {
 
 
 
-
-        <section className="bg-gray-100 p-8 rounded-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center">Mediolano Features</h2>
+        
+        <section className="container px-4 md:px-6">
+        <h2 className="text-3xl font-bold mb-6">Mediolano Features</h2>
         <ul className="list-disc pl-6 space-y-4">
           <li>Unparalleled security through blockchain technology</li>
           <li>Streamlined registration and management processes</li>

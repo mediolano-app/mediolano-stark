@@ -58,16 +58,17 @@ module.exports = {
       {
         light: {
           primary: "#93BBFB",
-          "primary-content": "#2A3655",
-          secondary: "#8B45FD",
-          "secondary-content": "#7800FF",
+          "primary-content": "#091636",
+          secondary: "#b1c3fc",
+          "secondary-content": "#0000FF",
           accent: "#93BBFB",
           "accent-content": "#212638",
           neutral: "#212638",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
           "base-200": "#f4f8ff",
-          "base-300": "#ffffff",
+          "base-300": "#ededff",
+          "base-form": "#ffffff",
           "base-content": "#212638",
           info: "#93BBFB",
           success: "#34EEB6",
@@ -84,7 +85,7 @@ module.exports = {
             background: "#000000",
           },
           ".bg-main": {
-            background: "rgba(255, 255, 255, 0.85)",
+            background: "rgba(255, 255, 255, 0.95)",
           },
           ".bg-underline": {
             background:
@@ -131,17 +132,18 @@ module.exports = {
       },
       {
         dark: {
-          primary: "#212638",
+          primary: "#0f1838",
           "primary-content": "#DAE8FF",
           secondary: "#020e96",
-          "secondary-content": "#0FF",
+          "secondary-content": "#003cff",
           accent: "#4969A6",
           "accent-content": "#F9FBFF",
           neutral: "#F9FBFF",
           "neutral-content": "#385183",
-          "base-100": "#070a1a",
-          "base-200": "#2A3655",
-          "base-300": "#141a30",
+          "base-100": "#080821",
+          "base-200": "#000089",
+          "base-300": "#030333",
+          "base-form": "#000000",
           "base-content": "#F9FBFF",
           info: "#385183",
           success: "#34EEB6",
@@ -171,7 +173,7 @@ module.exports = {
               "linear-gradient(180deg, #3457D1 0%, #8A45FC 100%)",
           },
           ".bg-input": {
-            background: "rgba(255, 255, 255, 0.07)",
+            background: "rgba(255, 255, 255, 0.05)",
           },
           ".bg-component": {
             background:

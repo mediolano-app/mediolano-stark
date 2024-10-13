@@ -3,12 +3,9 @@
 import type { NextPage } from "next";
 import { useAccount } from "@starknet-react/core";
 import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
-import { MyHoldings } from "~~/components/SimpleNFT/MyHoldings";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark/useScaffoldReadContract";
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-stark/useScaffoldWriteContract";
 import { notification } from "~~/utils/scaffold-stark";
-import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
-import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
+
 import { useState } from "react";
 import { DollarSign, BarChart2, Users, Globe } from 'lucide-react'
 
@@ -19,14 +16,6 @@ import Link from 'next/link'
 
 const monetizeIP: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
-  const [status, setStatus] = useState("Mint NFT");
-
-  const { writeAsync: mintItem } = useScaffoldWriteContract({
-    contractName: "YourCollectible",
-    functionName: "mint_item",
-    args: [connectedAddress, ""],
-  });
-
 
 
 
@@ -47,49 +36,6 @@ const monetizeIP: NextPage = () => {
 
       
 
-  const { data: tokenIdCounter, refetch } = useScaffoldReadContract({
-    contractName: "YourCollectible",
-    functionName: "current",
-    watch: false,
-  });
-
-  const handleMintItem = async () => {
-    setStatus("Minting NFT");
-    // circle back to the zero item if we've reached the end of the array
-    if (tokenIdCounter === undefined) {
-      setStatus("Mint NFT");
-      return;
-    }
-
-
-
-      
-
-
-
-    const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData =
-      nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
-    const notificationId = notification.loading("Uploading to IPFS");
-    try {
-      const uploadedItem = await addToIPFS(currentTokenMetaData);
-
-      // First remove previous loading notification and then show success notification
-      notification.remove(notificationId);
-      notification.success("Metadata uploaded to IPFS");
-
-      await mintItem({
-        args: [connectedAddress, uploadedItem.path],
-      });
-      setStatus("Updating NFT List");
-      refetch();
-    } catch (error) {
-      notification.remove(notificationId);
-      console.error(error);
-      setStatus("Mint NFT");
-    }
-  };
-
   return (
     <>
       <div className="flex justify-center flex-col pt-10" >
@@ -105,50 +51,50 @@ const monetizeIP: NextPage = () => {
       <div className="space-y-8">
       
       <div className="grid md:grid-cols-2 gap-6">
-        <Card className="bg-base-100">
+        <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Licensing</CardTitle>
             <CardDescription>Grant rights to use your IP</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4">Create customized licensing agreements to allow others to use your intellectual property while maintaining ownership.</p>
-            <Button asChild>
+            <Button variant="secondary" asChild>
               <Link href="/license">Create</Link>
             </Button>
           </CardContent>
         </Card>
-        <Card className="bg-base-100">
+        <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Selling</CardTitle>
             <CardDescription>Transfer ownership of your IP</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4">List your intellectual property for sale on our marketplace to find potential buyers.</p>
-            <Button asChild>
+            <Button variant="secondary" asChild>
               <Link href="/marketplace">List</Link>
             </Button>
           </CardContent>
         </Card>
-        <Card className="bg-base-100">
+        <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Royalties</CardTitle>
             <CardDescription>Revenue opportunities</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4">Find potential partners to develop or commercialize your intellectual property.</p>
-            <Button asChild>
+            <Button variant="secondary" asChild>
               <Link href="/">Explore</Link>
             </Button>
           </CardContent>
         </Card>
-        <Card className="bg-base-100">
+        <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Crowdfunding </CardTitle>
             <CardDescription>Raise funds for your IP</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4">Launch a crowdfunding campaign to support the development or promotion of your intellectual property.</p>
-            <Button asChild>
+            <Button variant="secondary" asChild>
               <Link href="/">Start</Link>
             </Button>
           </CardContent>
@@ -187,7 +133,7 @@ const monetizeIP: NextPage = () => {
       </div>
         
         
-        <div className="max-w-6xl mx-auto bg-base-100 my-10 p-5">
+        <div className="max-w-6xl mx-auto bg-base-100 my-10 p-5 shadow">
           <p className="mb-6">Maximize the value of your intellectual property through various monetization strategies.</p>
           
           <div className="mb-6">
@@ -221,7 +167,7 @@ const monetizeIP: NextPage = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Licensing Opportunities</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full bg-base-100 border border-gray-300">
+                <table className="min-w-full bg-base-300">
                   <thead>
                     <tr className="">
                       <th className="py-2 px-4 border-b text-left">Title</th>
@@ -234,12 +180,12 @@ const monetizeIP: NextPage = () => {
                   <tbody>
                     {dummyOpportunities.map((opportunity) => (
                       <tr key={opportunity.id}>
-                        <td className="py-2 px-4 border-b">{opportunity.title}</td>
-                        <td className="py-2 px-4 border-b">{opportunity.type}</td>
-                        <td className="py-2 px-4 border-b">{opportunity.potential}</td>
-                        <td className="py-2 px-4 border-b">{opportunity.industry}</td>
-                        <td className="py-2 px-4 border-b">
-                          <button className="bg-primary px-3 py-1 rounded">
+                        <td className="py-6 px-4 border-b">{opportunity.title}</td>
+                        <td className="py-6 px-4 border-b">{opportunity.type}</td>
+                        <td className="py-6 px-4 border-b">{opportunity.potential}</td>
+                        <td className="py-6 px-4 border-b">{opportunity.industry}</td>
+                        <td className="py-6 px-4 border-b">
+                          <button className="bg-secondary px-3 py-1 rounded">
                             Explore
                           </button>
                         </td>
@@ -255,7 +201,7 @@ const monetizeIP: NextPage = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Royalty Management</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full bg-base-100 border border-gray-300">
+                <table className="min-w-full bg-base-300">
                   <thead>
                     <tr className="">
                       <th className="py-2 px-4 border-b text-left">Title</th>
@@ -268,11 +214,11 @@ const monetizeIP: NextPage = () => {
                   <tbody>
                     {dummyRoyalties.map((royalty) => (
                       <tr key={royalty.id}>
-                        <td className="py-2 px-4 border-b">{royalty.title}</td>
-                        <td className="py-2 px-4 border-b">{royalty.licensee}</td>
-                        <td className="py-2 px-4 border-b">${royalty.amount.toLocaleString()}</td>
-                        <td className="py-2 px-4 border-b">{royalty.date}</td>
-                        <td className="py-2 px-4 border-b"><a className="btn">{royalty.contract}</a></td>
+                        <td className="py-6 px-4 border-b">{royalty.title}</td>
+                        <td className="py-6 px-4 border-b">{royalty.licensee}</td>
+                        <td className="py-6 px-4 border-b">${royalty.amount.toLocaleString()}</td>
+                        <td className="py-6 px-4 border-b">{royalty.date}</td>
+                        <td className="py-6 px-4 border-b"><a className="btn">{royalty.contract}</a></td>
                       </tr>
                     ))}
                   </tbody>
@@ -300,7 +246,7 @@ const monetizeIP: NextPage = () => {
 
       <div className="max-w-6xl mx-auto">
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-base-100 p-4 rounded">
+            <div className="bg-base-300 p-4 rounded">
               <h2 className="text-xl font-semibold mb-2 flex items-center">
                 <DollarSign className="h-6 w-6 mr-2 text-blue-500" />
                 Monetization Strategies
@@ -312,7 +258,7 @@ const monetizeIP: NextPage = () => {
                 <li>Direct sales of IP rights</li>
               </ul>
             </div>
-            <div className="bg-base-100 p-4 rounded">
+            <div className="bg-base-300 p-4 rounded">
               <h2 className="text-xl font-semibold mb-2 flex items-center">
                 <BarChart2 className="h-6 w-6 mr-2 text-green-500" />
                 Market Insights
@@ -326,7 +272,7 @@ const monetizeIP: NextPage = () => {
             </div>
           </div>
     
-          <div className="mt-6 bg-base-100 p-4 rounded">
+          <div className="mt-6 bg-base-300 p-4 rounded">
             <h2 className="text-xl font-semibold mb-2 flex items-center">
               <Users className="h-6 w-6 mr-2 text-purple-500" />
               Expert Support

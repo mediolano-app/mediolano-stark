@@ -22,6 +22,7 @@ import { devnet } from "@starknet-react/chains";
 import { SwitchTheme } from "./SwitchTheme";
 import { useAccount, useProvider } from "@starknet-react/core";
 import { BlockIdentifier } from "starknet";
+import { GridIcon, UserIcon } from "lucide-react";
 
 
 type HeaderMenuLink = {
@@ -38,18 +39,18 @@ export const menuLinks: HeaderMenuLink[] = [
   },
   {
     label: "New IP",
-    href: "/ipfsUpload",
+    href: "/registerIP",
     icon: <CubeIcon className="h-4 w-4" />,
   },
   {
-    label: "Listing",
-    href: "/listingIP",
+    label: "Licensing",
+    href: "/licensingIP",
     icon: <Square2StackIcon className="h-4 w-4" />,
   },
   {
-    label: "Licensing",
-    href: "/ipfsDownload",
-    icon: <Square2StackIcon className="h-4 w-4" />,
+    label: "Listing",
+    href: "/marketplace",
+    icon: <GridIcon className="h-4 w-4" />,
   },
   {
     label: "Monetize",
@@ -61,6 +62,11 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/transfers",
     icon: <ArrowPathIcon className="h-4 w-4" />,
   },*/
+  {
+    label: "Profile",
+    href: "/profile",
+    icon: <UserIcon className="h-4 w-4" />,
+  },
   {
     label: "Settings",
     href: "/settings",

@@ -11,11 +11,18 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent, useRef} from "react";
-import { FilePlus } from 'lucide-react';
+import { FilePlus, Lock, FileText, Coins, Shield, Globe, BarChart } from 'lucide-react';
 import { id } from "ethers";
 import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
 
+import { Button } from "~~/components/ui/button"
+import { Input } from "~~/components/ui/input"
+import { Textarea } from "~~/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+import { Select } from "~~/components/ui/select"
+
 // import { customizeNftMetadata } from "~~/utils/simpleNFT/nftsMetadata";
+
 export type IPType = "" | "patent" | "trademark" | "copyright" | "trade_secret";
 
 export interface IP{
@@ -186,7 +193,6 @@ const uploadIP = () => {
       
       handleMintItem();
 
-      router.push("/myIPs");
       // handleSetTokenUri(data.url);
 
     } catch (err) {
@@ -199,22 +205,29 @@ const uploadIP = () => {
   
   return (
     <>
-      <div className="flex items-center flex-col pt-10">
-        <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Register New IP</h1>
-        <p className="mb-6">Secure your intellectual property on the blockchain. Fill out the form below to register your IP.</p>
 
-        </div>
-      </div>
+    <div className="container mx-auto px-4 py-8">
+
+
+    <h1 className="text-4xl font-bold text-center mb-8">Intellectual Property Registration</h1>
       
       
-      <div className="flex justify-center">
+      
         {!isConnected || isConnecting ? (
           <CustomConnectButton />
         ) : (
          
 
-          <div className="max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div className="bg-card bg-base-100 text-card-foreground rounded-lg shadow-lg">
+
+        <Card>
+        <CardHeader>
+          <CardTitle>IP Licensing Form</CardTitle>
+          <CardDescription>Create a license for your registered intellectual property.</CardDescription>
+        </CardHeader>
+        <CardContent>
      
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -225,7 +238,7 @@ const uploadIP = () => {
             name="title" 
             value={ipData.title}
             onChange={handleChange}
-            className="w-full border rounded p-2" 
+            className="w-full rounded input input-bordered bg-base-300" 
             required 
           />
           </div>
@@ -236,20 +249,20 @@ const uploadIP = () => {
             name="description" 
             value={ipData.description}
             onChange={handleChange}
-            className="w-full border rounded p-2" 
+            className="w-full rounded input input-bordered bg-base-300" 
             rows={4}
             required
           ></textarea>
         </div>
         <div>
-          <label htmlFor="authors" className="block mb-1 font-medium">Authors</label>
+          <label htmlFor="authors" className="block mb-1 font-medium">Author</label>
           <input 
             type="text" 
             id="authors" 
             name="authors" 
             value={ipData.authors}
             onChange={handleChange}
-            className="w-full border rounded p-2" 
+            className="w-full rounded input input-bordered bg-base-300" 
             required 
           />
           </div>
@@ -263,7 +276,7 @@ const uploadIP = () => {
               setIpData((prev) => ({ ...prev, "ipType": e.target.value }));
               console.log(e);
             }}
-            className="w-full border rounded p-2"
+            className="w-full input input-bordered rounded bg-base-300"
           >
             <option value="patent">Patent</option>
             <option value="trademark">Trademark</option>
@@ -278,22 +291,73 @@ const uploadIP = () => {
             id="file" 
             name="file" 
             onChange={handleFileChange}
-            className="w-full border rounded p-2" 
+            className="w-full border rounded p-2 input input-bordered bg-base-300" 
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded flex items-center justify-center w-full">
-          <FilePlus className="h-5 w-5 mr-2" />
+        <button type="submit" className="px-6 py-4 flex items-center justify-center w-full rounded input input-bordered">
+          <FilePlus className="h-5 w-5 mr-2" /> Create License
         </button>
       </form>
-      <div className="mt-8 bg-blue-100 p-4 rounded">
-        <h2 className="text-xl font-semibold mb-2">Why Register Your IP on the Blockchain?</h2>
-        <ul className="list-disc pl-5 space-y-2">
-          <li>Immutable proof of ownership and timestamp</li>
-          <li>Increased transparency and reduced fraud</li>
-          <li>Simplified licensing and transfer processes</li>
-          <li>Global accessibility and recognition</li>
-        </ul>
+      </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="ghost">Need help?</Button>
+        </CardFooter>
+      </Card>
       </div>
+
+
+
+      <div className="bg-card bg-base-300 text-card-foreground rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-semibold mb-4">Blockchain IP Protection Features</h2>
+          <p className="text-muted-foreground mb-6">Secure, transparent, and efficient</p>
+          <ul className="space-y-6">
+            <li className="flex items-start">
+              <Lock className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Immutable Protection</h3>
+                <p className="text-sm text-muted-foreground">Your IP is securely stored on the blockchain, providing tamper-proof evidence of ownership and creation date.</p>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <FileText className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Smart Licensing</h3>
+                <p className="text-sm text-muted-foreground">Utilize smart contracts for automated licensing agreements, ensuring proper attribution and compensation.</p>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <Coins className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Tokenized Monetization</h3>
+                <p className="text-sm text-muted-foreground">Transform your IP into digital assets, enabling fractional ownership and new revenue streams.</p>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <Shield className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Enhanced Security</h3>
+                <p className="text-sm text-muted-foreground">Benefit from blockchain's cryptographic security, protecting your IP from unauthorized access and tampering.</p>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <Globe className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Global Accessibility</h3>
+                <p className="text-sm text-muted-foreground">Access and manage your IP rights from anywhere in the world, facilitating international collaborations and licensing.</p>
+              </div>
+            </li>
+            <li className="flex items-start">
+              <BarChart className="w-6 h-6 mr-3 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Analytics and Insights</h3>
+                <p className="text-sm text-muted-foreground">Gain valuable insights into your IP portfolio's performance and market trends through blockchain-powered analytics.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+
+      
     </div>
 
 
@@ -302,10 +366,12 @@ const uploadIP = () => {
 
 
         )}
-      </div>
 
 
+        
 
+
+    </div>
       
     </>
   );
