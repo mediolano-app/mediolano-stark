@@ -1,14 +1,10 @@
 import React from "react";
 
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { useGlobalState } from "~~/services/store/store";
 import { devnet, sepolia, mainnet } from "@starknet-react/chains";
-import { Faucet } from "~~/components/scaffold-stark/Faucet";
-import { FaucetSepolia } from "~~/components/scaffold-stark/FaucetSepolia";
-import { BlockExplorerSepolia } from "./scaffold-stark/BlockExplorerSepolia";
-import { BlockExplorer } from "./scaffold-stark/BlockExplorer";
 import { Copyright, Twitter, Facebook, Linkedin, Instagram, CheckCircle } from 'lucide-react'
+import { AppFeaturesShowcase } from "~~/components/app-features-showcase"
 
 /**
  * Site footer
@@ -24,11 +20,18 @@ export const Footer = () => {
 
   return (
     
+
+    
+
     <footer className="bg-card text-card-foreground mt-8 py-8 px-4">
+        <div className="container mx-auto rounded">
+        <AppFeaturesShowcase/> 
+        </div>
+
         <div className="container mx-auto p-8 bg-base-100 rounded">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">About Us</h3>
+              <h3 className="text-lg font-semibold mb-4">Mediolano.app</h3>
               <p className="text-sm text-muted-foreground">
                 We are dedicated to revolutionizing intellectual property protection through blockchain technology. Our platform ensures secure, transparent, and efficient IP management for creators worldwide.
               </p>

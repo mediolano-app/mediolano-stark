@@ -109,7 +109,7 @@ const licensingIP: NextPage = () => {
                     id="ipSelect"
                     name="ipSelect"
                     onChange={(e) => handleIPSelection(mockIPs.find(ip => ip.id === parseInt(e.target.value)))}
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   >
                     <option value="">Select an IP</option>
                     {mockIPs.map((ip) => (
@@ -130,7 +130,7 @@ const licensingIP: NextPage = () => {
                     value={formData.licenseName}
                     onChange={handleInputChange}
                     required
-                    className="w-full rounded input input-bordered bg-base-200 "
+                    className="w-full rounded input input-bordered bg-base-300 "
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -145,7 +145,7 @@ const licensingIP: NextPage = () => {
                       value={formData.startDate}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded input input-bordered bg-base-200"
+                      className="w-full rounded input input-bordered bg-base-300"
                     />
                   </div>
                   <div>
@@ -159,7 +159,7 @@ const licensingIP: NextPage = () => {
                       value={formData.endDate}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded input input-bordered bg-base-200"
+                      className="w-full rounded input input-bordered bg-base-300"
                     />
                   </div>
                 </div>
@@ -173,7 +173,7 @@ const licensingIP: NextPage = () => {
                     value={formData.licenseType}
                     onChange={handleInputChange}
                     required
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   >
                     <option value="">Select a license type</option>
                     <option value="exclusive">Exclusive</option>
@@ -193,7 +193,7 @@ const licensingIP: NextPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="e.g., Worldwide, North America, Europe"
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   />
                 </div>
                 <div>
@@ -208,7 +208,7 @@ const licensingIP: NextPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="e.g., Manufacturing, Distribution, Sublicensing"
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -224,7 +224,7 @@ const licensingIP: NextPage = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="Enter license fee"
-                      className="w-full rounded input input-bordered bg-base-200"
+                      className="w-full rounded input input-bordered bg-base-300"
                     />
                   </div>
                   <div>
@@ -237,7 +237,7 @@ const licensingIP: NextPage = () => {
                       value={formData.currency}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded input input-bordered bg-base-200"
+                      className="w-full rounded input input-bordered bg-base-300"
                     >
                       <option value="USD">USD</option>
                       <option value="EUR">EUR</option>
@@ -259,7 +259,7 @@ const licensingIP: NextPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="Enter recipient name or company"
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   />
                 </div>
                 <div>
@@ -274,7 +274,7 @@ const licensingIP: NextPage = () => {
                     rows={4}
                     required
                     placeholder="Enter detailed license terms and conditions"
-                    className="w-full rounded input input-bordered bg-base-200"
+                    className="w-full rounded input input-bordered bg-base-300"
                   ></textarea>
                 </div>
                 <button
@@ -287,11 +287,11 @@ const licensingIP: NextPage = () => {
             </div>
   
             {/* Existing Licenses Column */}
-            <div className="bg-base-100 shadow-md rounded-lg p-6">
+            <div className="bg-base-300 shadow-md rounded-lg p-6">
               <h2 className="text-2xl font-semibold mb-6">Recent Licenses</h2>
               <div className="space-y-4">
                 {mockLicenses.map((license) => (
-                  <div key={license.id} className="flex items-center justify-between p-4 bg-base-300 rounded-md">
+                  <div key={license.id} className="flex items-center justify-between p-4 bg-base-100 rounded-md">
                     <div>
                       <h3 className="font-semibold">{license.name}</h3>
                       <p className="text-sm  ">

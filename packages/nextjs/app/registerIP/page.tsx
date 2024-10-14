@@ -308,9 +308,9 @@ const uploadIP = () => {
 
 
 
-      <div className="bg-card bg-base-300 text-card-foreground rounded-lg shadow-lg p-6">
+      <div className="text-card-foreground rounded-lg p-6">
 
-        <div className="text-center py-2">
+        <div className="py-2">
           <h2 className="text-2xl font-semibold mb-2">Blockchain IP Protection Features</h2>
           <p className="text-muted-foreground mb-4">Secure, transparent, and efficient</p>
           </div>

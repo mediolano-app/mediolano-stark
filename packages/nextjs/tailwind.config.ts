@@ -85,7 +85,7 @@ module.exports = {
             background: "#000000",
           },
           ".bg-main": {
-            background: "rgba(255, 255, 255, 0.95)",
+            background: "rgba(255, 255, 255, 0.9)",
           },
           ".bg-underline": {
             background:

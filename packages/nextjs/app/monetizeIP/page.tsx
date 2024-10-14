@@ -69,12 +69,13 @@ const monetizeIP: NextPage = () => {
             <CardDescription>Transfer ownership of your IP</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="mb-4">List your intellectual property for sale on our marketplace to find potential buyers.</p>
+            <p className="mb-4">Create a sale contract to another address.</p>
             <Button variant="secondary" asChild>
-              <Link href="/marketplace">List</Link>
+              <Link href="/sellIP">Sell IP</Link>
             </Button>
           </CardContent>
         </Card>
+        {/*}
         <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Royalties</CardTitle>
@@ -86,7 +87,7 @@ const monetizeIP: NextPage = () => {
               <Link href="/">Explore</Link>
             </Button>
           </CardContent>
-        </Card>
+        </Card>*/}
         <Card className="bg-base-300">
           <CardHeader>
             <CardTitle>Crowdfunding </CardTitle>
@@ -95,7 +96,19 @@ const monetizeIP: NextPage = () => {
           <CardContent>
             <p className="mb-4">Launch a crowdfunding campaign to support the development or promotion of your intellectual property.</p>
             <Button variant="secondary" asChild>
-              <Link href="/">Start</Link>
+              <Link href="/createCrowdfunding">Start</Link>
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className="bg-base-300">
+          <CardHeader>
+            <CardTitle>Marketplace </CardTitle>
+            <CardDescription>List your IP on our Marketplace</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4">Showcase and license your intellectual property on blockchain.</p>
+            <Button variant="secondary" asChild>
+              <Link href="/createListing">Start</Link>
             </Button>
           </CardContent>
         </Card>

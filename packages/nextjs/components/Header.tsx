@@ -38,7 +38,7 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <RectangleGroupIcon className="h-4 w-4" />,
   },
   {
-    label: "New IP",
+    label: "Register",
     href: "/registerIP",
     icon: <CubeIcon className="h-4 w-4" />,
   },
