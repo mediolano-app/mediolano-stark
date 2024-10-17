@@ -183,11 +183,11 @@ const marketplace: NextPage = () => {
 
 
           <div className="max-w-7xl mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-8">IP Marketplace</h1>
+          <h1 className="text-3xl font-bold">IP Marketplace</h1>
 
 
           <div>
-          <h2 className="mb-8">Categories</h2>
+          <h2 className="mb-8 text-2xl">Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoriesIP.map((category) => (
               <Link key={category.id} href={`/marketplace?category=${category.name}`} className="block">
@@ -201,10 +201,10 @@ const marketplace: NextPage = () => {
         </div>
 
         <div></div>
-        <hr className="mt-10 mb-5"></hr>
+        
         
 
-        <h2 className="text-3xl font-bold mb-8">Listings</h2>
+        <h2 className="text-3xl font-bold mt-20 mb-8">Listings</h2>
 
     
           {/* Search and Filters */}
@@ -214,7 +214,7 @@ const marketplace: NextPage = () => {
                 <input
                   type="text"
                   placeholder="Search for IP..."
-                  className="w-full pl-10 pr-4 py-2 border  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2 input rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <Search className="absolute left-3 top-2.5 text-gray-400" />
               </div>
@@ -224,7 +224,7 @@ const marketplace: NextPage = () => {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="appearance-none bg-base-100 border  rounded-md pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="appearance-none bg-base-100 input rounded-md pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {categories.map((category) => (
                     <option key={category} value={category.toLowerCase()}>{category}</option>
@@ -236,7 +236,7 @@ const marketplace: NextPage = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-base-100 border  rounded-md pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="appearance-none bg-base-100 input rounded-md pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="newest">Newest</option>
                   <option value="price-low-high">Price: Low to High</option>
@@ -267,15 +267,15 @@ const marketplace: NextPage = () => {
                   <p className="text-gray-600 mb-4">{listing.description}</p>
                   <div className="flex items-center mb-4">
                     <Image src={listing.creatorAvatar} alt={listing.creator} width={32} height={32} className="rounded-full mr-2" />
-                    <span className="text-sm text-gray-500">{listing.creator}</span>
+                    <span className="text-sm text-neutral">{listing.creator}</span>
                   </div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
                       <Star className="w-5 h-5 text-yellow-400 mr-1" />
                       <span className="font-semibold">{listing.rating}</span>
-                      <span className="text-gray-500 ml-1">({listing.reviews} reviews)</span>
+                      <span className="text-neutral ml-1">({listing.reviews} reviews)</span>
                     </div>
-                    <div className="flex items-center text-gray-500 space-x-4">
+                    <div className="flex items-center text-neutral space-x-4">
                       <div className="flex items-center">
                         <Eye className="w-4 h-4 mr-1" />
                         <span>{listing.views}</span>
@@ -291,10 +291,10 @@ const marketplace: NextPage = () => {
                       {listing.price} {listing.currency}
                     </div>
                     <div className="flex space-x-2">
-                      <button className="p-2 text-gray-500 hover:text-blue-500 focus:outline-none">
+                      <button className="p-2 text-neutral hover:text-blue-500 focus:outline-none">
                         <Heart />
                       </button>
-                      <button className="p-2 text-gray-500 hover:text-blue-500 focus:outline-none">
+                      <button className="p-2 text-neutral hover:text-blue-500 focus:outline-none">
                         <Share2 />
                       </button>
                       <Link href={`/marketIP`} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -310,30 +310,30 @@ const marketplace: NextPage = () => {
           {/* Pagination */}
           <div className="mt-8 flex justify-center">
             <nav className="inline-flex rounded-md shadow">
-              <a href="#" className="px-3 py-2 rounded-l-md border  bg-base-100 text-gray-500 hover:bg-gray-50">
+              <a href="#" className="px-3 py-2 rounded-l-md border  bg-base-100 text-neutral hover:bg-gray-50">
                 Previous
               </a>
               <a href="#" className="px-3 py-2 border-t border-b  bg-base-100 text-blue-600 font-medium">
                 1
               </a>
-              <a href="#" className="px-3 py-2 border-t border-b  bg-base-100 text-gray-500 hover:bg-gray-50">
+              <a href="#" className="px-3 py-2 border-t border-b  bg-base-100 text-neutral hover:bg-gray-50">
                 2
               </a>
-              <a href="#" className="px-3 py-2 border-t border-b  bg-base-100 text-gray-500 hover:bg-gray-50">
+              <a href="#" className="px-3 py-2 border-t border-b  bg-base-100 text-neutral hover:bg-gray-50">
                 3
               </a>
-              <a href="#" className="px-3 py-2 rounded-r-md border  bg-base-100 text-gray-500 hover:bg-gray-50">
+              <a href="#" className="px-3 py-2 rounded-r-md border  bg-base-100 text-neutral hover:bg-gray-50">
                 Next
               </a>
             </nav>
           </div>
         
         
-        <div className="my-10"><hr></hr></div>
+        <div className="mt-20"></div>
         
         
           <div>
-          <h1 className="text-4xl font-bold mb-8">Featured Collections</h1>
+          <h2 className="text-3xl font-bold mb-8">Featured Collections</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {collections.map((collection) => (
               <Link key={collection.id} href={`/collections/${collection.id}`} className="block">

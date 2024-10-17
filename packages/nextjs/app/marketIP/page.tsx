@@ -10,7 +10,7 @@ import { useState } from "react";
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Shield, Award, Clock, User, DollarSign, Heart } from 'lucide-react'
+import { Shield, Award, Clock, User, DollarSign, Heart, Share } from 'lucide-react'
 
 interface IPPageProps {
   params: {
@@ -73,17 +73,17 @@ const marketIP: NextPage = () => {
             <div className="mb-6">
               <Image src={ip.image} alt={ip.title} width={800} height={400} className="w-full h-96 object-cover rounded-lg" />
             </div>
-            <div className="bg-base-100 p-6 rounded-lg shadow-md mb-6">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md mb-6">
               <h2 className="text-2xl font-semibold mb-4">Description</h2>
-              <p className="bg-base-100 mb-4">{ip.description}</p>
+              <p className="bg-base-300 mb-4">{ip.description}</p>
               <h3 className="text-xl font-semibold mb-2">Key Features</h3>
-              <ul className="list-disc list-inside bg-base-100">
+              <ul className="list-disc list-inside bg-base-300">
                 {ip.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
                 ))}
               </ul>
             </div>
-            <div className="bg-base-100 p-6 rounded-lg shadow-md mb-6">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md mb-6">
               <h2 className="text-2xl font-semibold mb-4">Blockchain Benefits</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-start">
@@ -118,7 +118,7 @@ const marketIP: NextPage = () => {
             </div>
           </div>
           <div className="md:col-span-1">
-            <div className="bg-base-100 p-6 rounded-lg shadow-md mb-6">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md mb-6">
               <div className="flex justify-between items-center mb-4">
                 <p className="">Current Price</p>
                 <p className="text-3xl font-bold text-blue-600">{ip.price} ETH</p>
@@ -131,35 +131,35 @@ const marketIP: NextPage = () => {
                     value={bidAmount}
                     onChange={(e) => setBidAmount(e.target.value)}
                     placeholder="Enter bid amount"
-                    className="flex-grow p-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex-grow p-2 input rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  <span className="bg-gray-100 p-2 border border-l-0 rounded-r-md">ETH</span>
+                  <span className="bg-base-200 p-2 rounded-r-md">ETH</span>
                 </div>
-                <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                <button type="submit" className="w-full bg-primary font-bold py-2 px-4 rounded">
                   Place Bid
                 </button>
               </form>
-              <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4">
+              <button className="w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-4 px-4 rounded mb-4">
                 Buy Now
               </button>
-              <button className="w-full border border-gray-300 bg-base-100 font-bold py-2 px-4 rounded flex items-center justify-center">
-                <Heart className="mr-2" /> Add to Favorites
+              <button className="w-full border border-gray-300 bg-base-300 font-bold py-2 px-4 rounded flex items-center justify-center">
+                <Share className="mr-2" /> Share IP
               </button>
             </div>
-            <div className="bg-base-100 p-6 rounded-lg shadow-md mb-6">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md mb-6">
               <h2 className="text-xl font-semibold mb-4">Creator Information</h2>
               <p><strong>Creator:</strong> {ip.creator}</p>
               <p><strong>Creation Date:</strong> {ip.creationDate}</p>
               <p><strong>Last Updated:</strong> {ip.lastUpdated}</p>
               <p><strong>License:</strong> {ip.license}</p>
             </div>
-            <div className="bg-base-100 p-6 rounded-lg shadow-md mb-6">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md mb-6">
               <h2 className="text-xl font-semibold mb-4">IP Statistics</h2>
               <p><strong>Views:</strong> {ip.views}</p>
               <p><strong>Favorites:</strong> {ip.favorites}</p>
               <p><strong>Active Bids:</strong> {ip.bids.length}</p>
             </div>
-            <div className="bg-base-100 p-6 rounded-lg shadow-md">
+            <div className="bg-base-300 p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">Recent Bids</h2>
               {ip.bids.map((bid, index) => (
                 <div key={index} className="flex justify-between items-center mb-2">

@@ -63,20 +63,20 @@ const transfersIP: NextPage = () => {
             id="filter"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="border rounded-md p-2"
+            className="input rounded-md p-2 bg-base-300"
           >
             <option value="all">All</option>
             <option value="incoming">Incoming</option>
             <option value="outgoing">Outgoing</option>
           </select>
         </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+        <button className="bg-base-300 hover:bg-blue-600 text-white py-2 px-4 rounded inline-flex items-center">
           <Filter className="mr-2" />
           Advanced Filters
         </button>
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-base-100">
+        <table className="min-w-full bg-base-300">
           <thead>
             <tr className="  uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">Type</th>
@@ -134,7 +134,7 @@ const transfersIP: NextPage = () => {
         </div>
       </div>
       <div className="mt-8">
-        <Link href="/myLicenses" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        <Link href="/myLicenses" className="hover:bg-blue-700 py-2 px-4 rounded bg-base-200">
           Back to my IP Licenses
         </Link>
       </div>

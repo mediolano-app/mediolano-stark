@@ -11,7 +11,9 @@ import { notification } from "~~/utils/scaffold-stark";
 import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 import { useState, FormEvent, useRef} from "react";
-import { FilePlus, Lock, FileText, Coins, Shield, Globe, BarChart } from 'lucide-react';
+import { FilePlus, Lock, FileText, Coins, Shield, Globe, BarChart, Book, Music, Film, FileCode, Palette, File, ScrollText, Clock, ArrowRightLeft, ShieldCheck, Banknote, Globe2 } from 'lucide-react'
+import Link from 'next/link'
+
 import { id } from "ethers";
 import { pinataClient } from "~~/utils/simpleNFT/pinataClient";
 
@@ -202,6 +204,20 @@ const uploadIP = () => {
     }
   };
 
+
+
+  const templates = [
+    { name: 'Art', icon: Palette, href: '/registerArt', description: 'Tokenize your Artwork' },
+    { name: 'Documents', icon: File, href: '/registerDocument', description: 'Safeguard Documents' },  
+    { name: 'Films', icon: Film, href: '/registerFilm', description: 'Protect your cinematic creations' }, 
+    { name: 'Music', icon: Music, href: '/registerMusic', description: 'Copyright Compositions' },
+    { name: 'Patents', icon: ScrollText, href: '/registerPatent', description: 'Secure Inventions and Innovations' },
+    { name: 'Publications', icon: Book, href: '/registerPublication', description: 'Protect your Written Works' },
+    { name: 'RWA', icon: Globe2, href: '/registerRWA', description: 'Tokenize Real World Assets' },
+    { name: 'Software', icon: FileCode, href: '/registerSoftware', description: 'Safeguard your Code' },
+    { name: 'Custom', icon: Coins, href: '/registerIP', description: 'Edit Your Template' },
+  ]
+
   
   return (
     <>
@@ -296,7 +312,7 @@ const uploadIP = () => {
           />
         </div>
         <button type="submit" className="px-6 py-4 flex items-center justify-center w-full rounded input input-bordered">
-          <FilePlus className="h-5 w-5 mr-2" /> Create License
+          <FilePlus className="h-5 w-5 mr-2" /> Register IP
         </button>
       </form>
       </CardContent>
@@ -308,10 +324,57 @@ const uploadIP = () => {
 
 
 
+      
+
+
+
+        
+        
+        
+      <div className="text-card-foreground rounded-lg bg-base-300">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-1xl text-center mt-8 mb-8">
+          Register with a template:
+        </h2>
+        
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+          {templates.map((template) => (
+            <Link
+              key={template.name}
+              href={template.href}
+              className="block group"
+            >
+              <div className="relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-base-100 p-6">
+                <div className="flex items-center mb-4">
+                  <template.icon className="h-8 w-8 text-secondary mr-3" />
+                  <h3 className="text-xl font-semibold">{template.name}</h3>
+                </div>
+                <p className="">{template.description}</p>
+                <div className="mt-4 flex items-center text-indigo-600 group-hover:text-indigo-500">
+                  <span className="text-sm font-medium">Open</span>
+                  <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+      </main>
+    </div>
+
+    </div>
+
+    )}
+
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+
       <div className="text-card-foreground rounded-lg p-6">
 
         <div className="py-2">
-          <h2 className="text-2xl font-semibold mb-2">Blockchain IP Protection Features</h2>
+          <h2 className="text-2xl font-semibold mb-2">Blockchain IP Registration Features</h2>
           <p className="text-muted-foreground mb-4">Secure, transparent, and efficient</p>
           </div>
         
@@ -362,20 +425,57 @@ const uploadIP = () => {
         </div>
 
 
-      
-    </div>
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Why Use Blockchain for IP Transfers?</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <ArrowRightLeft className="w-8 h-8 " />
+                <div>
+                  <h3 className="font-semibold">Seamless Transfers</h3>
+                  <p>Quick and efficient ownership transfers with blockchain verification</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <ShieldCheck className="w-8 h-8 " />
+                <div>
+                  <h3 className="font-semibold">Secure Transactions</h3>
+                  <p>Cryptographically secured transfers prevent fraud and disputes</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Banknote className="w-8 h-8 " />
+                <div>
+                  <h3 className="font-semibold">Transparent Pricing</h3>
+                  <p>Clear and immutable record of sale prices and terms</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Transfer/Sale Process</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ol className="list-decimal list-inside space-y-2">
+                <li>Select the IP you want to transfer or sell</li>
+                <li>Choose the transaction type and set terms</li>
+                <li>Enter the recipient's blockchain wallet address</li>
+                <li>Set the price (for sales) or transfer conditions</li>
+                <li>Confirm the transaction with your digital signature</li>
+                <li>Buyer makes payment and claims digital assets</li>
+                <li>Blockchain records the transfer of ownership</li>
+              </ol>
+            </CardContent>
+          </Card>
+        </div>
 
 
 
-
-
-
-        )}
-
-
-        
-
-
+      </div>
     </div>
       
     </>

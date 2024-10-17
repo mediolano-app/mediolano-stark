@@ -193,7 +193,7 @@ export const Header = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-bold leading-tight">Mediolano</span>
-            <span className="text-xs">@Starknet</span>
+            <span className="text-xs">Starknet</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
