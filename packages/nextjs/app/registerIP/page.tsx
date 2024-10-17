@@ -208,7 +208,7 @@ const uploadIP = () => {
 
   const templates = [
     { name: 'Art', icon: Palette, href: '/registerArt', description: 'Tokenize your Artwork' },
-    { name: 'Documents', icon: File, href: '/registerDocument', description: 'Safeguard Documents' },  
+    { name: 'Documents', icon: File, href: '/registerDocument', description: 'Safeguard Documents On-Chain' },  
     { name: 'Films', icon: Film, href: '/registerFilm', description: 'Protect your cinematic creations' }, 
     { name: 'Music', icon: Music, href: '/registerMusic', description: 'Copyright Compositions' },
     { name: 'Patents', icon: ScrollText, href: '/registerPatent', description: 'Secure Inventions and Innovations' },
@@ -331,9 +331,9 @@ const uploadIP = () => {
         
         
         
-      <div className="text-card-foreground rounded-lg bg-base-300">
+      <div className="text-card-foreground rounded-lg">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-1xl text-center mt-8 mb-8">
+        <h2 className="text-1xl mb-8">
           Register with a template:
         </h2>
         
