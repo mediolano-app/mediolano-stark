@@ -24,7 +24,7 @@ const MyIPs: NextPage = () => {
   // https://starkscan.co/nft-contract/0x07d4dc2bf13ede97b9e458dc401d4ff6dd386a02049de879ebe637af8299f91d#overview
 
 
-  const contractAddress = '0x07d4dc2bf13ede97b9e458dc401d4ff6dd386a02049de879ebe637af8299f91d';
+  const contractAddress = '0x06bc665e25b8ee792447d19a2f19f8f9806b66fbd9d2924c7582a857338356e2';
 
   // const { tokenURIs, isLoading, error, reload } = useTokenURILoader(contractAddress);
 

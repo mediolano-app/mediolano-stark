@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useContractRead } from "@starknet-react/core";
+import { infuraProvider, useContractRead } from "@starknet-react/core";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~~/components/ui/card"
+
+const apiKey = process.env.INFURA_API_KEY;
+const provider = infuraProvider({ apiKey });
 
 const abi = [{
   type: "interface",
@@ -23,7 +26,7 @@ const abi = [{
       state_mutability: "view",
     },
   ],
-}];
+}]; 
 
 interface MyIPCardProps {
   contractAddress: string;
