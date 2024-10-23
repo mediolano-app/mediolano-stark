@@ -1,7 +1,7 @@
 # Mediolano.app
 
 <h4 align="center">
-  <a href="https://mediolano.app">Institutional Website</a> |
+  <a href="https://mediolano.app">Website</a> |
   <a href="#">Demo (Soon)</a>
 </h4>
 
