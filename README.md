@@ -1,3 +1,5 @@
+![Mediolano.app](https://mediolano.app/wp-content/uploads/2024/09/mediolano-logo-dark-1.svg)
+
 # Mediolano.app
 Powered by Starknet
 
@@ -10,7 +12,10 @@ Mediolano offers an innovative platform that empowers content creators, from aut
   <a href="https://github.com/mediolano-app/mediolano-app">Dapp Repo</a>
 </h2>
 
-### This repository uses Scaffold Stark as a framework in the development of smart contracts in Cairo that integrate the Mediolano platform with Starknet, allowing the user to tokenize their intellectual property.
+> [!IMPORTANT]
+> This repository uses Scaffold Stark as a framework in the development of smart contracts in Cairo that integrate the Mediolano platform with Starknet, allowing the user to tokenize their intellectual property.
+
+# Getting Started
 
 Before you begin, you need to install the following tools:
 
