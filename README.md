@@ -1,15 +1,16 @@
 # Mediolano.app
-
-<h4 align="center">
-  <a href="https://mediolano.app">Website</a> |
-  <a href="#">Demo (Soon)</a>
-</h4>
+Powered by Starknet
 
 In today’s ever-evolving digital world, protecting and managing intellectual property (IP) has become a critical challenge. From journalists to art collectors, new technologies are making it safer and more efficient to tokenize IP, enabling licensing, trading, distributing royalties, and more.
 
 Mediolano offers an innovative platform that empowers content creators, from authors to journalists and publishers, to participate in the global information marketplace. Our mission is to transform the industry by providing transparency, immutability, security, optimization, and a range of innovative features to build, manage, and monetize IP.
 
-Powered by Starknet
+<h2 align="center">
+  <a href="https://mediolano.app">Discover</a> |
+  <a href="https://github.com/mediolano-app/mediolano-app">Dapp Repo</a>
+</h2>
+
+### This repository uses Scaffold Stark as a framework in the development of smart contracts in Cairo that integrate the Mediolano platform with Starknet, allowing the user to tokenize their intellectual property.
 
 Before you begin, you need to install the following tools:
 
